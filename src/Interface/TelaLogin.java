@@ -7,12 +7,14 @@ import java.awt.event.ActionListener;
 public class TelaLogin extends JFrame{
     private JPanel TelaLoginPanel;
     private JButton ButtonLogin;
-    private JFormattedTextField EditPaneLogin;
     private JLabel TextLogin;
+    private JTextField textField2;
+    private JPasswordField passwordField1;
 
     public TelaLogin() {
+        setTitle("Login");
         setContentPane(TelaLoginPanel);
-        setSize(400,400);
+        setSize(300,200);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
