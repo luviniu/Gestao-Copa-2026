@@ -8,8 +8,12 @@ public class TelaEstadio1 {
     private JButton novoEstádioButton;
     private JButton buscarButton;
     private JButton filtrarButton;
-    private JTable tabela_estadio;
     private JPanel painel_estadios;
+    private JButton nomeDeEstádioButton;
+    private JButton excluirXButton;
+    private JButton editarButton;
+    private JButton localButton;
+    private JButton capacidadeButton;
 
     public TelaEstadio1() {
         novoEstádioButton.addActionListener(new ActionListener() {
