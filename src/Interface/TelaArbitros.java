@@ -37,5 +37,13 @@ public class TelaArbitros extends JFrame {
 
             }
         });
+
     }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            TelaArbitros tela = new TelaArbitros();
+            tela.setVisible(true);
+        });
+    }
+
 }
