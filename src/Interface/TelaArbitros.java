@@ -11,7 +11,7 @@ public class TelaArbitros extends JFrame {
     private JPanel painelPrincipal;
     private JButton buscarButton;
     private JButton filtrarButton;
-    private JPanel TabelaPainel;
+    private JPanel TabelaPanel;
 
     public TelaArbitros() {
         setTitle("Gestão de Árbitros - Copa 2026");
@@ -29,8 +29,8 @@ public class TelaArbitros extends JFrame {
 
         JScrollPane scrollPane = new JScrollPane(ArbitroColuna);
 
-        TabelaPainel.setLayout(new BorderLayout());
-        TabelaPainel.add(scrollPane, BorderLayout.CENTER);
+        TabelaPanel.setLayout(new BorderLayout());
+        TabelaPanel.add(scrollPane, BorderLayout.CENTER);
 
         novoArbitroButton.addActionListener(new ActionListener() {
             @Override
