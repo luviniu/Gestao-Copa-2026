@@ -7,10 +7,11 @@ import java.awt.event.*;
 
 public class TelaArbitros extends JFrame {
     private JButton novoArbitroButton;
-    private JButton buscarButton;
-    private JButton filtrarButton;
     private JTable ArbitroColuna;
     private JPanel painelPrincipal;
+    private JButton buscarButton;
+    private JButton filtrarButton;
+    private JPanel TabelaPainel;
 
     public TelaArbitros() {
         setTitle("Gestão de Árbitros - Copa 2026");
@@ -28,8 +29,8 @@ public class TelaArbitros extends JFrame {
 
         JScrollPane scrollPane = new JScrollPane(ArbitroColuna);
 
-        painelPrincipal.setLayout(new BorderLayout());
-        painelPrincipal.add(scrollPane, BorderLayout.CENTER);
+        TabelaPainel.setLayout(new BorderLayout());
+        TabelaPainel.add(scrollPane, BorderLayout.CENTER);
 
         novoArbitroButton.addActionListener(new ActionListener() {
             @Override
