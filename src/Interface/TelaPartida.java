@@ -8,4 +8,5 @@ public class TelaPartida {
     private JButton editarPartidaButton;
     private JButton excluirPartidaButton;
     private JButton listarPartidasButton;
+    private JTable table1;
 }
