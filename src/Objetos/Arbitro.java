@@ -5,7 +5,7 @@ public class Arbitro extends Usuario{
     String experiencia;
 
     public Arbitro(String nome, String cpf, String email, String senha, String nacionalidade, String experiencia){
-        super(nome, cpf, senha, senha);
+        super(nome, cpf, email, senha);
         this.nacionalidade = nacionalidade;
         this.experiencia = experiencia;
 
