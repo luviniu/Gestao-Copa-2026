@@ -6,17 +6,18 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+
     @Override
     public void start(Stage stage) throws Exception {
-        // Altere o nome para o arquivo fxml da sua tela de login real depois
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Interface/login-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Sistema de Gestão - Copa 2026");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TelaLogin.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1920, 1080);
+        scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+        stage.setTitle("Tela de Login");
         stage.setScene(scene);
         stage.show();
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 }
