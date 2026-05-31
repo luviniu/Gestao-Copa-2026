@@ -1,25 +1,37 @@
 package Interface;
 
-import javafx.fxml.FXML;
-import javafx.scene.image.ImageView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
+
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class TelaLogin {
+public class TelaJogadores implements Initializable {
 
-    @FXML
-    private ImageView imageView;
+    @FXML private ComboBox<String> comboPosicao;
 
-    @FXML
-    public void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // Criando as opções de posição
+        ObservableList<String> posicoes = FXCollections.observableArrayList(
+                "Porteiro", "Zagueiro", "Meio-campista", "Atacante"
+        );
+
+        // Coloca a lista dentro do ComboBox
+        comboPosicao.setItems(posicoes);
+
     }
 
-    // Só pra ligar o login à TelaSelecoes
+    // Só pra ligar o TelaJogadores à TelaSelecoes
     @FXML
     public void irParaSelecoes(ActionEvent event) {
         try {

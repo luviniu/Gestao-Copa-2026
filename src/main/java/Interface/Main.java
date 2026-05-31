@@ -9,9 +9,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TelaLogin.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Interface/TelaLogin.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1920, 1080);
-        scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/Interface/style.css").toExternalForm());
+
         stage.setTitle("Tela de Login");
         stage.setScene(scene);
         stage.show();
