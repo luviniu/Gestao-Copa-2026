@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/stadium2.jpg" />
+         </image>
+         <effect>
+            <GaussianBlur />
+         </effect>
+      </ImageView>
+      <Rectangle id="background-capa" height="400.0" layoutX="610.0" layoutY="340.0" smooth="false" stroke="#2f1f1f" strokeType="INSIDE" strokeWidth="0.0" width="700.0">
+         <effect>
+            <ColorAdjust />
+         </effect>
+         <fill>
+            <LinearGradient endX="1.0" endY="0.5142857142857142" startX="0.8047619047619048">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.0313725508749485" green="0.0470588244497776" blue="0.10588235408067703" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.029999999329447746" green="0.04516666755080223" blue="0.10000000149011612" opacity="0.5632184147834778" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill></Rectangle>
+      <ImageView fitHeight="306.0" fitWidth="315.0" layoutX="1053.0" layoutY="387.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/Logo_copa_2026.png" />
+         </image>
+      </ImageView>
+      <TextField layoutX="646.0" layoutY="455.0" prefHeight="41.0" prefWidth="314.0">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
+      <PasswordField layoutX="646.0" layoutY="531.0" prefHeight="41.0" prefWidth="314.0">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </PasswordField>
+      <Button id="button-login" layoutX="646.0" layoutY="624.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Entrar">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Text fill="#e7e7ee" layoutX="759.0" layoutY="396.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGIN" textAlignment="JUSTIFY">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fill="#e7e7ee" layoutX="646.0" layoutY="444.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail ou CPF:" />
+      <Text fill="#e7e7ee" layoutX="646.0" layoutY="522.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Senha:" />
+   </children>
+   <cursor>
+      <Cursor fx:constant="DEFAULT" />
+   </cursor>
+</AnchorPane>

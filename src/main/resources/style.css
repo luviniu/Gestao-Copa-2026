@@ -1,0 +1,31 @@
+.text-field, .password-field {
+    -fx-background-radius: 10;   /* arredonda as bordas */
+    -fx-border-radius: 10;
+    -fx-padding: 8;
+    -fx-font-size: 14px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+}
+
+#button-login {
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-font-size: 14px;
+    -fx-background-color: #0c1229;
+    -fx-text-fill: white;
+}
+#button-login:hover {
+    -fx-border-color: #e9ebf7;
+    -fx-border-width: 2;
+    -fx-background-color: #1a2340;
+}
+#button-login:pressed {
+    -fx-background-color: #0a0f20;
+    -fx-border-color: #252d4a;
+}
+
+.label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
