@@ -63,8 +63,8 @@
             <Font size="28.0" />
          </font>
       </Text>
-      <Text fill="#e7e7ee" layoutX="646.0" layoutY="444.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail ou CPF:" />
-      <Text fill="#e7e7ee" layoutX="646.0" layoutY="522.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Senha:" />
+      <Text fill="#e7e7ee" layoutX="646.0" layoutY="444.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail ou CPF :" />
+      <Text fill="#e7e7ee" layoutX="646.0" layoutY="522.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Senha :" />
    </children>
    <cursor>
       <Cursor fx:constant="DEFAULT" />
