@@ -53,28 +53,30 @@ public class OprSel {
     }
 
     // Editar Seleção
-    public boolean editarSelecao(String pais, String grupo, String tecnico) {
-
-        // Validação: Campos não podem ser vazios
-        if (pais == null || pais.trim().isEmpty() || tecnico == null || tecnico.trim().isEmpty()) {
+    public boolean editarSelecao(String paisParaEditar, String novoGrupo, String novoTecnico) {
+        // Validação
+        if (paisParaEditar == null || novoTecnico == null || novoTecnico.trim().isEmpty()) {
             return false;
         }
 
-        // Validação: Não permitir dois países com o mesmo nome
+        // Procurar a seleção na  lista em memória
         for (Selecao s : listaSelecoes) {
-            if (s.getPais().equalsIgnoreCase(pais.trim())) {
-                System.out.println("Erro de Negócio: Essa seleção já está cadastrada.");
-                return false;
+            // Se encontrarmos o país (ignorando maiúsculas/minúsculas)
+            if (s.getPais().equalsIgnoreCase(paisParaEditar.trim())) {
+
+                // 3. Aplica as alterações usando os setters da sua classe Selecao
+                s.setGrupo(novoGrupo);
+                s.setTecnico(novoTecnico.trim());
+
+                // 4. Atualiza o arquivo TXT com os novos dados salvos
+                salvarDadosNoArquivo();
+                return true; // Edição feita com sucesso!
             }
         }
 
-        // Se passou nas validações, primeiro
-        Selecao novaSelecao = new Selecao(pais.trim(), grupo, tecnico.trim(), new ArrayList<>());
-        listaSelecoes.add(novaSelecao);
-
-        // Salva a lista atualizada no arquivo TXT de forma persistente
-        salvarDadosNoArquivo();
-        return true;
+        // Se percorreu a lista toda e não achou o país
+        System.out.println("Erro de Negócio: Seleção não encontrada para edição.");
+        return false;
     }
 
     // Caso for preciso retornar a lista de seleções, quem sabe
