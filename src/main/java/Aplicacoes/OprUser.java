@@ -9,7 +9,6 @@ public class OprUser {
 
     private OprUser() {
         this.usuarios = new ArrayList<>();
-        registrarUsuario(new Administrador("admin", "00000000000", "admin@copa.com", "admin"));
 
     }
 
@@ -24,6 +23,13 @@ public class OprUser {
     }
 
     public void registrarUsuario(Usuario novoUsuario) {
+        if(usuarios.isEmpty()){
+            Usuario admin= new Administrador(novoUsuario.getNome(),novoUsuario.getCpf(),novoUsuario.getEmail(),novoUsuario.getSenha());
+            usuarios.add(admin);
+            System.out.println(admin.getNome()+" Administrador principal");
+            return;
+
+        }
         for (Usuario usuario : usuarios) {
             if(usuario.getCpf().equals(novoUsuario.getCpf())){
                 System.out.println("CPF JA CADASTRADO");
@@ -60,6 +66,100 @@ public class OprUser {
         }
         System.out.println("CPF ou Senha invalido!");
         return null;
+
+    }
+
+    public void listarUsuarios(){
+        for (Usuario usuario : usuarios) {
+            System.out.println(usuario.getNome()+usuario.getCpf()+usuario.getPerfilUsuario());
+
+        }
+
+    }
+    public void editarUser(String cpf, String novoNome, String novoEmail, String novoSenha, String nacionalidade, String experiencia, String novoPerfil, Usuario usuarioLogado){
+        if(!usuarioLogado.getPerfilUsuario().equals("Administrador")){
+            return;
+
+        }
+        for(int i=0;i<usuarios.size();i++){
+            Usuario usuario = usuarios.get(i);
+
+            if(usuario.getCpf().equals(cpf)){
+                if(usuario.getPerfilUsuario().equals(novoPerfil)){
+                    usuario.setNome(novoNome);
+                    usuario.setEmail(novoEmail);
+                    usuario.setSenha(novoSenha);
+                    if(usuario instanceof Arbitro){
+                        Arbitro arbitro = (Arbitro)usuario;
+                        arbitro.setNacionalidade(nacionalidade);
+                        arbitro.setExperiencia(experiencia);
+
+                    }
+
+                    System.out.println(usuario.getNome()+" editado com sucesso!");
+
+                }else{
+                    Usuario usuarioMod;
+
+                    if(novoPerfil.equals("Administrador")){
+                        usuarioMod=new Administrador(novoNome, usuario.getCpf(), novoEmail, novoSenha);
+
+                    }else if(novoPerfil.equals("Operador")){
+                        usuarioMod=new Operador(novoNome, usuario.getCpf(), novoEmail, novoSenha);
+
+                    }else if(novoPerfil.equals("Organizador")){
+                        usuarioMod=new Organizador(novoNome, usuario.getCpf(), novoEmail, novoSenha);
+
+                    }else{
+                        usuarioMod=new Arbitro(novoNome, usuario.getCpf(), novoEmail, novoSenha, nacionalidade, experiencia);
+
+                    }
+                    usuarios.set(i,usuarioMod);
+
+                }
+                return;
+
+            }
+
+        }
+        System.out.println("CPF invalido!");
+    }
+    public void excluirUser(String cpf, Usuario usuarioLogado){
+        if(!usuarioLogado.getPerfilUsuario().equals("Administrador")){
+            return;
+
+        }
+        for(Usuario usuario : usuarios){
+            if(usuario.getCpf().equals(cpf)){
+                if(usuario.getCpf().equals(usuarioLogado.getCpf())){
+                    System.out.println("Nao pode excluir seu usuario!");
+                    return;
+
+                }
+                usuarios.remove(usuario);
+                System.out.println(usuario.getNome()+" excluado com sucesso!");
+                return;
+
+            }
+
+        }
+        System.out.println("CPF invalido!");
+
+    }
+    public void pesquisarUsuario(String pesquisa){
+        boolean achou=false;
+        for(Usuario usuario : usuarios){
+            if(usuario.getNome().toLowerCase().contains(pesquisa.toLowerCase())||usuario.getPerfilUsuario().toLowerCase().contains(pesquisa.toLowerCase())){
+                System.out.println(usuario.getNome()+" | "+usuario.getPerfilUsuario());
+                achou=true;
+
+            }
+
+        }
+        if(!achou){
+            System.out.println("Nenhum usuario encontrado!");
+
+        }
 
     }
 
