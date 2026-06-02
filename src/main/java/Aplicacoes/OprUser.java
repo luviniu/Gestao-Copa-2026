@@ -25,8 +25,39 @@ public class OprUser {
     public void registrarUsuario(Usuario novoUsuario) {
         if(usuarios.isEmpty()){
             Usuario admin= new Administrador(novoUsuario.getNome(),novoUsuario.getCpf(),novoUsuario.getEmail(),novoUsuario.getSenha());
-            usuarios.add(admin);
-            System.out.println(admin.getNome()+" Administrador principal");
+            if(!novoUsuario.getEmail().matches("^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")){
+                System.out.println("Email invalido!");
+                return;
+
+            }
+            if(!novoUsuario.getSenha().matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).{8,}")){
+                System.out.println("Senha deve conter no minimo 8 caracteres; Numero, Letra maiuscula e Caractere especial");
+                return;
+
+            }
+            int numadm=0;
+            for(int i=0;i<novoUsuario.getCpf().length();i++){
+                numadm=numadm+Character.getNumericValue(novoUsuario.getCpf().charAt(i));
+
+            }
+            if(numadm==33||numadm==44||numadm==55||numadm==66||numadm==0){
+                usuarios.add(admin);
+                System.out.println(admin.getNome()+" Administrador principal");
+
+            }else{
+                System.out.println("cpf invalido!");
+
+            }
+            return;
+
+        }
+        if(!novoUsuario.getEmail().matches("^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")){
+            System.out.println("Email invalido!");
+            return;
+
+        }
+        if(!novoUsuario.getSenha().matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).{8,}")){
+            System.out.println("Senha deve conter no minimo 8 caracteres; Numero, Letra maiuscula e Caractere especial");
             return;
 
         }
@@ -85,6 +116,11 @@ public class OprUser {
             Usuario usuario = usuarios.get(i);
 
             if(usuario.getCpf().equals(cpf)){
+                if(usuario.getCpf().equals(usuarioLogado.getCpf())){
+                    System.out.println("Nao pode editar seu proprio usuario!");
+                    return;
+
+                }
                 if(usuario.getPerfilUsuario().equals(novoPerfil)){
                     usuario.setNome(novoNome);
                     usuario.setEmail(novoEmail);
