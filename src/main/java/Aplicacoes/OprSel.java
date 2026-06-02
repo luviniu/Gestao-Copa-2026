@@ -1,4 +1,4 @@
-package Aplicacoes;
+/* package Aplicacoes;
 
 import Objetos.Selecao;
 import Objetos.Jogador; // Importante para o mapeamento no TXT
@@ -11,7 +11,7 @@ import java.util.List;
 - Mtodos de PERSISTNCIA: arquivo .txt pra guardar lista de selees+grupo+tcnico
     Usar para conferir se dados esto duplicados
     Carregar o .txt numa lista ao abrir o programa. Retornar Exception se der ruim
- */
+ */ /*
 public class OprSel {
 
     // Lista que contm as selees
@@ -173,4 +173,4 @@ public class OprSel {
             e.printStackTrace();
         }
     }
-}
+}*/

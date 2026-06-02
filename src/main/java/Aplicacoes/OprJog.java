@@ -1,4 +1,4 @@
-package Aplicacoes;
+/*package Aplicacoes;
 
 import Objetos.Selecao;
 import Objetos.Jogador;
@@ -94,4 +94,4 @@ public class OprJog {
         }
         return filtrados;
     }
-}
+}*/
