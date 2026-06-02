@@ -8,6 +8,7 @@ public class Ingresso{
     public Ingresso(String tipo, Partida partida, double valor){
         this.tipo = tipo.toUpperCase();
         this.partida = partida;
+        this.valor = valor;
         this.valor = calcularValor();
 
     }
