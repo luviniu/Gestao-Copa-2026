@@ -27,7 +27,7 @@
             <GaussianBlur />
          </effect>
       </ImageView>
-      <Rectangle id="background-capa" height="864.0" layoutX="95.0" layoutY="4.0" smooth="false" stroke="#2f1f1f" strokeType="INSIDE" strokeWidth="0.0" width="1026.0">
+      <Rectangle id="background-capa" height="864.0" layoutX="152.0" layoutY="-42.0" smooth="false" stroke="#2f1f1f" strokeType="INSIDE" strokeWidth="0.0" width="1026.0">
          <effect>
             <ColorAdjust />
          </effect>
@@ -47,28 +47,28 @@
                </stops>
             </LinearGradient>
          </fill></Rectangle>
-      <Text fill="#e7e7ee" layoutX="549.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INGRESSOS" textAlignment="JUSTIFY" wrappingWidth="156.8000488281249">
+      <Text fill="#e7e7ee" layoutX="607.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INGRESSOS" textAlignment="JUSTIFY" wrappingWidth="156.8000488281249">
          <font>
             <Font size="28.0" />
          </font>
       </Text>
 
       <AnchorPane id="PopupAdicionarSelecao" layoutX="237.0" layoutY="641.0" prefHeight="57.0" prefWidth="517.0" />
-      <ComboBox layoutX="162.0" layoutY="322.0" prefHeight="13.0" prefWidth="150.0" />
-      <ComboBox layoutX="398.0" layoutY="319.0" prefHeight="3.0" prefWidth="150.0" />
-      <TextField layoutX="665.0" layoutY="319.0" prefHeight="28.0" prefWidth="150.0" />
-      <Button layoutX="954.0" layoutY="320.0" mnemonicParsing="false" text="VENDER" />
-      <Label layoutX="179.0" layoutY="248.0" prefHeight="59.0" prefWidth="106.0" text="PARTIDA" textFill="#fffafa">
+      <ComboBox layoutX="203.0" layoutY="320.0" prefHeight="13.0" prefWidth="150.0" />
+      <ComboBox layoutX="460.0" layoutY="318.0" prefHeight="3.0" prefWidth="150.0" />
+      <TextField layoutX="720.0" layoutY="317.0" prefHeight="28.0" prefWidth="150.0" />
+      <Button layoutX="1008.0" layoutY="311.0" mnemonicParsing="false" text="VENDER" />
+      <Label layoutX="223.0" layoutY="247.0" prefHeight="59.0" prefWidth="106.0" text="PARTIDA" textFill="#fffafa">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="411.0" layoutY="248.0" prefHeight="59.0" prefWidth="143.0" text="CATEGORIA" textFill="#fffafa">
+      <Label layoutX="457.0" layoutY="244.0" prefHeight="59.0" prefWidth="143.0" text="CATEGORIA" textFill="#fffafa">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="659.0" layoutY="248.0" prefHeight="59.0" prefWidth="169.0" text="QUANTIDADE" textFill="#fffafa">
+      <Label layoutX="718.0" layoutY="248.0" prefHeight="59.0" prefWidth="169.0" text="QUANTIDADE" textFill="#fffafa">
          <font>
             <Font size="25.0" />
          </font>
