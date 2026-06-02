@@ -37,5 +37,4 @@ public class Estadio{
         this.vagas = vagas;
 
     }
-
 }
