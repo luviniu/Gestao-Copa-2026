@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaPartidas">
+   <children>
+      <ImageView fitHeight="1080.0" fitWidth="1920.0" layoutX="-717.0" layoutY="-112.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/stadium2.jpg" />
+         </image>
+         <effect>
+            <GaussianBlur />
+         </effect>
+      </ImageView>
+      <Rectangle id="background-capa" height="717.0" layoutX="148.0" layoutY="36.0" smooth="false" stroke="#2f1f1f" strokeType="INSIDE" strokeWidth="0.0" width="700.0">
+         <effect>
+            <ColorAdjust />
+         </effect>
+         <fill>
+            <LinearGradient endX="1.0" endY="0.5142857142857142" startX="0.8047619047619048">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.0313725508749485" green="0.0470588244497776" blue="0.10588235408067703" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.029999999329447746" green="0.04516666755080223" blue="0.10000000149011612" opacity="0.5632184147834778" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill></Rectangle>
+      <Text fill="#e7e7ee" layoutX="381.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PARTIDAS" textAlignment="JUSTIFY">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Button id="button-login" layoutX="340.0" layoutY="400.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+
+      <AnchorPane id="PopupAdicionarSelecao" layoutX="206.0" layoutY="163.0" prefHeight="57.0" prefWidth="517.0">
+         <children>
+            <TextField layoutX="14.0" layoutY="16.0" prefHeight="26.0" prefWidth="141.0" text="Cadastrar" />
+            <TextField layoutX="167.0" layoutY="16.0" prefHeight="26.0" prefWidth="126.0" text="Editar" />
+            <Button layoutX="431.0" layoutY="16.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="141.0" text="Listar partidas" />
+            <TextField layoutX="310.0" layoutY="16.0" prefHeight="26.0" prefWidth="107.0" text="Excluir" />
+         </children>
+      </AnchorPane>
+      <Text fill="WHITE" layoutX="274.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seleção Casa:" />
+      <TextField fx:id="txtSelecaoCasa" layoutX="381.0" layoutY="291.0" />
+      <Text fill="WHITE" layoutX="274.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seleção Visitante:" />
+      <TextField fx:id="txtSelecaoVisitante" layoutX="381.0" layoutY="338.0" />
+      <Text fill="#fffefe" layoutX="274.0" layoutY="399.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estádio:" />
+      <TextField fx:id="txtEstadio" layoutX="381.0" layoutY="381.0" />
+      <Text fill="#f8f7f7" layoutX="274.0" layoutY="441.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data:" />
+      <TextField fx:id="txtData" layoutX="381.0" layoutY="424.0" />
+      <Text fill="#fcfafa" layoutX="274.0" layoutY="480.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Horário:" />
+      <TextField fx:id="txtHorario" layoutX="381.0" layoutY="462.0" />
+      <Text fill="#f8f7f7" layoutX="276.0" layoutY="522.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fase:" />
+      <TextField fx:id="txtFase" layoutX="381.0" layoutY="505.0" />
+
+   </children>
+   <cursor>
+      <Cursor fx:constant="DEFAULT" />
+   </cursor>
+</AnchorPane>

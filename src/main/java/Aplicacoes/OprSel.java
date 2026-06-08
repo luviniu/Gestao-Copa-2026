@@ -1,18 +1,18 @@
-/* package Aplicacoes;
+/*package Aplicacoes;
 
-    import Objetos.Selecao;
-    import Objetos.Jogador; // Importante para o mapeamento no TXT
-    import java.io.*;
-    import java.util.ArrayList;
-    import java.util.List;
+import Objetos.Selecao;
+import Objetos.Jogador; // Importante para o mapeamento no TXT
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /* NOTE!!
 - As REGRAS para cadastrar seleo: campos preenchidos, nenhuma dplica
 - Mtodos de PERSISTNCIA: arquivo .txt pra guardar lista de selees+grupo+tcnico
     Usar para conferir se dados esto duplicados
     Carregar o .txt numa lista ao abrir o programa. Retornar Exception se der ruim
- */ /*
-public class OprSel {
+ */
+/* public class OprSel {
 
     // Lista que contm as selees
     private List<Selecao> listaSelecoes;
@@ -24,7 +24,7 @@ public class OprSel {
         carregarDadosDoArquivo(); // Toda vez que o sistema inicia, ele l o TXT
     }
 
-    // Cadastrar Selecao
+    // Cadastrar Seleo
     public boolean cadastrarSelecao(String pais, String grupo, String tecnico) {
 
         // Validao: Campos no podem ser vazios
@@ -49,9 +49,9 @@ public class OprSel {
         return true;
     }
 
-    // Editar Selecao
+    // Editar Seleo
     public boolean editarSelecao(String paisParaEditar, String novoGrupo, String novoTecnico) {
-        // Validacao
+        // Validao
         if (paisParaEditar == null || novoTecnico == null || novoTecnico.trim().isEmpty()) {
             return false;
         }
