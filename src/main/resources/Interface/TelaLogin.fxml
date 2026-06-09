@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaLogin">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaLogin">
    <children>
       <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -26,53 +26,123 @@
             <GaussianBlur />
          </effect>
       </ImageView>
-      <Rectangle id="background-capa" height="400.0" layoutX="610.0" layoutY="340.0" smooth="false" stroke="#2f1f1f" strokeType="INSIDE" strokeWidth="0.0" width="700.0">
-         <effect>
-            <ColorAdjust />
-         </effect>
-         <fill>
-            <LinearGradient endX="1.0" endY="0.5142857142857142" startX="0.8047619047619048">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="0.0313725508749485" green="0.0470588244497776" blue="0.10588235408067703" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.029999999329447746" green="0.04516666755080223" blue="0.10000000149011612" opacity="0.5632184147834778" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </fill></Rectangle>
-      <ImageView fitHeight="306.0" fitWidth="315.0" layoutX="1053.0" layoutY="387.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../assets/Logo_copa_2026.png" />
-         </image>
-      </ImageView>
-      <TextField layoutX="646.0" layoutY="455.0" prefHeight="41.0" prefWidth="314.0">
-         <cursor>
-            <Cursor fx:constant="TEXT" />
-         </cursor>
-      </TextField>
-      <PasswordField layoutX="646.0" layoutY="531.0" prefHeight="41.0" prefWidth="314.0">
-         <cursor>
-            <Cursor fx:constant="TEXT" />
-         </cursor>
-      </PasswordField>
-      <Button id="button-login" layoutX="646.0" layoutY="624.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Entrar">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <Text fill="#e7e7ee" layoutX="759.0" layoutY="396.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGIN" textAlignment="JUSTIFY">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Text>
-      <Text fill="#e7e7ee" layoutX="646.0" layoutY="444.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail ou CPF :" />
-      <Text fill="#e7e7ee" layoutX="646.0" layoutY="522.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Senha :" />
-      <Button layoutX="1501.0" layoutY="714.0" mnemonicParsing="false" onAction="#irParaSelecoes" text="Atalho Seleções" />
+      <AnchorPane prefHeight="1080.0" prefWidth="1920.0" visible="false">
+         <children>
+            <Rectangle id="background-capa" height="735.0" layoutX="728.0" layoutY="173.0" smooth="false" stroke="#2f1f1f" strokeType="INSIDE" strokeWidth="0.0" width="464.0">
+               <effect>
+                  <ColorAdjust />
+               </effect>
+               <fill>
+                  <LinearGradient endX="1.0" endY="0.5142857142857142" startX="0.8047619047619048">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.0313725508749485" green="0.0470588244497776" blue="0.10588235408067703" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.029999999329447746" green="0.04516666755080223" blue="0.10000000149011612" opacity="0.5632184147834778" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Rectangle>
+            <TextField layoutX="804.0" layoutY="310.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </TextField>
+            <Text fill="#e7e7ee" layoutX="891.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadrastro" textAlignment="JUSTIFY">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Text>
+            <TextField layoutX="804.0" layoutY="400.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </TextField>
+            <Text fill="#e7e7ee" layoutX="803.0" layoutY="395.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail " />
+            <TextField layoutX="804.0" layoutY="490.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </TextField>
+            <Text fill="#e7e7ee" layoutX="805.0" layoutY="487.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CPF" />
+            <PasswordField layoutX="804.0" layoutY="580.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </PasswordField>
+            <Text fill="#e7e7ee" layoutX="805.0" layoutY="574.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Senha" />
+            <Text fill="#e7e7ee" layoutX="803.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome Completo" />
+            <PasswordField layoutX="803.0" layoutY="670.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </PasswordField>
+            <Text fill="#e7e7ee" layoutX="805.0" layoutY="665.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirmar Senha" />
+            <Button id="button-login" layoutX="803.0" layoutY="741.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="314.0" stylesheets="@style.css" text="Cadastrar">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="1080.0" prefWidth="1920.0">
+         <children>
+            <Rectangle id="background-capa" height="400.0" layoutX="610.0" layoutY="340.0" smooth="false" stroke="#2f1f1f" strokeType="INSIDE" strokeWidth="0.0" width="700.0">
+               <effect>
+                  <ColorAdjust />
+               </effect>
+               <fill>
+                  <LinearGradient endX="1.0" endY="0.5142857142857142" startX="0.8047619047619048">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.0313725508749485" green="0.0470588244497776" blue="0.10588235408067703" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.029999999329447746" green="0.04516666755080223" blue="0.10000000149011612" opacity="0.5632184147834778" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Rectangle>
+            <ImageView fitHeight="306.0" fitWidth="315.0" layoutX="1048.0" layoutY="387.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/Logo_copa_2026.png" />
+               </image>
+            </ImageView>
+            <TextField layoutX="662.0" layoutY="462.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </TextField>
+            <PasswordField layoutX="662.0" layoutY="548.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </PasswordField>
+            <Button id="button-login" layoutX="662.0" layoutY="630.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Entrar">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Text fill="#e7e7ee" layoutX="775.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGIN" textAlignment="JUSTIFY">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Text>
+            <Text fill="#e7e7ee" layoutX="662.0" layoutY="459.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail ou CPF :" />
+            <Text fill="#e7e7ee" layoutX="662.0" layoutY="545.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Senha :" />
+         </children>
+      </AnchorPane>
    </children>
    <cursor>
       <Cursor fx:constant="DEFAULT" />

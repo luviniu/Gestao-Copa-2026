@@ -34,4 +34,4 @@ public class TelaPartidas implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         oprPartida = new OprPartida();
     }
-}d2
+}
