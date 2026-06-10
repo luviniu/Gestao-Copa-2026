@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="1080.0" stroke="BLACK" strokeType="INSIDE" width="490.0" />
+      <ImageView fitHeight="178.0" fitWidth="483.0" layoutX="-13.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/FIFA-World-Cup-Logo-2026.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="488.0" prefHeight="1080.0" prefWidth="1430.0" />
+   </children>
+</AnchorPane>

@@ -1,6 +1,7 @@
 package Aplicacoes;
 
 import Objetos.Arbitro;
+//import Objetos.Selecao;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -47,7 +48,27 @@ public class OprArbitro {
         salvarDadosNoArquivo();
         return true;
     }
+    // REGRA DE NEGÓCIO: Validar escala do árbitro para a partida
+    /*public boolean validarEscalaArbitro(Arbitro arbitro, Selecao casa, Selecao visita) {
+        
+        // Regra: Cada partida deve ter ao menos um árbitro principal
+        if (arbitro == null) {
+            System.out.println("Erro de Negócio: Toda partida precisa de ao menos um árbitro principal designado.");
+            return false; // Falhou na regra
+        }
 
+        String nacArbitro = arbitro.getNacionalidade().trim();
+        String paisCasa = casa.getPais().trim();   // (ou o método correspondente do Aluno 2, ex: getNome())
+        String paisVisita = visita.getPais().trim();
+
+        // Regra: Árbitros não podem atuar em partidas de seleções de sua nacionalidade
+        if (nacArbitro.equalsIgnoreCase(paisCasa) || nacArbitro.equalsIgnoreCase(paisVisita)) {
+            System.out.println("Erro de Negócio: O árbitro " + arbitro.getNome() + " não pode apitar jogos da sua própria nacionalidade (" + nacArbitro + ").");
+            return false; // Falhou na regra
+        }
+
+        return true; // Passou na regra com sucesso!
+    }*/
 
 
     public void salvarDadosNoArquivo() {
@@ -79,7 +100,7 @@ public class OprArbitro {
             while ((linha = reader.readLine()) != null) {
                 String[] dados = linha.split(";");
 
-                if (dados[0].equals("ARBITROS") && dados.length == 4) {
+                if (dados[0].equals("Arbitros") && dados.length == 7) {
                     String nome = dados[1];
                     String cpf = dados[2];
                     String email = dados[3];

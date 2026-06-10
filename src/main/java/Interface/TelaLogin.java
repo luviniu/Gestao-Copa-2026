@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -14,9 +15,28 @@ public class TelaLogin {
 
     @FXML
     private ImageView imageView;
+    @FXML
+    private AnchorPane telaLogin;
+    @FXML
+    private AnchorPane telaCadastro;
 
     @FXML
     public void initialize() {
+        telaLogin.setVisible(true);
+        telaCadastro.setVisible(false);
+
+    }
+    @FXML
+    public void abrirCadastro(ActionEvent event){
+        telaCadastro.setVisible(true);
+        telaLogin.setVisible(false);
+
+    }
+    @FXML
+    public void abrirLogin(ActionEvent event){
+        telaLogin.setVisible(true);
+        telaCadastro.setVisible(false);
+
     }
 
     // Só pra ligar o login à TelaSelecoes

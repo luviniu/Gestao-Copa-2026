@@ -1,4 +1,4 @@
-/*package Aplicacoes;
+package Aplicacoes;
 
 import Objetos.Selecao;
 import Objetos.Jogador;
@@ -32,7 +32,7 @@ public class OprJog {
                     }
                 }
 
-                Jogador novoJogador = new Jogador(nome.trim(), posicao.trim(), numero, idade, status);
+                Jogador novoJogador = new Jogador(nome.trim(), numero, posicao, idade, s, status);
                 s.addTime(novoJogador);
 
                 oprSel.salvarDadosNoArquivo(); // Grava a alteração no TXT através do OprSel
@@ -94,4 +94,4 @@ public class OprJog {
         }
         return filtrados;
     }
-}*/
+}

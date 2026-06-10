@@ -2,13 +2,13 @@ package Objetos;
 
 public class Jogador{
     private String nome;
-    private String numero;
-    private int posicao;
+    private int numero;
+    private String posicao;
     private int idade;
     private Selecao selecao;
     private String status;
 
-    public Jogador(String nome, String numero, int posicao, int idade, Selecao selecao, String status){
+    public Jogador(String nome, int numero, String posicao, int idade, Selecao selecao, String status){
         this.nome = nome;
         this.numero = numero;
         this.posicao = posicao;
@@ -32,20 +32,20 @@ public class Jogador{
 
     }
 
-    public String getNumero(){
+    public int getNumero(){
         return numero;
 
     }
-    public void setNumero(String numero){
+    public void setNumero(int numero){
         this.numero = numero;
 
     }
 
-    public int getPosicao(){
+    public String getPosicao(){
         return posicao;
 
     }
-    public void setPosicao(int posicao){
+    public void setPosicao(String posicao){
         this.posicao = posicao;
 
     }

@@ -57,11 +57,11 @@
             <Font size="28.0" />
          </font>
       </Text>
-      <TableView layoutX="251.0" layoutY="122.0" prefHeight="200.0" prefWidth="525.0">
+      <TableView fx:id="tabelaSelecoes" layoutX="251.0" layoutY="122.0" prefHeight="200.0" prefWidth="525.0">
         <columns>
-          <TableColumn prefWidth="151.0" text="Seleção" />
-          <TableColumn minWidth="0.0" prefWidth="184.66668701171875" text="Técnico" />
-            <TableColumn prefWidth="173.33331298828125" text="Grupo" />
+          <TableColumn fx:id="colunaSelecao" prefWidth="151.0" text="Seleção" />
+          <TableColumn fx:id="colunaTecnico" minWidth="0.0" prefWidth="184.66668701171875" text="Técnico" />
+            <TableColumn fx:id="colunaGrupo" prefWidth="173.33331298828125" text="Grupo" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -85,9 +85,9 @@
 
       <AnchorPane id="PopupAdicionarSelecao" layoutX="237.0" layoutY="641.0" prefHeight="57.0" prefWidth="517.0">
          <children>
-            <TextField layoutX="14.0" layoutY="16.0" prefHeight="26.0" prefWidth="141.0" text="Nome da Seleção" />
-            <TextField layoutX="167.0" layoutY="16.0" prefHeight="26.0" prefWidth="126.0" text="Técnico" />
-            <Button layoutX="431.0" layoutY="16.0" mnemonicParsing="false" text="Adiconar" />
+            <TextField fx:id="txtSelecao" layoutX="14.0" layoutY="16.0" prefHeight="26.0" prefWidth="141.0" text="Nome da Seleção" />
+            <TextField fx:id="txtTecnico" layoutX="167.0" layoutY="16.0" prefHeight="26.0" prefWidth="126.0" text="Técnico" />
+            <Button fx:id="adicionarSelecao" layoutX="431.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleAdicionarSelecao" text="Adicionar" />
             <ComboBox id="comboGrupo" fx:id="comboGrupo" layoutX="307.0" layoutY="16.0" prefHeight="26.0" prefWidth="110.0" promptText="Grupo" />
          </children>
       </AnchorPane>

@@ -1,4 +1,5 @@
 package Interface;
+
 import javafx.event.ActionEvent;
 import Aplicacoes.OprPartida;
 import javafx.fxml.FXML;
@@ -34,6 +35,7 @@ public class TelaPartidas implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         oprPartida = new OprPartida();
     }
+
     @FXML
     public void cadastrarPartida(ActionEvent event) {
 
@@ -48,4 +50,3 @@ public class TelaPartidas implements Initializable {
 
         System.out.println("Partida cadastrada: " + sucesso);
     }
-}

@@ -1,4 +1,4 @@
-/*package Aplicacoes;
+package Aplicacoes;
 
 import Objetos.Selecao;
 import Objetos.Jogador; // Importante para o mapeamento no TXT
@@ -12,19 +12,35 @@ import java.util.List;
     Usar para conferir se dados esto duplicados
     Carregar o .txt numa lista ao abrir o programa. Retornar Exception se der ruim
  */
-/* public class OprSel {
+public class OprSel {
+
+    private static OprSel instancia;
 
     // Lista que contm as selees
     private List<Selecao> listaSelecoes;
     private final String CAMINHO_ARQUIVO = "selecoes.txt"; // O arquivo vai ficar na raiz do projeto ( final pra ningum poder mexer)
 
     // Construtor da classe, j faz o upload do .txt
-    public OprSel() {
+    private OprSel() {
         this.listaSelecoes = new ArrayList<>();
         carregarDadosDoArquivo(); // Toda vez que o sistema inicia, ele l o TXT
     }
 
-    // Cadastrar Seleo
+    // O método estático público que o Controller da tela vai chamar
+    public static synchronized OprSel getInstancia() {
+        // Se for a primeira vez que chamam o método, cria a instância
+        if (instancia == null) {
+            instancia = new OprSel();
+        }
+        // Se já tiver sido criada antes, apenas devolve a que já existe na memória
+        return instancia;
+    }
+
+    // --------------------------------------------------
+    // MÉTODOS DA CLASSE OPRSEL
+    // --------------------------------------------------
+
+    // Cadastrar Seleção
     public boolean cadastrarSelecao(String pais, String grupo, String tecnico) {
 
         // Validao: Campos no podem ser vazios
@@ -163,7 +179,7 @@ import java.util.List;
                     int idade = Integer.parseInt(dados[4]);
                     String status = dados[5];
 
-                    Jogador j = new Jogador(nome, posicao, numero, idade, status);
+                    Jogador j = new Jogador(nome, numero, posicao, idade, selecaoAtual, status);
                     selecaoAtual.addTime(j);
                 }
             }
@@ -173,4 +189,4 @@ import java.util.List;
             e.printStackTrace();
         }
     }
-}*/
+}
