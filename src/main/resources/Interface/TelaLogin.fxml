@@ -99,6 +99,21 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
+            <Button id="button-login" layoutX="1272.0" layoutY="727.0" mnemonicParsing="false" onAction="#irParaPartidas" prefHeight="30.0" prefWidth="190.0" stylesheets="@style.css" text="Ir pra Tela Partidas">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button id="button-login" layoutX="1272.0" layoutY="693.0" mnemonicParsing="false" onAction="#irParaArbitros" prefHeight="30.0" prefWidth="190.0" stylesheets="@style.css" text="Ir pra Tela Árbitros">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button id="button-login" layoutX="1272.0" layoutY="659.0" mnemonicParsing="false" onAction="#irParaIngressos" prefHeight="30.0" prefWidth="190.0" stylesheets="@style.css" text="Ir pra Tela Ingressos">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="telaLogin" prefHeight="1080.0" prefWidth="1920.0" visible="false">

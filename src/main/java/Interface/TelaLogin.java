@@ -66,4 +66,88 @@ public class TelaLogin {
             e.printStackTrace();
         }
     }
+
+    // Só pra ligar o login à TelaSelecoes
+    @FXML
+    public void irParaPartidas(ActionEvent event) {
+        try {
+            // 1. Carrega o FXML da nova tela de seleções
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interface/TelaPartidas.fxml"));
+            Parent root = loader.load();
+
+            // 2. Pega a janela atual (Stage) que já está aberta
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+            // 3. Cria a nova cena com o tamanho que você escolheu (ex: 1024x768)
+            Scene scene = new Scene(root, 1024, 768);
+
+            // Aplica o seu CSS para o design não quebrar
+            scene.getStylesheets().add(getClass().getResource("/Interface/style.css").toExternalForm());
+
+            // 4. Coloca a nova cena na janela e mostra
+            stage.setScene(scene);
+            stage.setTitle("Gerenciamento de Partidas");
+            stage.show();
+
+        } catch (IOException e) {
+            System.out.println("Erro ao abrir a tela de partidas! Verifique o caminho do FXML.");
+            e.printStackTrace();
+        }
+    }
+
+    // Só pra ligar o login à TelaSelecoes
+    @FXML
+    public void irParaArbitros(ActionEvent event) {
+        try {
+            // 1. Carrega o FXML da nova tela de seleções
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interface/TelaArbitros.fxml"));
+            Parent root = loader.load();
+
+            // 2. Pega a janela atual (Stage) que já está aberta
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+            // 3. Cria a nova cena com o tamanho que você escolheu (ex: 1024x768)
+            Scene scene = new Scene(root, 1024, 768);
+
+            // Aplica o seu CSS para o design não quebrar
+            scene.getStylesheets().add(getClass().getResource("/Interface/style.css").toExternalForm());
+
+            // 4. Coloca a nova cena na janela e mostra
+            stage.setScene(scene);
+            stage.setTitle("Gerenciamento de Árbitros");
+            stage.show();
+
+        } catch (IOException e) {
+            System.out.println("Erro ao abrir a tela de árbitros! Verifique o caminho do FXML.");
+            e.printStackTrace();
+        }
+    }
+
+    // Só pra ligar o login à TelaSelecoes
+    @FXML
+    public void irParaIngressos(ActionEvent event) {
+        try {
+            // 1. Carrega o FXML da nova tela de seleções
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interface/TelaIngressos.fxml"));
+            Parent root = loader.load();
+
+            // 2. Pega a janela atual (Stage) que já está aberta
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+            // 3. Cria a nova cena com o tamanho que você escolheu (ex: 1024x768)
+            Scene scene = new Scene(root, 1024, 768);
+
+            // Aplica o seu CSS para o design não quebrar
+            scene.getStylesheets().add(getClass().getResource("/Interface/style.css").toExternalForm());
+
+            // 4. Coloca a nova cena na janela e mostra
+            stage.setScene(scene);
+            stage.setTitle("Gerenciamento de Ingressos");
+            stage.show();
+
+        } catch (IOException e) {
+            System.out.println("Erro ao abrir a tela de ingressos! Verifique o caminho do FXML.");
+            e.printStackTrace();
+        }
+    }
 }
