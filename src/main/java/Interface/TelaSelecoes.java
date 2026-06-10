@@ -47,9 +47,9 @@ public class TelaSelecoes implements Initializable {
         comboGrupo.getSelectionModel().selectFirst();
 
         // Vincula as colunas da tabela com os atributos da classe Selecao
-        //colunaSelecao.setCellValueFactory(new PropertyValueFactory<>("pais"));
-        //colunaTecnico.setCellValueFactory(new PropertyValueFactory<>("tecnico"));
-        //colunaGrupo.setCellValueFactory(new PropertyValueFactory<>("grupo"));
+        colunaSelecao.setCellValueFactory(new PropertyValueFactory<>("pais"));
+        colunaTecnico.setCellValueFactory(new PropertyValueFactory<>("tecnico"));
+        colunaGrupo.setCellValueFactory(new PropertyValueFactory<>("grupo"));
 
         // Renderiza as seleções salvas na tabela ao abrir a tela
         atualizarTabela();

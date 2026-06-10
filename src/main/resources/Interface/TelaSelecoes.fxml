@@ -87,7 +87,7 @@
          <children>
             <TextField fx:id="txtSelecao" layoutX="14.0" layoutY="16.0" prefHeight="26.0" prefWidth="141.0" text="Nome da Seleção" />
             <TextField fx:id="txtTecnico" layoutX="167.0" layoutY="16.0" prefHeight="26.0" prefWidth="126.0" text="Técnico" />
-            <Button layoutX="431.0" layoutY="16.0" mnemonicParsing="false" text="Adiconar" />
+            <Button fx:id="adicionarSelecao" layoutX="431.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleAdicionarSelecao" text="Adicionar" />
             <ComboBox id="comboGrupo" fx:id="comboGrupo" layoutX="307.0" layoutY="16.0" prefHeight="26.0" prefWidth="110.0" promptText="Grupo" />
          </children>
       </AnchorPane>
