@@ -26,7 +26,7 @@
             <GaussianBlur />
          </effect>
       </ImageView>
-      <AnchorPane prefHeight="1080.0" prefWidth="1920.0" visible="false">
+      <AnchorPane fx:id="telaCadastro" prefHeight="1080.0" prefWidth="1920.0">
          <children>
             <Rectangle id="background-capa" height="735.0" layoutX="728.0" layoutY="173.0" smooth="false" stroke="#2f1f1f" strokeType="INSIDE" strokeWidth="0.0" width="464.0">
                <effect>
@@ -89,9 +89,14 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
+            <Button id="loginregistro" layoutX="902.0" layoutY="823.0" mnemonicParsing="false" onAction="#abrirLogin" style="-fx-background-color: transparent;" stylesheets="@style.css" text="Tem cadastro?">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="1080.0" prefWidth="1920.0">
+      <AnchorPane fx:id="telaLogin" prefHeight="1080.0" prefWidth="1920.0" visible="false">
          <children>
             <Rectangle id="background-capa" height="400.0" layoutX="610.0" layoutY="340.0" smooth="false" stroke="#2f1f1f" strokeType="INSIDE" strokeWidth="0.0" width="700.0">
                <effect>
@@ -141,6 +146,10 @@
             </Text>
             <Text fill="#e7e7ee" layoutX="662.0" layoutY="459.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail ou CPF :" />
             <Text fill="#e7e7ee" layoutX="662.0" layoutY="545.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Senha :" />
+            <Button id="loginregistro" layoutX="662.0" layoutY="671.0" mnemonicParsing="false" onAction="#abrirCadastro" style="-fx-background-color: transparent;" stylesheets="@style.css" text="Sem login?">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
          </children>
       </AnchorPane>
    </children>

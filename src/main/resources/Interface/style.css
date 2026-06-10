@@ -28,7 +28,16 @@
     -fx-background-color: #0a0f20;
     -fx-border-color: #252d4a;
 }
-.
+
+#loginregistro{
+    -fx-text-fill: white;
+
+}
+#loginregistro:hover {
+    -fx-text-fill: #678bff;
+    -fx-underline: true;
+
+}
 
 .label {
     -fx-font-size: 14px;
