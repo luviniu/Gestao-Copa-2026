@@ -27,7 +27,7 @@ public class OprJog {
                 // Validação: Evitar número duplicado na mesma seleção
                 for (Jogador j : s.getTime()) {
                     if (j.getNumero() == numero) {
-                        System.out.println("Erro: Esse número já está a ser usado nesta seleção.");
+                        System.out.println("Erro: Esse número já está sendo usado nesta seleção.");
                         return false;
                     }
                 }

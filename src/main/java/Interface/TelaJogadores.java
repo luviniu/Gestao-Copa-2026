@@ -91,6 +91,8 @@ public class TelaJogadores implements Initializable {
 
     @FXML
     public void handleAdicionarJogador(ActionEvent event) {
+        Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
         try {
             String nome = txtJogador.getText();
             String posicao = comboPosicao.getValue();
@@ -107,15 +109,19 @@ public class TelaJogadores implements Initializable {
                 txtIdade.clear();
                 txtNumero.clear();
             } else {
+                Toast.exibir(stageActual, "Erro ao cadastrar jogador. Verifique a numeração da camisa.");
                 System.out.println("Erro ao cadastrar jogador. Verifique a numeração da camisa.");
             }
         } catch (NumberFormatException e) {
+            Toast.exibir(stageActual, "Erro: Preencha Idade e Número com valores numéricos válidos.");
             System.out.println("Erro: Preencha Idade e Número com valores numéricos válidos.");
         }
     }
 
     @FXML
     public void handleExcluirJogador(ActionEvent event) {
+        Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
         Jogador selecionado = tabelaJogadores.getSelectionModel().getSelectedItem();
 
         if (selecionado != null) {
@@ -123,12 +129,15 @@ public class TelaJogadores implements Initializable {
                 atualizarTabela();
             }
         } else {
+            Toast.exibir(stageActual, "Selecione um jogador na tabela para remover.");
             System.out.println("Selecione um jogador na tabela para remover.");
         }
     }
 
     @FXML
     public void handleEditarJogador(ActionEvent event) {
+        Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
         Jogador selecionado = tabelaJogadores.getSelectionModel().getSelectedItem();
 
         if (selecionado != null) {
@@ -143,14 +152,18 @@ public class TelaJogadores implements Initializable {
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Para editar, preencha os novos valores de número e idade nos campos inferiores.");
+                Toast.exibir(stageActual, "Para editar, preencha os novos valores de número e idade nos campos inferiores.");
             }
         } else {
             System.out.println("Selecione um jogador na tabela para alterar.");
+            Toast.exibir(stageActual, "Selecione um jogador na tabela para alterar.");
         }
     }
 
     @FXML
     public void irParaSelecoes(ActionEvent event) {
+        Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interface/TelaSelecoes.fxml"));
             Parent root = loader.load();
@@ -164,6 +177,7 @@ public class TelaJogadores implements Initializable {
             stage.show();
         } catch (IOException e) {
             System.out.println("Erro ao voltar para a tela de seleções.");
+            Toast.exibir(stageActual, "Erro ao voltar para a tela de seleções.");
             e.printStackTrace();
         }
     }
