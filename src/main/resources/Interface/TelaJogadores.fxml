@@ -83,6 +83,7 @@
             <ComboBox id="comboStatus" fx:id="comboStatus" layoutX="437.0" layoutY="16.0" prefHeight="26.0" prefWidth="82.0" promptText="Status" />
          </children>
       </AnchorPane>
+      <Button id="button-login" fx:id="voltar" layoutX="338.0" layoutY="496.0" mnemonicParsing="false" onAction="#irParaSelecoes" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Voltar" />
    </children>
    <cursor>
       <Cursor fx:constant="DEFAULT" />
