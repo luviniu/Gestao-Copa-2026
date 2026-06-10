@@ -64,6 +64,8 @@ public class TelaSelecoes implements Initializable {
     // Funções disparadas pelos botões; jogam os dados nos métodos OprSel
     @FXML
     public void handleAdicionarSelecao(ActionEvent event) {
+        Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
         String pais = txtSelecao.getText();
         String tecnico = txtTecnico.getText();
         String grupo = comboGrupo.getValue();
@@ -73,8 +75,9 @@ public class TelaSelecoes implements Initializable {
             // Limpa os campos após salvar
             txtSelecao.clear();
             txtTecnico.clear();
+            Toast.exibir(stageActual, "Seleção cadastrada com sucesso!");
         } else {
-            System.out.println("Erro ao cadastrar seleção. Verifique os dados.");
+            Toast.exibir(stageActual, "Erro ao cadastrar seleção. Verifique os dados.");
         }
     }
 
