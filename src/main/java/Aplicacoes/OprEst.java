@@ -1,5 +1,6 @@
 package Aplicacoes;
 
+//import Objetos.Partida;
 import Objetos.Estadio;
 
 import java.io.*;
@@ -100,6 +101,23 @@ public class OprEst {
         }
         return null; // Retorna null se não encontrar
     }
+
+    // REGRA DE NEGÓCIO: Um estádio não pode sediar duas partidas no mesmo horário
+    /*public void verificarDisponibilidade(String nomeEstadio, String data, String horario, List<Partida> listaPartidasGlobais) 
+            throws ConflitoHorarioEstadioException {
+        
+        for (Partida p : listaPartidasGlobais) {
+            // Se o estádio da partida gravada for o mesmo que estamos tentando agendar
+            if (p.getEstadio().getNome().equalsIgnoreCase(nomeEstadio.trim()) &&
+                p.getData().equalsIgnoreCase(data.trim()) && 
+                p.getHora().equalsIgnoreCase(horario.trim())) {
+                
+                // O seu módulo joga a exceção na tela
+                throw new ConflitoHorarioEstadioException("Regra de Negócio: O estádio " + nomeEstadio + 
+                        " já possui uma partida agendada para o dia " + data + " às " + horario + ".");
+            }
+        }
+    }*/
 
     // Getter para se precisar listar todos os estádios cadastrados
     public List<Estadio> getListaEstadio() {
