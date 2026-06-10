@@ -79,7 +79,7 @@ public class OprArbitro {
             while ((linha = reader.readLine()) != null) {
                 String[] dados = linha.split(";");
 
-                if (dados[0].equals("ARBITROS") && dados.length == 4) {
+                if (dados[0].equals("Arbitros") && dados.length == 7) {
                     String nome = dados[1];
                     String cpf = dados[2];
                     String email = dados[3];
