@@ -28,6 +28,52 @@
     -fx-background-color: #0a0f20;
     -fx-border-color: #252d4a;
 }
+#iconbuttom{
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-max-width: 40px;
+    -fx-max-height: 40px;
+
+}
+#logoutbutton{
+    -fx-text-fill: #2c1035;
+    -fx-background-color: #e05e6e;
+    -fx-background-radius: 3;
+
+}
+#logoutbutton:hover {
+    -fx-text-fill: #5b506e;
+    -fx-background-color: #e05e6e;
+    -fx-border-color: #f3a7a7;
+    -fx-border-width: 6;
+    -fx-border-radius: 3;
+
+}
+#logoutbutton:pressed {
+    -fx-text-fill: white;
+    -fx-background-color: #cf2c40;
+    -fx-border-color: #753139;
+    -fx-border-width: 6;
+    -fx-border-radius: 3;
+
+}
+
+#tasksbutton{
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c1035;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-background-color: transparent;
+
+}
+#tasksbutton:hover {
+    -fx-background-color: #1a2340;
+
+}
+#tasksbutton:focused {
+    -fx-background-color: #1a2340;
+
+}
 
 #loginregistro{
     -fx-text-fill: white;
@@ -36,6 +82,11 @@
 #loginregistro:hover {
     -fx-text-fill: #678bff;
     -fx-underline: true;
+
+}
+
+#icon-default{
+    -fx-border-radius: 30;
 
 }
 
