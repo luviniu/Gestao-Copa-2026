@@ -1,4 +1,4 @@
-/*package Aplicacoes;
+package Aplicacoes;
 
 import Objetos.Selecao;
 import Objetos.Jogador; // Importante para o mapeamento no TXT
@@ -12,7 +12,7 @@ import java.util.List;
     Usar para conferir se dados esto duplicados
     Carregar o .txt numa lista ao abrir o programa. Retornar Exception se der ruim
  */
-/* public class OprSel {
+public class OprSel {
 
     // Lista que contm as selees
     private List<Selecao> listaSelecoes;
@@ -163,7 +163,7 @@ import java.util.List;
                     int idade = Integer.parseInt(dados[4]);
                     String status = dados[5];
 
-                    Jogador j = new Jogador(nome, posicao, numero, idade, status);
+                    Jogador j = new Jogador(nome, numero, posicao, idade, selecaoAtual, status);
                     selecaoAtual.addTime(j);
                 }
             }
@@ -173,4 +173,4 @@ import java.util.List;
             e.printStackTrace();
         }
     }
-}*/
+}
