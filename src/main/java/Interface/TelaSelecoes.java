@@ -75,14 +75,18 @@ public class TelaSelecoes implements Initializable {
             // Limpa os campos após salvar
             txtSelecao.clear();
             txtTecnico.clear();
+            System.out.println("Seleção cadastrada com sucesso!");
             Toast.exibir(stageActual, "Seleção cadastrada com sucesso!");
         } else {
+            System.out.println("Erro ao cadastrar seleção. Verifique os dados.");
             Toast.exibir(stageActual, "Erro ao cadastrar seleção. Verifique os dados.");
         }
     }
 
     @FXML
     public void handleExcluirSelecao(ActionEvent event) {
+        Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
         Selecao selecionada = tabelaSelecoes.getSelectionModel().getSelectedItem();
 
         if (selecionada != null) {
@@ -91,12 +95,15 @@ public class TelaSelecoes implements Initializable {
             }
         } else {
             System.out.println("Selecione uma seleção na tabela para remover.");
+            Toast.exibir(stageActual, "Selecione uma seleção na tabela para remover.");
         }
     }
 
     //
     @FXML
     public void handleEditarSelecao(ActionEvent event) {
+        Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
         Selecao selecionada = tabelaSelecoes.getSelectionModel().getSelectedItem();
 
         if (selecionada != null) {
@@ -111,16 +118,20 @@ public class TelaSelecoes implements Initializable {
             }
         } else {
             System.out.println("Selecione uma linha para alterar e use os campos inferiores.");
+            Toast.exibir(stageActual, "Selecione uma linha para alterar e use os campos inferiores.");
         }
     }
 
     @FXML
     public void irParaJogadores(ActionEvent event) {
+        Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
         // Pega a seleção que o usuário clicou na tabela
         Selecao selecionada = tabelaSelecoes.getSelectionModel().getSelectedItem();
 
         if (selecionada == null) {
             System.out.println("Erro: Selecione uma seleção na tabela primeiro!");
+            Toast.exibir(stageActual, "Erro: Selecione uma seleção na tabela primeiro!");
             return; // Barra a navegação se não houver seleção
         }
 
