@@ -24,10 +24,29 @@ public class OprPartida {
             String estadio,
             String data,
             String horario,
-            String fase) {
+            String fase) { if (selecao1 == null || selecao1.isBlank() ||
+            selecao2 == null || selecao2.isBlank() ||
+            estadio == null || estadio.isBlank() ||
+            data == null || data.isBlank() ||
+            horario == null || horario.isBlank() ||
+            fase == null || fase.isBlank()) {
+
+        return false;
+    } if (selecao1.equalsIgnoreCase(selecao2)) {
+        return false;
+    }
 
         if (selecao1 == null || selecao2 == null) {
             return false;
+        }
+        for (Partida p : listaPartidas) {
+
+            if (p.getTimeCasa().getPais().equalsIgnoreCase(selecao1)
+                    && p.getTimeVisita().getPais().equalsIgnoreCase(selecao2)
+                    && p.getData().equalsIgnoreCase(data)) {
+
+                return false;
+            }
         }
 
         Estadio estadioObj = new Estadio(estadio, "Local", 50000);
@@ -35,6 +54,14 @@ public class OprPartida {
         Selecao casa = new Selecao(selecao1, "A", "Tecnico", new ArrayList<>());
 
         Selecao visita = new Selecao(selecao2, "A", "Tecnico", new ArrayList<>());
+        for (Partida p : listaPartidas) {
+
+            if (p.getData().equalsIgnoreCase(data)
+                    && p.getHora().equalsIgnoreCase(horario)) {
+
+                return false;
+            }
+        }
 
         Partida novaPartida = new Partida(
                 data,

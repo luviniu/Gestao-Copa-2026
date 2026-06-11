@@ -6,12 +6,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
+import javafx.scene.control.TextArea;
+
+import javafx.stage.Stage;
+import javafx.scene.Node;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class TelaPartidas implements Initializable {
 
     private OprPartida oprPartida;
+
+    @FXML
+    private TextArea txtAreaPartidas;
 
     @FXML
     private TextField txtSelecaoCasa;
@@ -31,6 +39,7 @@ public class TelaPartidas implements Initializable {
     @FXML
     private TextField txtFase;
 
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         oprPartida = new OprPartida();
@@ -48,24 +57,44 @@ public class TelaPartidas implements Initializable {
                 txtFase.getText()
         );
 
-        System.out.println("Partida cadastrada: " + sucesso);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        if (sucesso) {
+            Toast.exibir(stage, "Partida cadastrada com sucesso!");
+        } else {
+            Toast.exibir(stage, "Erro ao cadastrar partida!");
+        }
+        if (sucesso) {
+            System.out.println("Partida cadastrada com sucesso!");
+        } else {
+            System.out.println("Erro ao cadastrar partida.");
+        }
+
+        if (sucesso) {
+            txtSelecaoCasa.clear();
+            txtSelecaoVisitante.clear();
+            txtEstadio.clear();
+            txtData.clear();
+            txtHorario.clear();
+            txtFase.clear();
+        }
     }
 
     @FXML
     public void listarPartidas(ActionEvent event) {
 
-        System.out.println("=== LISTA DE PARTIDAS ===");
+        txtAreaPartidas.clear();
 
         for (var p : oprPartida.getListaPartidas()) {
 
-            System.out.println(
-                    p.getTimeCasa().getPais()
-                            + " x "
-                            + p.getTimeVisita().getPais()
-                            + " | "
-                            + p.getData()
-                            + " | "
-                            + p.getFase()
+            txtAreaPartidas.appendText(
+                    "Casa: " + p.getTimeCasa().getPais() + "\n" +
+                            "Visitante: " + p.getTimeVisita().getPais() + "\n" +
+                            "Estadio: " + p.getEstadio().getNome() + "\n" +
+                            "Data: " + p.getData() + "\n" +
+                            "Horario: " + p.getHora() + "\n" +
+                            "Fase: " + p.getFase() + "\n" +
+                            "--------------------------\n"
             );
         }
     }
@@ -77,7 +106,26 @@ public class TelaPartidas implements Initializable {
                 txtData.getText()
         );
 
-        System.out.println("Partida excluida: " + sucesso);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        if (sucesso) {
+            Toast.exibir(stage, "Partida excluida com sucesso!");
+        } else {
+            Toast.exibir(stage, "Partida nao encontrada!");
+        }
+        if (sucesso) {
+            System.out.println("Partida excluido com sucesso!");
+        } else {
+            System.out.println("Erro ao excluir partida.");
+        }
+        if (sucesso) {
+            txtSelecaoCasa.clear();
+            txtSelecaoVisitante.clear();
+            txtEstadio.clear();
+            txtData.clear();
+            txtHorario.clear();
+            txtFase.clear();
+        }
     }
     @FXML
     public void editarPartida(ActionEvent event) {
@@ -89,6 +137,37 @@ public class TelaPartidas implements Initializable {
                 txtFase.getText()
         );
 
-        System.out.println("Partida editada: " + sucesso);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        if (sucesso) {
+
+            Toast.exibir(stage, "Partida editada com sucesso!");
+
+            txtSelecaoCasa.clear();
+            txtSelecaoVisitante.clear();
+            txtEstadio.clear();
+            txtData.clear();
+            txtHorario.clear();
+            txtFase.clear();
+
+        } else {
+
+            Toast.exibir(stage, "Erro ao editar partida!");
+        }
+
+
+        if (sucesso) {
+            System.out.println("Partida editado com sucesso!");
+        } else {
+            System.out.println("Erro ao editar partida.");
+        }
+        if (sucesso) {
+            txtSelecaoCasa.clear();
+            txtSelecaoVisitante.clear();
+            txtEstadio.clear();
+            txtData.clear();
+            txtHorario.clear();
+            txtFase.clear();
+        }
     }
 }
