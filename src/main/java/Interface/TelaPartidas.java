@@ -50,3 +50,4 @@ public class TelaPartidas implements Initializable {
 
         System.out.println("Partida cadastrada: " + sucesso);
     }
+}
