@@ -58,10 +58,33 @@
 
       <AnchorPane id="PopupAdicionarSelecao" layoutX="206.0" layoutY="163.0" prefHeight="57.0" prefWidth="517.0">
          <children>
-            <TextField fx:id="btnCadastrar" layoutX="14.0" layoutY="16.0" onAction="#cadastrarPartida" prefHeight="26.0" prefWidth="141.0" text="Cadastrar" />
-            <TextField layoutX="167.0" layoutY="16.0" prefHeight="26.0" prefWidth="126.0" text="Editar" />
-            <Button layoutX="431.0" layoutY="16.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="141.0" text="Listar partidas" />
-            <TextField layoutX="310.0" layoutY="16.0" prefHeight="26.0" prefWidth="107.0" text="Excluir" />
+            <Button layoutX="14.0"
+                    layoutY="16.0"
+                    mnemonicParsing="false"
+                    prefHeight="26.0"
+                    prefWidth="141.0"
+                    text="Cadastrar"
+                    onAction="#cadastrarPartida" />
+            <Button layoutX="167.0"
+                    layoutY="16.0"
+                    mnemonicParsing="false"
+                    prefHeight="26.0"
+                    prefWidth="126.0"
+                    text="Editar"
+                    onAction="#editarPartida" />
+            <Button layoutX="431.0" layoutY="16.0"
+                    mnemonicParsing="false"
+                    prefHeight="26.0"
+                    prefWidth="141.0"
+                    text="Listar partidas"
+                    onAction="#listarPartidas" />
+            <Button layoutX="310.0"
+                    layoutY="16.0"
+                    mnemonicParsing="false"
+                    prefHeight="26.0"
+                    prefWidth="107.0"
+                    text="Excluir"
+                    onAction="#excluirPartida" />
          </children>
       </AnchorPane>
       <Text fill="WHITE" layoutX="274.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seleção Casa:" />

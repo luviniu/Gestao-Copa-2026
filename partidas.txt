@@ -1,0 +1,5 @@
+PARTIDA;Brasil;Argentina;Mane Garrincha;10/06/2026;22:00;semi final 
+PARTIDA;;;;;;
+PARTIDA;Ghana;Nigeria;Accra sports stadium;12/05/2027;8:00;final 
+PARTIDA;togo;benin;Accra sports stadium;12/05/2027;8:00;final 
+PARTIDA;mali;senegal;Accra sports stadium;12/05/2027;8:00;final 

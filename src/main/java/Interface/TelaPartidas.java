@@ -50,4 +50,45 @@ public class TelaPartidas implements Initializable {
 
         System.out.println("Partida cadastrada: " + sucesso);
     }
+
+    @FXML
+    public void listarPartidas(ActionEvent event) {
+
+        System.out.println("=== LISTA DE PARTIDAS ===");
+
+        for (var p : oprPartida.getListaPartidas()) {
+
+            System.out.println(
+                    p.getTimeCasa().getPais()
+                            + " x "
+                            + p.getTimeVisita().getPais()
+                            + " | "
+                            + p.getData()
+                            + " | "
+                            + p.getFase()
+            );
+        }
+    }
+
+    @FXML
+    public void excluirPartida(ActionEvent event) {
+
+        boolean sucesso = oprPartida.excluirPartida(
+                txtData.getText()
+        );
+
+        System.out.println("Partida excluida: " + sucesso);
+    }
+    @FXML
+    public void editarPartida(ActionEvent event) {
+
+        boolean sucesso = oprPartida.editarPartida(
+                txtData.getText(),
+                txtData.getText(),
+                txtHorario.getText(),
+                txtFase.getText()
+        );
+
+        System.out.println("Partida editada: " + sucesso);
+    }
 }
