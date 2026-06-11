@@ -48,6 +48,12 @@ public class OprSel {
             return false;
         }
 
+        // Validação 2: Não aceitar números nas entradas de País e Técnico
+        if (!pais.matches("^[a-zA-ZÀ-ÿ\\s]+$") || !tecnico.matches("^[a-zA-ZÀ-ÿ\\s]+$")) {
+            System.out.println("Erro: Os campos País e Técnico não devem conter números ou caracteres especiais!");
+            return false;
+        }
+
         // Validao: No permitir dois pases com o mesmo nome
         for (Selecao s : listaSelecoes) {
             if (s.getPais().equalsIgnoreCase(pais.trim())) {
