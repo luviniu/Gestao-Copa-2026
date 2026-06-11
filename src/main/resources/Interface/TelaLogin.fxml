@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaLogin">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaLogin">
    <children>
       <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -26,7 +26,7 @@
             <GaussianBlur />
          </effect>
       </ImageView>
-      <AnchorPane fx:id="telaCadastro" prefHeight="1080.0" prefWidth="1920.0">
+      <AnchorPane fx:id="telaCadastro" prefHeight="1080.0" prefWidth="1920.0" visible="false">
          <children>
             <Rectangle id="background-capa" height="735.0" layoutX="728.0" layoutY="173.0" smooth="false" stroke="#2f1f1f" strokeType="INSIDE" strokeWidth="0.0" width="464.0">
                <effect>
@@ -116,7 +116,7 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="telaLogin" prefHeight="1080.0" prefWidth="1920.0" visible="false">
+      <AnchorPane fx:id="telaLogin" prefHeight="1080.0" prefWidth="1920.0">
          <children>
             <Rectangle id="background-capa" height="400.0" layoutX="610.0" layoutY="340.0" smooth="false" stroke="#2f1f1f" strokeType="INSIDE" strokeWidth="0.0" width="700.0">
                <effect>
@@ -154,7 +154,7 @@
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </PasswordField>
-            <Button id="button-login" layoutX="662.0" layoutY="630.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Entrar">
+            <Button id="button-login" layoutX="662.0" layoutY="630.0" mnemonicParsing="false" onAction="#irLauncher" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Entrar">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

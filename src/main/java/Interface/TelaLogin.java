@@ -25,7 +25,89 @@ public class TelaLogin {
         telaLogin.setVisible(true);
         telaCadastro.setVisible(false);
 
+        javafx.application.Platform.runLater(() -> {
+            try{
+                Scene scene = telaLogin.getScene();
+                Stage stage = (Stage) telaLogin.getScene().getWindow();
+
+                javafx.scene.transform.Scale scaleTransform = new javafx.scene.transform.Scale(1, 1, 0, 0);
+
+                scene.getRoot().getTransforms().add(scaleTransform);
+
+                stage.widthProperty().addListener((observable, oldValue, newValue) -> {
+                    double targetWidth = stage.getWidth();
+                    double ratioXInicial = stage.getWidth() / 1920.0;
+                    scaleTransform.setX(ratioXInicial);
+
+                });
+
+                stage.heightProperty().addListener((observable, oldValue, newValue) -> {
+                    double targetHeight = stage.getHeight();
+                    double ratioYInicial = stage.getHeight() / 1080.0;
+                    scaleTransform.setY(ratioYInicial);
+
+                });
+
+                javafx.application.Platform.runLater(() -> {
+                    stage.setMaximized(true);
+
+                });
+
+            } catch(Exception e) {
+                System.out.println("Erro ao tentar abrir o telaLauncher");
+                e.printStackTrace();
+
+            }
+        });
+
+
     }
+
+    @FXML
+    public void irLauncher(ActionEvent event) throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interface/telaLauncher.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.setMaximized(false);
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/Interface/style.css").toExternalForm());
+            stage.setScene(scene);
+            stage.setResizable(true);
+            //Codigo a seguir para redimensionamneto dinamico
+            //Dps de muito tempo deu certo mds...
+            javafx.scene.transform.Scale scaleTransform = new javafx.scene.transform.Scale(1, 1, 0, 0);
+
+            scene.getRoot().getTransforms().add(scaleTransform);
+
+            stage.widthProperty().addListener((observable, oldValue, newValue) -> {
+                double targetWidth = stage.getWidth();
+                double ratioX = targetWidth / 1920.0;
+                scaleTransform.setX(ratioX);
+
+            });
+
+            stage.heightProperty().addListener((observable, oldValue, newValue) -> {
+                double targetHeight = stage.getHeight();
+                double ratioY = targetHeight / 1080.0;
+                scaleTransform.setY(ratioY);
+
+            });
+
+            stage.show();
+
+            javafx.application.Platform.runLater(() -> {
+                stage.setMaximized(true);
+
+            });
+
+        } catch(Exception e) {
+            System.out.println("Erro ao tentar abrir o telaLauncher");
+            e.printStackTrace();
+
+        }
+    }
+
     @FXML
     public void abrirCadastro(ActionEvent event){
         telaCadastro.setVisible(true);
