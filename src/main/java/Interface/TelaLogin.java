@@ -20,7 +20,7 @@ public class TelaLogin {
     @FXML
     private AnchorPane telaCadastro;
 
-    @@FXML
+    @FXML
     public void initialize() {
         telaLogin.setVisible(true);
         telaCadastro.setVisible(false);
