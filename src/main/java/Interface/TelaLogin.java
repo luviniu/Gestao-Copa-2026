@@ -66,7 +66,7 @@ public class TelaLogin {
     @FXML
     public void irLauncher(ActionEvent event) throws IOException {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interface/telaLauncher.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interface/TelaLauncher.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             stage.setMaximized(false);
