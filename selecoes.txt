@@ -1,7 +1,1 @@
-SELECAO;Nome da Seleção;Grupo G;Técnico
-SELECAO;nlkn;Grupo G;lbibb
-SELECAO;55;Grupo C;66
-SELECAO;e3e;Grupo C;e3
-SELECAO;hiehr;Grupo A;eee
-SELECAO;Nome;Grupo D;Técnico
-SELECAO;ww;Grupo D;www
+Tbuu;Grupo A;hbusbu
