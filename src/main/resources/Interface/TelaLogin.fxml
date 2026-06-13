@@ -49,7 +49,7 @@
                   </LinearGradient>
                </fill>
             </Rectangle>
-            <TextField layoutX="804.0" layoutY="310.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
+            <TextField fx:id="cadNome" layoutX="804.0" layoutY="310.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
@@ -59,32 +59,32 @@
                   <Font size="28.0" />
                </font>
             </Text>
-            <TextField layoutX="804.0" layoutY="400.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
+            <TextField fx:id="cadEmail" layoutX="804.0" layoutY="400.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </TextField>
             <Text fill="#e7e7ee" layoutX="803.0" layoutY="395.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail " />
-            <TextField layoutX="804.0" layoutY="490.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
+            <TextField fx:id="cadCpf" layoutX="804.0" layoutY="490.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </TextField>
             <Text fill="#e7e7ee" layoutX="805.0" layoutY="487.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CPF" />
-            <PasswordField layoutX="804.0" layoutY="580.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
+            <PasswordField fx:id="cadSenha" layoutX="804.0" layoutY="580.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </PasswordField>
             <Text fill="#e7e7ee" layoutX="805.0" layoutY="574.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Senha" />
             <Text fill="#e7e7ee" layoutX="803.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome Completo" />
-            <PasswordField layoutX="803.0" layoutY="670.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
+            <PasswordField fx:id="cadConfirmarSenha" layoutX="803.0" layoutY="670.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </PasswordField>
             <Text fill="#e7e7ee" layoutX="805.0" layoutY="665.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirmar Senha" />
-            <Button id="button-login" layoutX="803.0" layoutY="741.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="314.0" stylesheets="@style.css" text="Cadastrar">
+            <Button id="button-login" layoutX="803.0" layoutY="741.0" mnemonicParsing="false" onAction="#executarCadastro" prefHeight="70.0" prefWidth="314.0" stylesheets="@style.css" text="Cadastrar">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -144,12 +144,12 @@
                   <Image url="@../assets/Logo_copa_2026.png" />
                </image>
             </ImageView>
-            <TextField layoutX="662.0" layoutY="462.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
+            <TextField fx:id="identificaLogin" layoutX="662.0" layoutY="462.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </TextField>
-            <PasswordField layoutX="662.0" layoutY="548.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
+            <PasswordField fx:id="identificaSenha" layoutX="662.0" layoutY="548.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
@@ -169,7 +169,8 @@
             <Button id="loginregistro" layoutX="662.0" layoutY="671.0" mnemonicParsing="false" onAction="#abrirCadastro" style="-fx-background-color: transparent;" stylesheets="@style.css" text="Sem login?">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></Button>
+               </cursor>
+            </Button>
          </children>
       </AnchorPane>
    </children>

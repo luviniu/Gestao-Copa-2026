@@ -20,11 +20,13 @@
     -fx-text-fill: white;
 }
 #button-login:hover {
+    -fx-font-size: 14px;
     -fx-border-color: #e9ebf7;
     -fx-border-width: 2;
     -fx-background-color: #1a2340;
 }
 #button-login:pressed {
+    -fx-font-size: 14px;
     -fx-background-color: #0a0f20;
     -fx-border-color: #252d4a;
 }
@@ -59,6 +61,7 @@
 }
 
 #tasksbutton{
+    -fx-font-size: 23px;
     -fx-font-weight: bold;
     -fx-text-fill: #2c1035;
     -fx-background-radius: 10;
@@ -67,10 +70,12 @@
 
 }
 #tasksbutton:hover {
+    -fx-font-size: 23px;
     -fx-background-color: #1a2340;
 
 }
 #tasksbutton:focused {
+    -fx-font-size: 23px;
     -fx-background-color: #1a2340;
 
 }
