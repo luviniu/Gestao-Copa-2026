@@ -22,17 +22,17 @@ public class OprUser {
 
     }
 
-    public void registrarUsuario(Usuario novoUsuario) {
+    public boolean registrarUsuario(Usuario novoUsuario) throws ErrosException {
         if(usuarios.isEmpty()){
             Usuario admin= new Administrador(novoUsuario.getNome(),novoUsuario.getCpf(),novoUsuario.getEmail(),novoUsuario.getSenha());
             if(!novoUsuario.getEmail().matches("^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")){
                 System.out.println("Email invalido!");
-                return;
+                throw new ErrosException("Email invalido!");
 
             }
             if(!novoUsuario.getSenha().matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).{8,}")){
                 System.out.println("Senha deve conter no minimo 8 caracteres; Numero, Letra maiuscula e Caractere especial");
-                return;
+                throw new ErrosException("Senha deve conter no minimo 8 caracteres; Numero, Letra maiuscula e Caractere especial");
 
             }
             int numadm=0;
@@ -43,28 +43,29 @@ public class OprUser {
             if(numadm==33||numadm==44||numadm==55||numadm==66||numadm==0){
                 usuarios.add(admin);
                 System.out.println(admin.getNome()+" Administrador principal");
+                return true;
 
             }else{
                 System.out.println("cpf invalido!");
+                throw new ErrosException("cpf invalido!");
 
             }
-            return;
 
         }
         if(!novoUsuario.getEmail().matches("^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")){
             System.out.println("Email invalido!");
-            return;
+            throw new ErrosException("Email invalido!");
 
         }
         if(!novoUsuario.getSenha().matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).{8,}")){
             System.out.println("Senha deve conter no minimo 8 caracteres; Numero, Letra maiuscula e Caractere especial");
-            return;
+            throw new ErrosException("Senha deve conter no minimo 8 caracteres; Numero, Letra maiuscula e Caractere especial");
 
         }
         for (Usuario usuario : usuarios) {
             if(usuario.getCpf().equals(novoUsuario.getCpf())){
                 System.out.println("CPF JA CADASTRADO");
-                return;
+                throw new ErrosException("CPF JA CADASTRADO");
 
             }
 
@@ -77,16 +78,18 @@ public class OprUser {
         if(num==33||num==44||num==55||num==66||num==0){
             usuarios.add(novoUsuario);
             System.out.println(novoUsuario.getCpf() + " cadastrado com sucesso!");
+            return true;
 
         }else{
             System.out.println("cpf invalido!");
+            throw new ErrosException("cpf invalido!");
 
         }
 
     }
-    public Usuario login(String cpf, String senha) {
+    public Usuario login(String login, String senha) {
         for (Usuario usuario : usuarios) {
-            if(usuario.getCpf().equals(cpf) && usuario.getSenha().equals(senha)){
+            if ((usuario.getCpf().equals(login) || usuario.getEmail().equals(login))&&usuario.getSenha().equals(senha)){
                 String perfil=usuario.getPerfilUsuario();
                 System.out.println(usuario.getNome()+" logado");
 
@@ -95,7 +98,7 @@ public class OprUser {
             }
 
         }
-        System.out.println("CPF ou Senha invalido!");
+        System.out.println("Login ou Senha inválido!");
         return null;
 
     }
