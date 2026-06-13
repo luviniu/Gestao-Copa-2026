@@ -217,13 +217,14 @@ public class TelaLogin {
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
             // 3. Cria a nova cena com o tamanho que você escolheu (ex: 1024x768)
-            Scene scene = new Scene(root, 1024, 768);
+            Scene scene = new Scene(root, 1920, 1080);
 
             // Aplica o seu CSS para o design não quebrar
             scene.getStylesheets().add(getClass().getResource("/Interface/style.css").toExternalForm());
 
             // 4. Coloca a nova cena na janela e mostra
             stage.setScene(scene);
+            stage.setMaximized(true);
             stage.setTitle("Gerenciamento de Ingressos");
             stage.show();
 
