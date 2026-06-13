@@ -159,7 +159,7 @@ public class TelaLogin {
 
             stage.setScene(scene);
             stage.setResizable(true);
-            stage.setTitle("World Cup 2026 - Launcher");
+            stage.setTitle("Gestão Copa do Mundo");
             stage.show();
 
             javafx.application.Platform.runLater(() -> {
