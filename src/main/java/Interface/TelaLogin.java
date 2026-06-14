@@ -263,39 +263,18 @@ public class TelaLogin {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interface/TelaIngressos.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            stage.setMaximized(false);
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root, 1920, 1080);
+
             scene.getStylesheets().add(getClass().getResource("/Interface/style.css").toExternalForm());
-
-            javafx.scene.transform.Scale scaleTransform = new javafx.scene.transform.Scale(1, 1, 0, 0);
-            scene.getRoot().getTransforms().add(scaleTransform);
-
-            stage.widthProperty().addListener((observable, oldValue, newValue) -> {
-                scaleTransform.setX(stage.getWidth() / 1920.0);
-
-            });
-
-            stage.heightProperty().addListener((observable, oldValue, newValue) -> {
-                scaleTransform.setY(stage.getHeight() / 1080.0);
-
-            });
-
             stage.setScene(scene);
-            stage.setResizable(true);
+            stage.setMaximized(true);
             stage.setTitle("Gerenciamento de Ingressos");
             stage.show();
-
-            javafx.application.Platform.runLater(() -> {
-                stage.setMaximized(true);
-
-            });
 
         } catch (IOException e) {
             System.out.println("Erro ao abrir a tela de ingressos! Verifique o caminho do FXML.");
             e.printStackTrace();
-
         }
-
     }
 
 }

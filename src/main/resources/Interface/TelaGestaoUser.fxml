@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="152.0" prefWidth="800.0">
+         <children>
+            <Separator orientation="VERTICAL" prefHeight="152.0" prefWidth="0.0" />
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="60.0" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="24.0" prefWidth="116.0" text="NOME" />
+                  <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="60.0" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="24.0" prefWidth="231.0" text="CPF" />
+                  <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="60.0" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="24.0" prefWidth="119.0" text="CARGO" />
+                  <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="60.0" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="24.0" prefWidth="121.0" text="PAIS" />
+                  <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="60.0" />
+               </children>
+            </VBox>
+            <Separator prefHeight="3.0" prefWidth="2.0" />
+            <VBox prefHeight="152.0" prefWidth="700.0">
+               <children>
+                  <Separator orientation="VERTICAL" prefHeight="2.0" prefWidth="0.0" />
+                  <TextField fx:id="nomeSearchAdm" />
+                  <Separator orientation="VERTICAL" prefHeight="3.0" prefWidth="0.0" />
+                  <TextField fx:id="cpfSearchAdm" />
+                  <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0" />
+                  <TextField fx:id="cargoSearchAdm" />
+                  <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="8.0" />
+                  <TextField fx:id="paisSearchAdm" />
+                  <Separator orientation="VERTICAL" prefHeight="152.0" prefWidth="0.0" />
+               </children>
+            </VBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+         </children>
+      </HBox>
+      <HBox prefHeight="474.0" prefWidth="800.0">
+         <children>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <TableView fx:id="listaUsuarios" prefHeight="454.0" prefWidth="879.0">
+              <columns>
+                <TableColumn prefWidth="293.0" text="NOME" />
+                  <TableColumn minWidth="0.0" prefWidth="155.0" text="CARGO" />
+                <TableColumn prefWidth="168.0" text="PAIS" />
+                  <TableColumn prefWidth="171.0" text="CPF" />
+              </columns>
+            </TableView>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+         </children>
+      </HBox>
+      <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0" />
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0" />
+            <Button mnemonicParsing="false" text="Cadrastrar" />
+            <Button mnemonicParsing="false" text="Editar" />
+            <Button mnemonicParsing="false" text="Excluir" />
+            <Button mnemonicParsing="false" text="Voltar" />
+            <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0" />
+         </children>
+      </HBox>
+      <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0" />
+   </children>
+</VBox>
