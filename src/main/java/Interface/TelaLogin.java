@@ -1,24 +1,36 @@
 package Interface;
 
+import Aplicacoes.OprUser;
+import Aplicacoes.ErrosException;
+import Aplicacoes.oprSessao;
+import Objetos.Funcionario;
+import Objetos.Usuario;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
 import javafx.scene.image.ImageView;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.scene.control.TextField;
 import java.io.IOException;
 
 public class TelaLogin {
+    @FXML private TextField identificaLogin;
+    @FXML private PasswordField identificaSenha;
 
-    @FXML
-    private ImageView imageView;
-    @FXML
-    private AnchorPane telaLogin;
-    @FXML
-    private AnchorPane telaCadastro;
+    @FXML private TextField cadNome;
+    @FXML private TextField cadEmail;
+    @FXML private TextField cadCpf;
+    @FXML private PasswordField cadSenha;
+    @FXML private PasswordField cadConfirmarSenha;
+
+    @FXML private ImageView imageView;
+    @FXML private AnchorPane telaLogin;
+    @FXML private AnchorPane telaCadastro;
 
     @FXML
     public void initialize() {
@@ -26,25 +38,20 @@ public class TelaLogin {
         telaCadastro.setVisible(false);
 
         javafx.application.Platform.runLater(() -> {
-            try{
+            try {
                 Scene scene = telaLogin.getScene();
                 Stage stage = (Stage) telaLogin.getScene().getWindow();
 
                 javafx.scene.transform.Scale scaleTransform = new javafx.scene.transform.Scale(1, 1, 0, 0);
-
                 scene.getRoot().getTransforms().add(scaleTransform);
 
                 stage.widthProperty().addListener((observable, oldValue, newValue) -> {
-                    double targetWidth = stage.getWidth();
-                    double ratioXInicial = stage.getWidth() / 1920.0;
-                    scaleTransform.setX(ratioXInicial);
+                    scaleTransform.setX(stage.getWidth() / 1920.0);
 
                 });
 
                 stage.heightProperty().addListener((observable, oldValue, newValue) -> {
-                    double targetHeight = stage.getHeight();
-                    double ratioYInicial = stage.getHeight() / 1080.0;
-                    scaleTransform.setY(ratioYInicial);
+                    scaleTransform.setY(stage.getHeight() / 1080.0);
 
                 });
 
@@ -58,13 +65,77 @@ public class TelaLogin {
                 e.printStackTrace();
 
             }
+
         });
 
+    }
+
+    @FXML
+    public void executarCadastro(ActionEvent event) throws IOException {
+        String nome = cadNome.getText().trim();
+        String email = cadEmail.getText().trim();
+        String cpf = cadCpf.getText().trim();
+        String senha = cadSenha.getText().trim();
+        String confirmarSenha = cadConfirmarSenha.getText().trim();
+
+        if(nome.isEmpty()||email.isEmpty()||cpf.isEmpty()||senha.isEmpty()||confirmarSenha.isEmpty()){
+            alerta(Alert.AlertType.WARNING, "Preencha os campos!");
+            return;
+
+        }
+
+        if(!senha.equals(confirmarSenha)){
+            alerta(Alert.AlertType.ERROR,"As senhas não podem ser diferentes!");
+            return;
+
+        }
+
+        try {
+            Usuario novoUsuario = new Funcionario(nome, cpf, email, senha);
+            OprUser user= OprUser.getInstancia();
+            boolean cadastrou=user.registrarUsuario(novoUsuario);
+
+            if(cadastrou){
+                alerta(Alert.AlertType.INFORMATION, "Cadastro realizado com sucesso!");
+                cadNome.clear();
+                cadEmail.clear();
+                cadCpf.clear();
+                cadSenha.clear();
+                cadConfirmarSenha.clear();
+                abrirLogin(null);
+
+            }
+
+        } catch (ErrosException e) {
+            alerta(Alert.AlertType.ERROR, e.getMessage());
+
+        }
 
     }
 
     @FXML
     public void irLauncher(ActionEvent event) throws IOException {
+        String login=identificaLogin.getText().trim();
+        String senha=identificaSenha.getText().trim();
+
+        if(login.isEmpty() || senha.isEmpty()) {
+            alerta(Alert.AlertType.WARNING,"Preencha os campos!");
+            return;
+
+        }
+
+        OprUser user= OprUser.getInstancia();
+        Usuario usuario=user.login(login, senha);
+
+        if(usuario==null) {
+            alerta(Alert.AlertType.ERROR, "Login ou senha incorretos!");
+            identificaSenha.clear();
+            return;
+
+        }
+
+        oprSessao.setUsuario(usuario);
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interface/TelaLauncher.fxml"));
             Parent root = loader.load();
@@ -72,28 +143,23 @@ public class TelaLogin {
             stage.setMaximized(false);
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/Interface/style.css").toExternalForm());
-            stage.setScene(scene);
-            stage.setResizable(true);
-            //Codigo a seguir para redimensionamneto dinamico
-            //Dps de muito tempo deu certo mds...
-            javafx.scene.transform.Scale scaleTransform = new javafx.scene.transform.Scale(1, 1, 0, 0);
 
+            javafx.scene.transform.Scale scaleTransform = new javafx.scene.transform.Scale(1, 1, 0, 0);
             scene.getRoot().getTransforms().add(scaleTransform);
 
             stage.widthProperty().addListener((observable, oldValue, newValue) -> {
-                double targetWidth = stage.getWidth();
-                double ratioX = targetWidth / 1920.0;
-                scaleTransform.setX(ratioX);
+                scaleTransform.setX(stage.getWidth() / 1920.0);
 
             });
 
             stage.heightProperty().addListener((observable, oldValue, newValue) -> {
-                double targetHeight = stage.getHeight();
-                double ratioY = targetHeight / 1080.0;
-                scaleTransform.setY(ratioY);
+                scaleTransform.setY(stage.getHeight() / 1080.0);
 
             });
 
+            stage.setScene(scene);
+            stage.setResizable(true);
+            stage.setTitle("Gestão Copa do Mundo");
             stage.show();
 
             javafx.application.Platform.runLater(() -> {
@@ -106,6 +172,15 @@ public class TelaLogin {
             e.printStackTrace();
 
         }
+
+    }
+
+    private void alerta(Alert.AlertType tipo, String s) {
+        Alert alert = new Alert(tipo);
+        alert.setHeaderText(null);
+        alert.setContentText(s);
+        alert.showAndWait();
+
     }
 
     @FXML
@@ -114,6 +189,7 @@ public class TelaLogin {
         telaLogin.setVisible(false);
 
     }
+
     @FXML
     public void abrirLogin(ActionEvent event){
         telaLogin.setVisible(true);
@@ -232,9 +308,5 @@ public class TelaLogin {
             System.out.println("Erro ao abrir a tela de ingressos! Verifique o caminho do FXML.");
             e.printStackTrace();
         }
-    }
-    @FXML
-    public void executarCadastro(ActionEvent event) {
-        System.out.println("Cadastro executado!");
     }
 }
