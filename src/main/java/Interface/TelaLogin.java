@@ -233,4 +233,8 @@ public class TelaLogin {
             e.printStackTrace();
         }
     }
+    @FXML
+    public void executarCadastro(ActionEvent event) {
+        System.out.println("Cadastro executado!");
+    }
 }
