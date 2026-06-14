@@ -1,1 +1,2 @@
 PARTIDA;Brasil;Ghana;Accra Stadium;10/08/2030;20:00;Final
+PARTIDA;Argentina;Brasil;Mané Garrincha;10/02/2026;15:00;Final
