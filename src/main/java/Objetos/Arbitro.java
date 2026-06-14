@@ -1,6 +1,7 @@
 package Objetos;
 
-public class Arbitro extends Usuario{
+public class Arbitro extends Usuario implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     String nacionalidade;
     String experiencia;
 

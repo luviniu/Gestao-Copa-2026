@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaGestaoUser">
    <children>
       <HBox prefHeight="152.0" prefWidth="800.0">
          <children>
@@ -17,13 +17,11 @@
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
                   <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="60.0" />
-                  <ToggleButton mnemonicParsing="false" prefHeight="24.0" prefWidth="116.0" text="NOME" />
+                  <ToggleButton fx:id="toggleNome" mnemonicParsing="false" prefHeight="24.0" prefWidth="116.0" text="NOME" />
                   <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="60.0" />
-                  <ToggleButton mnemonicParsing="false" prefHeight="24.0" prefWidth="231.0" text="CPF" />
+                  <ToggleButton fx:id="toggleCpf" mnemonicParsing="false" prefHeight="24.0" prefWidth="231.0" text="CPF" />
                   <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="60.0" />
-                  <ToggleButton mnemonicParsing="false" prefHeight="24.0" prefWidth="119.0" text="CARGO" />
-                  <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="60.0" />
-                  <ToggleButton mnemonicParsing="false" prefHeight="24.0" prefWidth="121.0" text="PAIS" />
+                  <ToggleButton fx:id="toggleCargo" mnemonicParsing="false" prefHeight="24.0" prefWidth="119.0" text="CARGO" />
                   <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="60.0" />
                </children>
             </VBox>
@@ -36,8 +34,6 @@
                   <TextField fx:id="cpfSearchAdm" />
                   <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0" />
                   <TextField fx:id="cargoSearchAdm" />
-                  <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="8.0" />
-                  <TextField fx:id="paisSearchAdm" />
                   <Separator orientation="VERTICAL" prefHeight="152.0" prefWidth="0.0" />
                </children>
             </VBox>
@@ -47,13 +43,12 @@
       <HBox prefHeight="474.0" prefWidth="800.0">
          <children>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
-            <TableView fx:id="listaUsuarios" prefHeight="454.0" prefWidth="879.0">
-              <columns>
-                <TableColumn prefWidth="293.0" text="NOME" />
-                  <TableColumn minWidth="0.0" prefWidth="155.0" text="CARGO" />
-                <TableColumn prefWidth="168.0" text="PAIS" />
-                  <TableColumn prefWidth="171.0" text="CPF" />
-              </columns>
+            <TableView fx:id="listaUsuarios" editable="false" prefHeight="454.0" prefWidth="879.0">
+               <columns>
+                  <TableColumn fx:id="colNome" prefWidth="267.0" resizable="false" reorderable="false" text="NOME" />
+                  <TableColumn fx:id="colCargo" minWidth="0.0" prefWidth="250.0" resizable="false" reorderable="false" text="CARGO" />
+                  <TableColumn fx:id="colCpf" prefWidth="270.0" resizable="false" reorderable="false" text="CPF" />
+               </columns>
             </TableView>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
          </children>
@@ -62,10 +57,11 @@
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
             <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0" />
-            <Button mnemonicParsing="false" text="Cadrastrar" />
-            <Button mnemonicParsing="false" text="Editar" />
-            <Button mnemonicParsing="false" text="Excluir" />
-            <Button mnemonicParsing="false" text="Voltar" />
+            <Button mnemonicParsing="false" onAction="#acaoCadastrar" text="Cadastrar" />
+            <Button mnemonicParsing="false" onAction="#acaoEditar" text="Editar" />
+            <Button mnemonicParsing="false" onAction="#acaoExcluir" text="Excluir" />
+            <Button mnemonicParsing="false" onAction="#acaoBuscar" text="Buscar" />
+            <Button mnemonicParsing="false" onAction="#acaoVoltar" text="Voltar" />
             <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0" />
          </children>
       </HBox>
