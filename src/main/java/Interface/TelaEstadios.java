@@ -99,11 +99,23 @@ public class TelaEstadios implements Initializable {
         Estadio selecionado = tabelaEstadios.getSelectionModel().getSelectedItem();
 
         if (selecionado != null) {
+            // 1. Pegar os dados dos campos de texto
+            String novoNome = txtNome.getText();
             String novoLocal = txtLocal.getText();
             String novaCapacidadeStr = txtCapacidade.getText();
 
-            // Se o usuário deixar o campo de capacidade em branco, mantém a atual
-            int novaCapacidade = selecionado.getVagas(); 
+            // Se o campo do nome estiver em branco, mantém o antigo
+            if (novoNome == null || novoNome.trim().isEmpty()) {
+                novoNome = selecionado.getNome();
+            }
+
+            // Se o campo do local estiver em branco, mantém o antigo
+            if (novoLocal == null || novoLocal.trim().isEmpty()) {
+                novoLocal = selecionado.getLocal();
+            }
+
+            // Se a capacidade estiver em branco, mantém a atual
+            int novaCapacidade = selecionado.getVagas();
             if (!novaCapacidadeStr.trim().isEmpty()) {
                 try {
                     novaCapacidade = Integer.parseInt(novaCapacidadeStr.trim());
@@ -113,19 +125,14 @@ public class TelaEstadios implements Initializable {
                 }
             }
 
-            // Se o campo do local estiver em branco, mantém o antigo
-            if (novoLocal == null || novoLocal.trim().isEmpty()) {
-                novoLocal = selecionado.getLocal();
-            }
-
-            // Envia os dados para a sua função de edição
-            if (oprEst.editarEstadio(selecionado.getNome(), novoLocal, novaCapacidade)) {
+            // 2. Envia o NOME ANTIGO (para busca) e os NOVOS DADOS
+            if (oprEst.editarEstadio(selecionado.getNome(), novoNome, novoLocal, novaCapacidade)) {
                 atualizarTabela();
+                tabelaEstadios.refresh(); // Garante que a linha mude na tela na hora
                 System.out.println("Estádio alterado com sucesso!");
                 Toast.exibir(stageActual, "Estádio alterado com sucesso!");
             }
         } else {
-            System.out.println("Selecione um estádio acima e altere os valores usando as caixas de texto inferiores.");
             Toast.exibir(stageActual, "Selecione um estádio e use os campos inferiores.");
         }
     }
