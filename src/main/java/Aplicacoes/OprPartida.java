@@ -145,7 +145,10 @@ public class OprPartida {
                                 + p.getEstadio().getNome() + ";"
                                 + p.getData() + ";"
                                 + p.getHora() + ";"
-                                + p.getFase()
+                                + p.getFase() + ";"
+                                + p.getGolCasa() + ";"
+                                + p.getGolVisita() + ";"
+                                + p.getStatus()
                 );
 
                 writer.newLine();
@@ -175,7 +178,7 @@ public class OprPartida {
 
                 String[] dados = linha.split(";");
 
-                if (dados[0].equals("PARTIDA") && dados.length == 7) {
+                if (dados[0].equals("PARTIDA") && dados.length == 10) {
 
                     String casa = dados[1];
                     String visita = dados[2];
@@ -183,6 +186,9 @@ public class OprPartida {
                     String data = dados[4];
                     String hora = dados[5];
                     String fase = dados[6];
+                    int golsCasa = Integer.parseInt(dados[7]);
+                    int golsVisita = Integer.parseInt(dados[8]);
+                    String status = dados[9];
 
                     Estadio estadioObj =
                             new Estadio(estadio, "Local", 50000);
@@ -197,13 +203,14 @@ public class OprPartida {
                             data,
                             hora,
                             fase,
-                            "Agendada",
+                            status,
                             estadioObj,
                             casaObj,
                             visitaObj,
                             null,
-                            0,
-                            0
+                            golsCasa,
+                            golsVisita
+
                     );
 
                     listaPartidas.add(partida);
@@ -215,5 +222,66 @@ public class OprPartida {
             System.out.println("Erro ao carregar partidas.");
             e.printStackTrace();
         }
+    }
+    public boolean registrarResultado(
+            String data,
+            int golsCasa,
+            int golsVisita) {
+
+        for (Partida p : listaPartidas) {
+
+            if (p.getData().equalsIgnoreCase(data)) {
+
+                p.setGolCasa(golsCasa);
+                p.setGolVisita(golsVisita);
+                p.setStatus("Finalizada");
+
+                salvarDadosNoArquivo();
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+    public List<Partida> consultarPorSelecao(String selecao) {
+
+        List<Partida> resultado = new ArrayList<>();
+
+        for (Partida p : listaPartidas) {
+
+            if (p.getTimeCasa().getPais().equalsIgnoreCase(selecao)
+                    || p.getTimeVisita().getPais().equalsIgnoreCase(selecao)) {
+
+                resultado.add(p);
+            }
+        }
+
+        return resultado;
+    }
+    public List<Partida> consultarPorFase(String fase) {
+
+        List<Partida> resultado = new ArrayList<>();
+
+        for (Partida p : listaPartidas) {
+
+            if (p.getFase().equalsIgnoreCase(fase)) {
+
+                resultado.add(p);
+            }
+        }
+
+        return resultado;
+    }
+    public Partida consultarPartida(String data) {
+
+        for (Partida p : listaPartidas) {
+
+            if (p.getData().equalsIgnoreCase(data)) {
+                return p;
+            }
+        }
+
+        return null;
     }
 }

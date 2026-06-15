@@ -16,13 +16,13 @@ public class Partida{
         this.data = data;
         this.hora = hora;
         this.fase = fase;
-        this.status = "Agendada";
+        this.status = status;
         this.estadio = estadio;
         this.timeCasa = timeCasa;
         this.timeVisita = timeVisita;
         this.arbitro = arbitro;
-        this.golCasa = 0;
-        this.golVisita = 0;
+        this.golCasa = golCasa;
+        this.golVisita = golVisita;
 
     }
 
@@ -86,10 +86,11 @@ public class Partida{
         return arbitro;
 
     }
-    public void Arbitro(Arbitro arbitro) {
+    public void setArbitro(Arbitro arbitro) {
         this.arbitro = arbitro;
-
     }
+
+    
 
     public int  getGolCasa() {
         return golCasa;
@@ -107,6 +108,9 @@ public class Partida{
         this.golVisita = golVisita;
 
     }
+public Resultado getResultado() {
+    return new Resultado(golCasa, golVisita);
+}
 
 }
 
