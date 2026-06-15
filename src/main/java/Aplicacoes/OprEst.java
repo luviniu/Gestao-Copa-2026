@@ -51,18 +51,19 @@ public class OprEst {
         return true;
     }
 
-    public boolean editarEstadio(String nomeParaEditar, String localParaEditar, int vagasParaEditar) {
+    public boolean editarEstadio(String nomeAtual, String novoNome, String localParaEditar, int vagasParaEditar) {
         // Validacao
-        if (nomeParaEditar == null || localParaEditar == null || localParaEditar.trim().isEmpty() || vagasParaEditar <= 0){
+        if (nomeAtual == null || novoNome == null || localParaEditar == null || localParaEditar.trim().isEmpty() || vagasParaEditar <= 0){
             return false;
         }
 
         // Procurar o estadio na lista em memoria
         for (Estadio s : listaEstadio) {
             // Se encontrarmos o pas (ignorando maisculas/minsculas)
-            if (s.getNome().equalsIgnoreCase(nomeParaEditar.trim())) {
+            if (s.getNome().equalsIgnoreCase(nomeAtual.trim())) {
 
                 // 3. Aplica as alteracoes usando os setters da sua classe Estadio
+                s.setNome(novoNome);
                 s.setLocal(localParaEditar);
                 s.setVagas(vagasParaEditar);
 
