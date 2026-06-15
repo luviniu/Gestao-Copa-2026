@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -45,6 +46,11 @@ public class TelaJogadores implements Initializable {
     @FXML private TextField txtIdade;
     @FXML private TextField txtNumero;
     @FXML private Text txtTituloElenco;
+
+    @FXML private Button adicionarJogador; // Mapeado para trocar o texto dinamicamente
+
+    // Variável de controle para saber se estamos editando um atleta existente
+    private Jogador jogadorEmEdicao = null;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -86,78 +92,116 @@ public class TelaJogadores implements Initializable {
             // Pega a lista interna de jogadores daquela seleção específica
             ObservableList<Jogador> dados = FXCollections.observableArrayList(selecaoAtual.getTime());
             tabelaJogadores.setItems(dados);
+            tabelaJogadores.refresh(); // Força o JavaFX a renderizar as alterações visuais instantaneamente
         }
     }
 
+    // AÇÃO DO BOTÃO "Novo Jogador": Limpa o formulário inferior e redefine para cadastro limpo
+    @FXML
+    public void handleBotaoNovoJogador(ActionEvent event) {
+        limparFormulario();
+        txtJogador.requestFocus();
+    }
+
+    // AÇÃO DO BOTÃO "Editar Jogador": Puxa os dados da tabela para os inputs inferiores
+    @FXML
+    public void handleEditarJogador(ActionEvent event) {
+        Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        Jogador selecionado = tabelaJogadores.getSelectionModel().getSelectedItem();
+
+        if (selecionado != null) {
+            jogadorEmEdicao = selecionado; // Armazena a referência do objeto que está sendo editado
+
+            // Popula os campos do formulário inferior
+            txtJogador.setText(selecionado.getNome());
+            txtJogador.setDisable(true); // Bloqueia o nome (chave de busca) para não quebrar a edição no backend
+            txtIdade.setText(String.valueOf(selecionado.getIdade()));
+            txtNumero.setText(String.valueOf(selecionado.getNumero()));
+            comboPosicao.setValue(selecionado.getPosicao());
+            comboStatus.setValue(selecionado.getStatus());
+
+            adicionarJogador.setText("Salvar Alterações"); // Feedback visual no botão de ação
+        } else {
+            System.out.println("Selecione um jogador na tabela para alterar.");
+            Toast.exibir(stageActual, "Selecione um jogador na tabela para alterar.");
+        }
+    }
+
+    // O botão "Adicionar" agora processa tanto inserções quanto atualizações de forma inteligente
     @FXML
     public void handleAdicionarJogador(ActionEvent event) {
         Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
         try {
-            String nome = txtJogador.getText();
+            String nome = txtJogador.getText().trim();
             String posicao = comboPosicao.getValue();
             int idade = Integer.parseInt(txtIdade.getText().trim());
             int numero = Integer.parseInt(txtNumero.getText().trim());
             String status = comboStatus.getValue();
 
-            // Chama o motor passando o nome do país como String, conforme combinamos
-            if (oprJog.cadastrarJogador(nome, posicao, numero, idade, selecaoAtual.getPais(), status)) {
-                atualizarTabela();
+            if (nome.isEmpty()) {
+                Toast.exibir(stageActual, "Erro: O nome do jogador não pode estar vazio.");
+                return;
+            }
 
-                // Limpa apenas os inputs de texto
-                txtJogador.clear();
-                txtIdade.clear();
-                txtNumero.clear();
+            if (jogadorEmEdicao == null) {
+                // MODO: NOVO CADASTRO
+                if (oprJog.cadastrarJogador(nome, posicao, numero, idade, selecaoAtual.getPais(), status)) {
+                    atualizarTabela();
+                    limparFormulario();
+                    Toast.exibir(stageActual, "Jogador cadastrado com sucesso!");
+                } else {
+                    Toast.exibir(stageActual, "Erro ao cadastrar jogador. Verifique a numeração da camisa.");
+                }
             } else {
-                Toast.exibir(stageActual, "Erro ao cadastrar jogador. Verifique a numeração da camisa.");
-                System.out.println("Erro ao cadastrar jogador. Verifique a numeração da camisa.");
+                // MODO: EDIÇÃO DE ATLETA EXISTENTE
+                // Atualiza diretamente no objeto em memória para refletir na tabela
+                jogadorEmEdicao.setPosicao(posicao);
+                jogadorEmEdicao.setIdade(idade);
+                jogadorEmEdicao.setNumero(numero);
+                jogadorEmEdicao.setStatus(status);
+
+                // Envia os dados para persistência/regras de negócio do backend
+                if (oprJog.editarJogador(selecaoAtual.getPais(), jogadorEmEdicao.getNome(), posicao, numero, idade, status)) {
+                    atualizarTabela();
+                    limparFormulario();
+                    Toast.exibir(stageActual, "Jogador atualizado com sucesso!");
+                } else {
+                    Toast.exibir(stageActual, "Erro ao salvar edições do jogador no sistema.");
+                }
             }
         } catch (NumberFormatException e) {
             Toast.exibir(stageActual, "Erro: Preencha Idade e Número com valores numéricos válidos.");
-            System.out.println("Erro: Preencha Idade e Número com valores numéricos válidos.");
         }
     }
 
     @FXML
     public void handleExcluirJogador(ActionEvent event) {
         Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-
         Jogador selecionado = tabelaJogadores.getSelectionModel().getSelectedItem();
 
         if (selecionado != null) {
             if (oprJog.excluirJogador(selecaoAtual.getPais(), selecionado.getNome())) {
                 atualizarTabela();
+                if (jogadorEmEdicao == selecionado) {
+                    limparFormulario();
+                }
+                Toast.exibir(stageActual, "Jogador removido com sucesso!");
             }
         } else {
             Toast.exibir(stageActual, "Selecione um jogador na tabela para remover.");
-            System.out.println("Selecione um jogador na tabela para remover.");
         }
     }
 
-    @FXML
-    public void handleEditarJogador(ActionEvent event) {
-        Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-
-        Jogador selecionado = tabelaJogadores.getSelectionModel().getSelectedItem();
-
-        if (selecionado != null) {
-            try {
-                String novaPosicao = comboPosicao.getValue();
-                int novoNumero = Integer.parseInt(txtNumero.getText().trim());
-                int novaIdade = Integer.parseInt(txtIdade.getText().trim());
-                String novoStatus = comboStatus.getValue();
-
-                if (oprJog.editarJogador(selecaoAtual.getPais(), selecionado.getNome(), novaPosicao, novoNumero, novaIdade, novoStatus)) {
-                    atualizarTabela();
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Para editar, preencha os novos valores de número e idade nos campos inferiores.");
-                Toast.exibir(stageActual, "Para editar, preencha os novos valores de número e idade nos campos inferiores.");
-            }
-        } else {
-            System.out.println("Selecione um jogador na tabela para alterar.");
-            Toast.exibir(stageActual, "Selecione um jogador na tabela para alterar.");
-        }
+    private void limparFormulario() {
+        jogadorEmEdicao = null;
+        txtJogador.setDisable(false);
+        txtJogador.clear();
+        txtIdade.clear();
+        txtNumero.clear();
+        comboPosicao.getSelectionModel().selectFirst();
+        comboStatus.getSelectionModel().selectFirst();
+        adicionarJogador.setText("Adicionar");
     }
 
     @FXML

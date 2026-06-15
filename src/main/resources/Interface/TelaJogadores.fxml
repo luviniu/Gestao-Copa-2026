@@ -18,9 +18,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaJogadores">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaJogadores">
    <children>
-      <ImageView fitHeight="1080.0" fitWidth="1920.0" layoutX="-717.0" layoutY="-112.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/stadium2.jpg" />
          </image>
@@ -28,7 +28,7 @@
             <GaussianBlur />
          </effect>
       </ImageView>
-      <Rectangle id="background-capa" height="717.0" layoutX="148.0" layoutY="36.0" smooth="false" stroke="#2f1f1f" strokeType="INSIDE" strokeWidth="0.0" width="700.0">
+      <Rectangle id="background-capa" height="717.0" layoutX="600.0" layoutY="150.0" smooth="false" stroke="#2f1f1f" strokeType="INSIDE" strokeWidth="0.0" width="700.0">
          <effect>
             <ColorAdjust />
          </effect>
@@ -48,12 +48,12 @@
                </stops>
             </LinearGradient>
          </fill></Rectangle>
-      <Text fill="#e7e7ee" layoutX="381.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GESTÃO DE SELEÇÕES" textAlignment="JUSTIFY">
+      <Text fill="#e7e7ee" layoutX="833.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GESTÃO DE SELEÇÕES" textAlignment="JUSTIFY">
          <font>
             <Font size="28.0" />
          </font>
       </Text>
-      <TableView fx:id="tabelaJogadores" layoutX="250.0" layoutY="184.0" prefHeight="200.0" prefWidth="525.0">
+      <TableView fx:id="tabelaJogadores" layoutX="702.0" layoutY="298.0" prefHeight="200.0" prefWidth="525.0">
          <columns>
             <TableColumn fx:id="colunaJogador" prefWidth="151.0" text="Jogador" />
             <TableColumn fx:id="colunaPosicao" minWidth="0.0" prefWidth="184.66668701171875" text="Posição" />
@@ -65,25 +65,28 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button id="button-login" layoutX="340.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleEditarJogador" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Editar Jogador" />
-      <Button id="button-login" layoutX="338.0" layoutY="448.0" mnemonicParsing="false" onAction="#handleExcluirJogador" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Remover Jogador" />
-      <Text fx:id="txtTituloElenco" fill="WHITE" layoutX="449.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Elenco - TIME">
+      <Button id="button-login" layoutX="792.0" layoutY="514.0" mnemonicParsing="false" onAction="#handleEditarJogador" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Editar Jogador" />
+      <Button id="button-login" layoutX="790.0" layoutY="562.0" mnemonicParsing="false" onAction="#handleExcluirJogador" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Remover Jogador" />
+
+      <Button id="button-login" fx:id="btnNovoJogador" layoutX="790.0" layoutY="658.0" mnemonicParsing="false" onAction="#handleBotaoNovoJogador" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Novo Jogador" />
+
+      <Text fx:id="txtTituloElenco" fill="WHITE" layoutX="901.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Elenco - TIME">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
 
-      <AnchorPane id="PopupAdicionarJogador" layoutX="190.0" layoutY="641.0" prefHeight="57.0" prefWidth="617.0">
+      <AnchorPane id="PopupAdicionarJogador" layoutX="642.0" layoutY="755.0" prefHeight="57.0" prefWidth="617.0">
          <children>
-            <TextField fx:id="txtJogador" layoutX="8.0" layoutY="16.0" prefHeight="26.0" prefWidth="144.0" promptText="Nome do Jogador" text="" />
-            <TextField fx:id="txtIdade" layoutX="296.0" layoutY="16.0" prefHeight="26.0" prefWidth="55.0" promptText="Idade" text="" />
-            <Button layoutX="527.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleAdicionarJogador" text="Adicionar" />
+            <TextField fx:id="txtJogador" layoutX="8.0" layoutY="16.0" prefHeight="26.0" prefWidth="144.0" promptText="Nome do Jogador" />
+            <TextField fx:id="txtIdade" layoutX="296.0" layoutY="16.0" prefHeight="26.0" prefWidth="55.0" promptText="Idade" />
+            <Button fx:id="adicionarJogador" layoutX="527.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleAdicionarJogador" text="Adicionar" />
             <ComboBox id="comboPosicao" fx:id="comboPosicao" layoutX="157.0" layoutY="16.0" prefHeight="26.0" prefWidth="132.0" promptText="Posição" />
-            <TextField fx:id="txtNumero" layoutX="356.0" layoutY="16.0" prefHeight="26.0" prefWidth="73.0" promptText="Número" text="" />
+            <TextField fx:id="txtNumero" layoutX="356.0" layoutY="16.0" prefHeight="26.0" prefWidth="73.0" promptText="Número" />
             <ComboBox id="comboStatus" fx:id="comboStatus" layoutX="437.0" layoutY="16.0" prefHeight="26.0" prefWidth="82.0" promptText="Status" />
          </children>
       </AnchorPane>
-      <Button id="button-login" fx:id="voltar" layoutX="338.0" layoutY="496.0" mnemonicParsing="false" onAction="#irParaSelecoes" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Voltar" />
+      <Button id="button-login" fx:id="voltar" layoutX="790.0" layoutY="610.0" mnemonicParsing="false" onAction="#irParaSelecoes" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Voltar" />
    </children>
    <cursor>
       <Cursor fx:constant="DEFAULT" />

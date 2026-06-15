@@ -18,9 +18,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaSelecoes">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaSelecoes">
    <children>
-      <ImageView fitHeight="1080.0" fitWidth="1920.0" layoutX="-717.0" layoutY="-112.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/stadium2.jpg" />
          </image>
@@ -28,70 +28,77 @@
             <GaussianBlur />
          </effect>
       </ImageView>
-      <Rectangle id="background-capa" height="717.0" layoutX="148.0" layoutY="36.0" smooth="false" stroke="#2f1f1f" strokeType="INSIDE" strokeWidth="0.0" width="700.0">
-         <effect>
-            <ColorAdjust />
-         </effect>
-         <fill>
-            <LinearGradient endX="1.0" endY="0.5142857142857142" startX="0.8047619047619048">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="0.0313725508749485" green="0.0470588244497776" blue="0.10588235408067703" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.029999999329447746" green="0.04516666755080223" blue="0.10000000149011612" opacity="0.5632184147834778" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </fill></Rectangle>
-      <Button id="button-login" layoutX="337.0" layoutY="347.0" mnemonicParsing="false" onAction="#irParaJogadores" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Ver Elenco">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <Text fill="#e7e7ee" layoutX="381.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GESTÃO DE SELEÇÕES" textAlignment="JUSTIFY">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Text>
-      <TableView fx:id="tabelaSelecoes" layoutX="251.0" layoutY="122.0" prefHeight="200.0" prefWidth="525.0">
-        <columns>
-          <TableColumn fx:id="colunaSelecao" prefWidth="151.0" text="Seleção" />
-          <TableColumn fx:id="colunaTecnico" minWidth="0.0" prefWidth="184.66668701171875" text="Técnico" />
-            <TableColumn fx:id="colunaGrupo" prefWidth="173.33331298828125" text="Grupo" />
-        </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-      <Button id="button-login" layoutX="340.0" layoutY="400.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Alterar Informações do Elenco">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Button id="button-login" layoutX="335.0" layoutY="456.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Remover Elenco">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Button id="button-login" layoutX="338.0" layoutY="579.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Nova Seleção">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
 
-      <AnchorPane id="PopupAdicionarSelecao" layoutX="237.0" layoutY="641.0" prefHeight="57.0" prefWidth="517.0">
+      <AnchorPane layoutX="610.0" layoutY="132.0" prefHeight="720.0" prefWidth="700.0">
          <children>
-            <TextField fx:id="txtSelecao" layoutX="14.0" layoutY="16.0" prefHeight="26.0" prefWidth="141.0" text="Nome da Seleção" />
-            <TextField fx:id="txtTecnico" layoutX="167.0" layoutY="16.0" prefHeight="26.0" prefWidth="126.0" text="Técnico" />
-            <Button fx:id="adicionarSelecao" layoutX="431.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleAdicionarSelecao" text="Adicionar" />
-            <ComboBox id="comboGrupo" fx:id="comboGrupo" layoutX="307.0" layoutY="16.0" prefHeight="26.0" prefWidth="110.0" promptText="Grupo" />
+            <Rectangle id="background-capa" height="717.0" smooth="false" stroke="#2f1f1f" strokeType="INSIDE" strokeWidth="0.0" width="700.0">
+               <effect>
+                  <ColorAdjust />
+               </effect>
+               <fill>
+                  <LinearGradient endX="1.0" endY="0.5142857142857142" startX="0.8047619047619048">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.0313725508749485" green="0.0470588244497776" blue="0.10588235408067703" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.029999999329447746" green="0.04516666755080223" blue="0.10000000149011612" opacity="0.5632184147834778" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Rectangle>
+            <Button id="button-login" layoutX="187.0" layoutY="477.0" mnemonicParsing="false" onAction="#irParaJogadores" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Ver Elenco">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Text fill="#e7e7ee" layoutX="207.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GESTÃO DE SELEÇÕES" textAlignment="JUSTIFY">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Text>
+            <TableView fx:id="tabelaSelecoes" layoutX="90.0" layoutY="133.0" prefHeight="200.0" prefWidth="525.0">
+               <columns>
+                  <TableColumn fx:id="colunaSelecao" prefWidth="151.0" text="Seleção" />
+                  <TableColumn fx:id="colunaTecnico" minWidth="0.0" prefWidth="184.66668701171875" text="Técnico" />
+                  <TableColumn fx:id="colunaGrupo" prefWidth="173.33331298828125" text="Grupo" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <Button id="button-login" layoutX="186.0" layoutY="426.0" mnemonicParsing="false" onAction="#handleEditarSelecao" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Alterar Informações do Elenco">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button id="button-login" layoutX="187.0" layoutY="374.0" mnemonicParsing="false" onAction="#handleExcluirSelecao" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Remover Elenco">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+
+            <Button id="button-login" layoutX="188.0" layoutY="590.0" mnemonicParsing="false" onAction="#handleBotaoNovaSelecao" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Nova Seleção">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+
+            <AnchorPane id="PopupAdicionarSelecao" layoutX="87.0" layoutY="638.0" prefHeight="57.0" prefWidth="517.0">
+               <children>
+                  <TextField fx:id="txtSelecao" layoutX="14.0" layoutY="16.0" prefHeight="26.0" prefWidth="141.0" promptText="Nome da Seleção" />
+                  <TextField fx:id="txtTecnico" layoutX="167.0" layoutY="16.0" prefHeight="26.0" prefWidth="126.0" promptText="Técnico" />
+                  <Button fx:id="adicionarSelecao" layoutX="431.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleAdicionarSelecao" text="Adicionar" />
+                  <ComboBox id="comboGrupo" fx:id="comboGrupo" layoutX="307.0" layoutY="16.0" prefHeight="26.0" prefWidth="110.0" promptText="Grupo" />
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
-
    </children>
    <cursor>
       <Cursor fx:constant="DEFAULT" />

@@ -12,6 +12,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,7 +24,6 @@ import java.util.ResourceBundle;
 
 public class TelaSelecoes implements Initializable {
 
-    // Injeção dos componentes do FXML (ligando os fx:id ao controller)
     @FXML private ComboBox<String> comboGrupo;
     @FXML private TableView<Selecao> tabelaSelecoes;
     @FXML private TableColumn<Selecao, String> colunaSelecao;
@@ -32,13 +32,15 @@ public class TelaSelecoes implements Initializable {
 
     @FXML private TextField txtSelecao;
     @FXML private TextField txtTecnico;
+    @FXML private Button adicionarSelecao; // Mapeado o botão do popup para mudar o texto dinamicamente
 
-    // Conexão com o motor de regras de negócio
     private OprSel oprSel = OprSel.getInstancia();
+
+    // Variável para controlar se estamos editando uma seleção ou criando uma nova
+    private Selecao selecaoEmEdicao = null;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Inicializa o combobox de grupos
         ObservableList<String> grupos = FXCollections.observableArrayList(
                 "Grupo A", "Grupo B", "Grupo C", "Grupo D",
                 "Grupo E", "Grupo F", "Grupo G", "Grupo H"
@@ -46,109 +48,134 @@ public class TelaSelecoes implements Initializable {
         comboGrupo.setItems(grupos);
         comboGrupo.getSelectionModel().selectFirst();
 
-        // Vincula as colunas da tabela com os atributos da classe Selecao
         colunaSelecao.setCellValueFactory(new PropertyValueFactory<>("pais"));
         colunaTecnico.setCellValueFactory(new PropertyValueFactory<>("tecnico"));
         colunaGrupo.setCellValueFactory(new PropertyValueFactory<>("grupo"));
 
-        // Renderiza as seleções salvas na tabela ao abrir a tela
         atualizarTabela();
     }
 
-    // Atualiza as linhas da tabela com os dados da memória/TXT
     private void atualizarTabela() {
         ObservableList<Selecao> dados = FXCollections.observableArrayList(oprSel.getListaSelecoes());
         tabelaSelecoes.setItems(dados);
+        tabelaSelecoes.refresh();
     }
 
-    // Funções disparadas pelos botões; jogam os dados nos métodos OprSel
+    // AÇÃO DO BOTÃO "Nova Seleção": Prepara os campos para um novo cadastro limpo
+    @FXML
+    public void handleBotaoNovaSelecao(ActionEvent event) {
+        selecaoEmEdicao = null;
+        txtSelecao.setDisable(false); // Permite digitar o país em novos cadastros
+        txtSelecao.clear();
+        txtTecnico.clear();
+        comboGrupo.getSelectionModel().selectFirst();
+        adicionarSelecao.setText("Adicionar"); // Garante o texto original do botão
+        txtSelecao.requestFocus(); // Joga o foco do teclado para o primeiro input
+    }
+
+    // AÇÃO DO BOTÃO "Alterar Informações do Elenco": Puxa os dados da tabela para os inputs
+    @FXML
+    public void handleEditarSelecao(ActionEvent event) {
+        Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        Selecao selecionada = tabelaSelecoes.getSelectionModel().getSelectedItem();
+
+        if (selecionada != null) {
+            selecaoEmEdicao = selecionada; // Guarda a referência de quem estamos editando
+
+            // Popula os inputs inferiores com os dados atuais da seleção
+            txtSelecao.setText(selecionada.getPais());
+            txtSelecao.setDisable(true); // Opcional: trava o ID/País para não mudar a chave primária na edição
+            txtTecnico.setText(selecionada.getTecnico());
+            comboGrupo.setValue(selecionada.getGrupo());
+
+            adicionarSelecao.setText("Salvar Alterações"); // Muda o texto para dar feedback visual
+            txtTecnico.requestFocus();
+        } else {
+            Toast.exibir(stageActual, "Selecione uma linha na tabela para alterar.");
+        }
+    }
+
+    // O botão "Adicionar" (ou "Salvar Alterações") agora decide de forma inteligente o que fazer
     @FXML
     public void handleAdicionarSelecao(ActionEvent event) {
         Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
-        String pais = txtSelecao.getText();
-        String tecnico = txtTecnico.getText();
+        String pais = txtSelecao.getText().trim();
+        String tecnico = txtTecnico.getText().trim();
         String grupo = comboGrupo.getValue();
 
-        if (oprSel.cadastrarSelecao(pais, grupo, tecnico)) {
-            atualizarTabela();
-            // Limpa os campos após salvar
-            txtSelecao.clear();
-            txtTecnico.clear();
-            System.out.println("Seleção cadastrada com sucesso!");
-            Toast.exibir(stageActual, "Seleção cadastrada com sucesso!");
+        if (pais.isEmpty() || tecnico.isEmpty()) {
+            Toast.exibir(stageActual, "Preencha todos os campos!");
+            return;
+        }
+
+        if (selecaoEmEdicao == null) {
+            // MODO: NOVO CADASTRO
+            if (oprSel.cadastrarSelecao(pais, grupo, tecnico)) {
+                atualizarTabela();
+                limparFormulario();
+                Toast.exibir(stageActual, "Seleção cadastrada com sucesso!");
+            } else {
+                Toast.exibir(stageActual, "Erro ao cadastrar seleção. Verifique se já existe.");
+            }
         } else {
-            System.out.println("Erro ao cadastrar seleção. Verifique os dados.");
-            Toast.exibir(stageActual, "Erro ao cadastrar seleção. Verifique os dados.");
+            // MODO: EDIÇÃO DE SELEÇÃO EXISTENTE
+            if (oprSel.editarSelecao(selecaoEmEdicao.getPais(), grupo, tecnico)) {
+                atualizarTabela();
+                limparFormulario();
+                Toast.exibir(stageActual, "Seleção atualizada com sucesso!");
+            } else {
+                Toast.exibir(stageActual, "Erro ao atualizar informações da seleção.");
+            }
         }
     }
 
     @FXML
     public void handleExcluirSelecao(ActionEvent event) {
         Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-
         Selecao selecionada = tabelaSelecoes.getSelectionModel().getSelectedItem();
 
         if (selecionada != null) {
             if (oprSel.excluirSelecao(selecionada.getPais())) {
                 atualizarTabela();
+                if (selecaoEmEdicao == selecionada) {
+                    limparFormulario();
+                }
+                Toast.exibir(stageActual, "Seleção removida com sucesso!");
             }
         } else {
-            System.out.println("Selecione uma seleção na tabela para remover.");
             Toast.exibir(stageActual, "Selecione uma seleção na tabela para remover.");
         }
     }
 
-    //
-    @FXML
-    public void handleEditarSelecao(ActionEvent event) {
-        Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-
-        Selecao selecionada = tabelaSelecoes.getSelectionModel().getSelectedItem();
-
-        if (selecionada != null) {
-            // Pega os dados novos que você digitou nos inputs inferiores para atualizar a selecionada
-            String novoTecnico = txtTecnico.getText();
-            String novoGrupo = comboGrupo.getValue();
-
-            if (novoTecnico != null && !novoTecnico.trim().isEmpty()) {
-                if (oprSel.editarSelecao(selecionada.getPais(), novoGrupo, novoTecnico)) {
-                    atualizarTabela();
-                }
-            }
-        } else {
-            System.out.println("Selecione uma linha para alterar e use os campos inferiores.");
-            Toast.exibir(stageActual, "Selecione uma linha para alterar e use os campos inferiores.");
-        }
+    private void limparFormulario() {
+        selecaoEmEdicao = null;
+        txtSelecao.setDisable(false);
+        txtSelecao.clear();
+        txtTecnico.clear();
+        comboGrupo.getSelectionModel().selectFirst();
+        adicionarSelecao.setText("Adicionar");
     }
 
     @FXML
     public void irParaJogadores(ActionEvent event) {
         Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-
-        // Pega a seleção que o usuário clicou na tabela
         Selecao selecionada = tabelaSelecoes.getSelectionModel().getSelectedItem();
 
         if (selecionada == null) {
-            System.out.println("Erro: Selecione uma seleção na tabela primeiro!");
             Toast.exibir(stageActual, "Erro: Selecione uma seleção na tabela primeiro!");
-            return; // Barra a navegação se não houver seleção
+            return;
         }
 
         try {
-            // Prepara o loader para ler o FXML da tela de jogadores
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interface/TelaJogadores.fxml"));
-            Parent root = loader.load(); // Transforma o FXML em objetos visuais
+            Parent root = loader.load();
 
-            // Pega a instância do controller da TelaJogadores que o loader acabou de criar
             TelaJogadores controllerProximaTela = loader.getController();
-
-            //  Injeta a seleção selecionada direto na variável do próximo controller
             controllerProximaTela.setSelecaoAtual(selecionada);
 
-            // Segue o fluxo normal de navegação para trocar a cena
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root, 1024, 768);
+            Scene scene = new Scene(root, 1920, 1080);
             scene.getStylesheets().add(getClass().getResource("/Interface/style.css").toExternalForm());
 
             stage.setScene(scene);

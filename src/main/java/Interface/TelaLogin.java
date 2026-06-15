@@ -47,27 +47,21 @@ public class TelaLogin {
 
                 stage.widthProperty().addListener((observable, oldValue, newValue) -> {
                     scaleTransform.setX(stage.getWidth() / 1920.0);
-
                 });
 
                 stage.heightProperty().addListener((observable, oldValue, newValue) -> {
                     scaleTransform.setY(stage.getHeight() / 1080.0);
-
                 });
 
                 javafx.application.Platform.runLater(() -> {
                     stage.setMaximized(true);
-
                 });
 
             } catch(Exception e) {
                 System.out.println("Erro ao tentar abrir o telaLauncher");
                 e.printStackTrace();
-
             }
-
         });
-
     }
 
     @FXML
@@ -81,13 +75,11 @@ public class TelaLogin {
         if(nome.isEmpty()||email.isEmpty()||cpf.isEmpty()||senha.isEmpty()||confirmarSenha.isEmpty()){
             alerta(Alert.AlertType.WARNING, "Preencha os campos!");
             return;
-
         }
 
         if(!senha.equals(confirmarSenha)){
             alerta(Alert.AlertType.ERROR,"As senhas não podem ser diferentes!");
             return;
-
         }
 
         try {
@@ -103,14 +95,10 @@ public class TelaLogin {
                 cadSenha.clear();
                 cadConfirmarSenha.clear();
                 abrirLogin(null);
-
             }
-
         } catch (ErrosException e) {
             alerta(Alert.AlertType.ERROR, e.getMessage());
-
         }
-
     }
 
     @FXML
@@ -121,7 +109,6 @@ public class TelaLogin {
         if(login.isEmpty() || senha.isEmpty()) {
             alerta(Alert.AlertType.WARNING,"Preencha os campos!");
             return;
-
         }
 
         OprUser user= OprUser.getInstancia();
@@ -131,7 +118,6 @@ public class TelaLogin {
             alerta(Alert.AlertType.ERROR, "Login ou senha incorretos!");
             identificaSenha.clear();
             return;
-
         }
 
         oprSessao.setUsuario(usuario);
@@ -149,12 +135,10 @@ public class TelaLogin {
 
             stage.widthProperty().addListener((observable, oldValue, newValue) -> {
                 scaleTransform.setX(stage.getWidth() / 1920.0);
-
             });
 
             stage.heightProperty().addListener((observable, oldValue, newValue) -> {
                 scaleTransform.setY(stage.getHeight() / 1080.0);
-
             });
 
             stage.setScene(scene);
@@ -164,15 +148,12 @@ public class TelaLogin {
 
             javafx.application.Platform.runLater(() -> {
                 stage.setMaximized(true);
-
             });
 
         } catch(Exception e) {
             System.out.println("Erro ao tentar abrir o telaLauncher");
             e.printStackTrace();
-
         }
-
     }
 
     private void alerta(Alert.AlertType tipo, String s) {
@@ -180,21 +161,18 @@ public class TelaLogin {
         alert.setHeaderText(null);
         alert.setContentText(s);
         alert.showAndWait();
-
     }
 
     @FXML
     public void abrirCadastro(ActionEvent event){
         telaCadastro.setVisible(true);
         telaLogin.setVisible(false);
-
     }
 
     @FXML
     public void abrirLogin(ActionEvent event){
         telaLogin.setVisible(true);
         telaCadastro.setVisible(false);
-
     }
 
     // Só pra ligar o login à TelaSelecoes
