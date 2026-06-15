@@ -2,20 +2,17 @@ package Interface;
 
 import Aplicacoes.OprSel;
 import Objetos.Selecao;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -24,30 +21,15 @@ import java.util.ResourceBundle;
 
 public class TelaSelecoes implements Initializable {
 
-    @FXML private ComboBox<String> comboGrupo;
     @FXML private TableView<Selecao> tabelaSelecoes;
     @FXML private TableColumn<Selecao, String> colunaSelecao;
     @FXML private TableColumn<Selecao, String> colunaTecnico;
     @FXML private TableColumn<Selecao, String> colunaGrupo;
 
-    @FXML private TextField txtSelecao;
-    @FXML private TextField txtTecnico;
-    @FXML private Button adicionarSelecao; // Mapeado o botão do popup para mudar o texto dinamicamente
-
     private OprSel oprSel = OprSel.getInstancia();
-
-    // Variável para controlar se estamos editando uma seleção ou criando uma nova
-    private Selecao selecaoEmEdicao = null;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ObservableList<String> grupos = FXCollections.observableArrayList(
-                "Grupo A", "Grupo B", "Grupo C", "Grupo D",
-                "Grupo E", "Grupo F", "Grupo G", "Grupo H"
-        );
-        comboGrupo.setItems(grupos);
-        comboGrupo.getSelectionModel().selectFirst();
-
         colunaSelecao.setCellValueFactory(new PropertyValueFactory<>("pais"));
         colunaTecnico.setCellValueFactory(new PropertyValueFactory<>("tecnico"));
         colunaGrupo.setCellValueFactory(new PropertyValueFactory<>("grupo"));
@@ -55,115 +37,221 @@ public class TelaSelecoes implements Initializable {
         atualizarTabela();
     }
 
+    // Método que recarrega a tabela com a lista completa do backend
     private void atualizarTabela() {
         ObservableList<Selecao> dados = FXCollections.observableArrayList(oprSel.getListaSelecoes());
         tabelaSelecoes.setItems(dados);
         tabelaSelecoes.refresh();
     }
 
-    // AÇÃO DO BOTÃO "Nova Seleção": Prepara os campos para um novo cadastro limpo
+    // AÇÃO DO NOVO BOTÃO: Reseta os filtros e mostra tudo de novo
+    @FXML
+    public void handleResetarTabela(ActionEvent event) {
+        atualizarTabela();
+    }
+
+    // CORREÇÃO: Adicionado o campo "Técnico" como parâmetro de busca
+    @FXML
+    public void handleBuscarSelecao(ActionEvent event) {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Buscar / Filtrar Seleções");
+        dialog.setHeaderText("Filtre as seleções por País, Grupo ou Técnico\n(Deixe em branco/Todos para ignorar o filtro)");
+
+        // Componentes do formulário de busca
+        TextField campoBuscaNome = new TextField();
+        campoBuscaNome.setPromptText("Ex: Brasil");
+
+        TextField campoBuscaTecnico = new TextField();
+        campoBuscaTecnico.setPromptText("Ex: Ancelotti");
+
+        ComboBox<String> comboBuscaGrupo = new ComboBox<>();
+        comboBuscaGrupo.getItems().addAll("Todos", "Grupo A", "Grupo B", "Grupo C", "Grupo D", "Grupo E", "Grupo F", "Grupo G", "Grupo H");
+        comboBuscaGrupo.setValue("Todos");
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.add(new Label("Nome do País:"), 0, 0);
+        grid.add(campoBuscaNome, 1, 0);
+        grid.add(new Label("Técnico:"), 0, 1);
+        grid.add(campoBuscaTecnico, 1, 1);
+        grid.add(new Label("Grupo:"), 0, 2);
+        grid.add(comboBuscaGrupo, 1, 2);
+
+        dialog.getDialogPane().setContent(grid);
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+        dialog.showAndWait().ifPresent(tipo -> {
+            if (tipo == ButtonType.OK) {
+                String termoNome = campoBuscaNome.getText().toLowerCase().trim();
+                String termoTecnico = campoBuscaTecnico.getText().toLowerCase().trim();
+                String termoGrupo = comboBuscaGrupo.getValue();
+
+                ObservableList<Selecao> todas = FXCollections.observableArrayList(oprSel.getListaSelecoes());
+
+                // Se nenhum filtro foi preenchido, apenas restaura a listagem completa
+                if (termoNome.isEmpty() && termoTecnico.isEmpty() && "Todos".equals(termoGrupo)) {
+                    tabelaSelecoes.setItems(todas);
+                    return;
+                }
+
+                ObservableList<Selecao> filtradas = FXCollections.observableArrayList();
+
+                for (Selecao s : todas) {
+                    boolean passaNome = termoNome.isEmpty() || s.getPais().toLowerCase().contains(termoNome);
+                    boolean passaTecnico = termoTecnico.isEmpty() || (s.getTecnico() != null && s.getTecnico().toLowerCase().contains(termoTecnico));
+                    boolean passaGrupo = "Todos".equals(termoGrupo) || s.getGrupo().equals(termoGrupo);
+
+                    // Só adiciona se passar em todas as condições ativas (E lógico)
+                    if (passaNome && passaTecnico && passaGrupo) {
+                        filtradas.add(s);
+                    }
+                }
+
+                tabelaSelecoes.setItems(filtradas);
+                tabelaSelecoes.refresh();
+
+                if (filtradas.isEmpty()) {
+                    alerta(Alert.AlertType.INFORMATION, "Nenhuma seleção corresponde aos filtros aplicados.");
+                }
+            }
+        });
+    }
+
     @FXML
     public void handleBotaoNovaSelecao(ActionEvent event) {
-        selecaoEmEdicao = null;
-        txtSelecao.setDisable(false); // Permite digitar o país em novos cadastros
-        txtSelecao.clear();
-        txtTecnico.clear();
-        comboGrupo.getSelectionModel().selectFirst();
-        adicionarSelecao.setText("Adicionar"); // Garante o texto original do botão
-        txtSelecao.requestFocus(); // Joga o foco do teclado para o primeiro input
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Cadastrar Seleção");
+        dialog.setHeaderText("Insira as informações da nova seleção");
+
+        TextField campoPais = new TextField();
+        TextField campoTecnico = new TextField();
+        ComboBox<String> comboGrupo = new ComboBox<>();
+        comboGrupo.getItems().addAll("Grupo A", "Grupo B", "Grupo C", "Grupo D", "Grupo E", "Grupo F", "Grupo G", "Grupo H");
+        comboGrupo.setValue("Grupo A");
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.add(new Label("País / Seleção:"), 0, 0);
+        grid.add(campoPais, 1, 0);
+        grid.add(new Label("Técnico:"), 0, 1);
+        grid.add(campoTecnico, 1, 1);
+        grid.add(new Label("Grupo:"), 0, 2);
+        grid.add(comboGrupo, 1, 2);
+
+        dialog.getDialogPane().setContent(grid);
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+        dialog.showAndWait().ifPresent(tipo -> {
+            if (tipo == ButtonType.OK) {
+                String pais = campoPais.getText().trim();
+                String tecnico = campoTecnico.getText().trim();
+                String grupo = comboGrupo.getValue();
+
+                if (pais.isEmpty() || tecnico.isEmpty()) {
+                    alerta(Alert.AlertType.WARNING, "Preencha todos os campos obrigatórios!");
+                    return;
+                }
+
+                if (oprSel.cadastrarSelecao(pais, grupo, tecnico)) {
+                    atualizarTabela();
+                    alerta(Alert.AlertType.INFORMATION, "Seleção cadastrada com sucesso!");
+                } else {
+                    alerta(Alert.AlertType.ERROR, "Erro ao cadastrar seleção. Verifique se ela já existe.");
+                }
+            }
+        });
     }
 
-    // AÇÃO DO BOTÃO "Alterar Informações do Elenco": Puxa os dados da tabela para os inputs
     @FXML
     public void handleEditarSelecao(ActionEvent event) {
-        Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
         Selecao selecionada = tabelaSelecoes.getSelectionModel().getSelectedItem();
 
-        if (selecionada != null) {
-            selecaoEmEdicao = selecionada; // Guarda a referência de quem estamos editando
-
-            // Popula os inputs inferiores com os dados atuais da seleção
-            txtSelecao.setText(selecionada.getPais());
-            txtSelecao.setDisable(true); // Opcional: trava o ID/País para não mudar a chave primária na edição
-            txtTecnico.setText(selecionada.getTecnico());
-            comboGrupo.setValue(selecionada.getGrupo());
-
-            adicionarSelecao.setText("Salvar Alterações"); // Muda o texto para dar feedback visual
-            txtTecnico.requestFocus();
-        } else {
-            Toast.exibir(stageActual, "Selecione uma linha na tabela para alterar.");
-        }
-    }
-
-    // O botão "Adicionar" (ou "Salvar Alterações") agora decide de forma inteligente o que fazer
-    @FXML
-    public void handleAdicionarSelecao(ActionEvent event) {
-        Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-
-        String pais = txtSelecao.getText().trim();
-        String tecnico = txtTecnico.getText().trim();
-        String grupo = comboGrupo.getValue();
-
-        if (pais.isEmpty() || tecnico.isEmpty()) {
-            Toast.exibir(stageActual, "Preencha todos os campos!");
+        if (selecionada == null) {
+            alerta(Alert.AlertType.WARNING, "Selecione uma seleção na tabela para editar!");
             return;
         }
 
-        if (selecaoEmEdicao == null) {
-            // MODO: NOVO CADASTRO
-            if (oprSel.cadastrarSelecao(pais, grupo, tecnico)) {
-                atualizarTabela();
-                limparFormulario();
-                Toast.exibir(stageActual, "Seleção cadastrada com sucesso!");
-            } else {
-                Toast.exibir(stageActual, "Erro ao cadastrar seleção. Verifique se já existe.");
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Editar Seleção");
+        dialog.setHeaderText("Editando informações de: " + selecionada.getPais());
+
+        TextField campoPais = new TextField(selecionada.getPais());
+        campoPais.setDisable(true);
+        TextField campoTecnico = new TextField(selecionada.getTecnico());
+
+        ComboBox<String> comboGrupo = new ComboBox<>();
+        comboGrupo.getItems().addAll("Grupo A", "Grupo B", "Grupo C", "Grupo D", "Grupo E", "Grupo F", "Grupo G", "Grupo H");
+        comboGrupo.setValue(selecionada.getGrupo());
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.add(new Label("País / Seleção:"), 0, 0);
+        grid.add(campoPais, 1, 0);
+        grid.add(new Label("Técnico:"), 0, 1);
+        grid.add(campoTecnico, 1, 1);
+        grid.add(new Label("Grupo:"), 0, 2);
+        grid.add(comboGrupo, 1, 2);
+
+        dialog.getDialogPane().setContent(grid);
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+        dialog.showAndWait().ifPresent(tipo -> {
+            if (tipo == ButtonType.OK) {
+                String novoGrupo = comboGrupo.getValue();
+                String novoTecnico = campoTecnico.getText().trim();
+
+                if (novoTecnico.isEmpty()) {
+                    alerta(Alert.AlertType.WARNING, "O campo Técnico é obrigatório!");
+                    return;
+                }
+
+                selecionada.setGrupo(novoGrupo);
+                selecionada.setTecnico(novoTecnico);
+
+                if (oprSel.editarSelecao(selecionada.getPais(), novoGrupo, novoTecnico)) {
+                    atualizarTabela();
+                    alerta(Alert.AlertType.INFORMATION, "Seleção atualizada com sucesso!");
+                } else {
+                    alerta(Alert.AlertType.ERROR, "Erro ao atualizar a seleção no sistema.");
+                }
             }
-        } else {
-            // MODO: EDIÇÃO DE SELEÇÃO EXISTENTE
-            if (oprSel.editarSelecao(selecaoEmEdicao.getPais(), grupo, tecnico)) {
-                atualizarTabela();
-                limparFormulario();
-                Toast.exibir(stageActual, "Seleção atualizada com sucesso!");
-            } else {
-                Toast.exibir(stageActual, "Erro ao atualizar informações da seleção.");
-            }
-        }
+        });
     }
 
     @FXML
     public void handleExcluirSelecao(ActionEvent event) {
-        Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
         Selecao selecionada = tabelaSelecoes.getSelectionModel().getSelectedItem();
 
-        if (selecionada != null) {
-            if (oprSel.excluirSelecao(selecionada.getPais())) {
-                atualizarTabela();
-                if (selecaoEmEdicao == selecionada) {
-                    limparFormulario();
-                }
-                Toast.exibir(stageActual, "Seleção removida com sucesso!");
-            }
-        } else {
-            Toast.exibir(stageActual, "Selecione uma seleção na tabela para remover.");
+        if (selecionada == null) {
+            alerta(Alert.AlertType.WARNING, "Selecione uma seleção para excluir!");
+            return;
         }
-    }
 
-    private void limparFormulario() {
-        selecaoEmEdicao = null;
-        txtSelecao.setDisable(false);
-        txtSelecao.clear();
-        txtTecnico.clear();
-        comboGrupo.getSelectionModel().selectFirst();
-        adicionarSelecao.setText("Adicionar");
+        Alert confirmacao = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmacao.setHeaderText(null);
+        confirmacao.setContentText("Deseja realmente remover a seleção do(a) " + selecionada.getPais() + " e todo o seu elenco?");
+
+        confirmacao.showAndWait().ifPresent(tipo -> {
+            if (tipo == ButtonType.OK) {
+                if (oprSel.excluirSelecao(selecionada.getPais())) {
+                    atualizarTabela();
+                    alerta(Alert.AlertType.INFORMATION, "Seleção removida com sucesso!");
+                } else {
+                    alerta(Alert.AlertType.ERROR, "Erro ao remover a seleção.");
+                }
+            }
+        });
     }
 
     @FXML
     public void irParaJogadores(ActionEvent event) {
-        Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
         Selecao selecionada = tabelaSelecoes.getSelectionModel().getSelectedItem();
 
         if (selecionada == null) {
-            Toast.exibir(stageActual, "Erro: Selecione uma seleção na tabela primeiro!");
+            alerta(Alert.AlertType.WARNING, "Selecione uma seleção na tabela para gerenciar o elenco!");
             return;
         }
 
@@ -174,17 +262,23 @@ public class TelaSelecoes implements Initializable {
             TelaJogadores controllerProximaTela = loader.getController();
             controllerProximaTela.setSelecaoAtual(selecionada);
 
-            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root, 1920, 1080);
+            Stage stage = (Stage) tabelaSelecoes.getScene().getWindow();
+            Scene scene = new Scene(root, 1024, 768);
             scene.getStylesheets().add(getClass().getResource("/Interface/style.css").toExternalForm());
 
             stage.setScene(scene);
-            stage.setTitle("Gerenciamento de Jogadores - " + selecionada.getPais());
+            stage.setTitle("Gerenciamento de Elenco - " + selecionada.getPais());
             stage.show();
-
         } catch (IOException e) {
-            System.out.println("Erro ao abrir a tela de jogadores! Verifique o caminho do FXML.");
+            alerta(Alert.AlertType.ERROR, "Erro ao carregar a tela de jogadores.");
             e.printStackTrace();
         }
+    }
+
+    private void alerta(Alert.AlertType tipo, String mensagem) {
+        Alert alert = new Alert(tipo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
     }
 }
