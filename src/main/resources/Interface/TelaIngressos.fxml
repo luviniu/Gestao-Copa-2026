@@ -18,7 +18,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1074.0" prefWidth="1922.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaIngressos">
    <children>
-      <ImageView fitHeight="1085.0" fitWidth="1926.0" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="false">
+      <ImageView fitHeight="1085.0" fitWidth="1926.0" pickOnBounds="true" preserveRatio="false">
          <image>
             <Image url="@../assets/stadium2.jpg" />
          </image>
@@ -48,33 +48,43 @@
          </fill></Rectangle>
       <Text fill="#e7e7ee" layoutX="673.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INGRESSOS" textAlignment="JUSTIFY" wrappingWidth="258.79999999999995">
          <font>
-            <Font size="45.0" />
+            <Font name="System Bold" size="45.0" />
          </font>
       </Text>
 
       <AnchorPane id="PopupAdicionarSelecao" layoutX="237.0" layoutY="641.0" prefHeight="57.0" prefWidth="517.0" />
-      <ComboBox fx:id="comboPartida" layoutX="383.0" layoutY="545.0" prefHeight="26.0" prefWidth="202.0" />
-      <ComboBox fx:id="comboCategoria" layoutX="718.0" layoutY="546.0" prefHeight="26.0" prefWidth="214.0" />
-      <TextField fx:id="txtQuantidade" layoutX="1046.0" layoutY="544.0" prefHeight="28.0" prefWidth="214.0" />
-      <Button fx:id="btnVender" layoutX="776.0" layoutY="800.0" mnemonicParsing="false" onAction="#venderIngresso" text="VENDER">
+      <ComboBox fx:id="comboPartida" layoutX="375.0" layoutY="345.0" prefHeight="26.0" prefWidth="202.0" />
+      <ComboBox fx:id="comboCategoria" layoutX="698.0" layoutY="349.0" prefHeight="26.0" prefWidth="214.0" />
+      <TextField fx:id="txtQuantidade" layoutX="1020.0" layoutY="349.0" prefHeight="28.0" prefWidth="214.0" />
+      <Button fx:id="btnVender" layoutX="729.0" layoutY="442.0" mnemonicParsing="false" onAction="#venderIngresso" text="VENDER" textFill="#1a00ff">
          <font>
-            <Font size="22.0" />
+            <Font size="28.0" />
          </font></Button>
-      <Text fill="WHITE" layoutX="419.0" layoutY="539.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PARTIDA">
+      <Text fill="WHITE" layoutX="411.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PARTIDA">
          <font>
-            <Font name="System Bold" size="32.0" />
+            <Font size="30.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="727.0" layoutY="539.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CATEGORIA">
+      <Text fill="WHITE" layoutX="725.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CATEGORIA">
          <font>
-            <Font name="System Bold" size="32.0" />
+            <Font size="30.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="1053.0" layoutY="541.0" strokeType="OUTSIDE" strokeWidth="0.0" text="QUANTIDADE">
+      <Text fill="WHITE" layoutX="1014.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="QUANTIDADE">
          <font>
-            <Font name="System Bold" size="32.0" />
+            <Font size="30.0" />
          </font>
       </Text>
+      <Button layoutX="710.0" layoutY="759.0" mnemonicParsing="false" onAction="#abrirControlePublico" text="Controle de publico" textFill="#1100fa">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Button>
+      <Button layoutX="714.0" layoutY="817.0" mnemonicParsing="false" onAction="#abrirRelatorio" text="Relatorio financeiro" textFill="#3500ff">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Button>
 
    </children>
    <cursor>
