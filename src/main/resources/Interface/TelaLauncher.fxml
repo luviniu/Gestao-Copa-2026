@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<StackPane xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaLauncher">
+<StackPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaLauncher">
    <children>
       <ScrollPane fitToHeight="false" fitToWidth="false" hbarPolicy="AS_NEEDED" vbarPolicy="AS_NEEDED">
          <content>
@@ -43,20 +36,52 @@
 
                   <AnchorPane fx:id="buttonsAdmin" prefHeight="929.0" prefWidth="493.0">
                      <children>
-                        <Button id="tasksbutton" fx:id="btnPartidasAdm" alignment="BASELINE_LEFT" layoutX="27.0" layoutY="313.0" mnemonicParsing="false" onAction="#mostrarPainelPartidas" prefHeight="59.0" prefWidth="428.0" stylesheets="@style.css" text="Partidas">
-                           <font>
-                              <Font name="SansSerif Regular" size="23.0" />
-                           </font>
+                        <Button id="tasksbutton" fx:id="buttonGestaoUsr" alignment="BASELINE_LEFT" layoutX="27.0" layoutY="253.0" mnemonicParsing="false" onAction="#abrirGestaoUsuarios" prefHeight="59.0" prefWidth="428.0" stylesheets="@style.css" text="Gestão de Usuários">
+                           <font><Font name="SansSerif Regular" size="23.0" /></font>
                         </Button>
-                        <Button id="tasksbutton" fx:id="buttonGestaoUsr" alignment="BASELINE_LEFT" layoutX="27.0" layoutY="253.0" mnemonicParsing="false" onAction="#abrirGestaoUsuarios" prefHeight="59.0" prefWidth="428.0" stylesheets="@style.css" text="Gestao de usuarios">
-                           <font>
-                              <Font name="SansSerif Regular" size="23.0" />
-                           </font>
+                        <Button id="tasksbutton" fx:id="btnPartidasAdm" alignment="BASELINE_LEFT" layoutX="27.0" layoutY="313.0" mnemonicParsing="false" onAction="#mostrarPainelPartidas" prefHeight="59.0" prefWidth="428.0" stylesheets="@style.css" text="Relatorio das partidas">
+                           <font><Font name="SansSerif Regular" size="23.0" /></font>
                         </Button>
                         <Button id="tasksbutton" fx:id="btnDesempenhoAdm" alignment="BASELINE_LEFT" layoutX="27.0" layoutY="373.0" mnemonicParsing="false" onAction="#mostrarPainelDesempenho" prefHeight="59.0" prefWidth="428.0" stylesheets="@style.css" text="Desempenho">
+                           <font><Font name="SansSerif Regular" size="23.0" /></font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+
+                  <AnchorPane fx:id="buttonsOrganizador" prefHeight="929.0" prefWidth="493.0" visible="false">
+                     <children>
+                        <Button id="tasksbutton" fx:id="btnPartidasOrg" alignment="BASELINE_LEFT" layoutX="27.0" layoutY="253.0" mnemonicParsing="false" onAction="#mostrarPainelPartidasOrg" prefHeight="59.0" prefWidth="428.0" stylesheets="@style.css" text="Organizar Partidas">
+                           <font><Font name="SansSerif Regular" size="23.0" /></font>
+                        </Button>
+                        <Button id="tasksbutton" fx:id="btnArbitrosOrg" alignment="BASELINE_LEFT" layoutX="27.0" layoutY="313.0" mnemonicParsing="false" onAction="#mostrarPainelArbitrosOrg" prefHeight="59.0" prefWidth="428.0" stylesheets="@style.css" text="Organizar Arbitros">
+                           <font><Font name="SansSerif Regular" size="23.0" /></font>
+                        </Button>
+                        <Button id="tasksbutton" fx:id="btnSelecaoOrg" alignment="BASELINE_LEFT" layoutX="27.0" layoutY="373.0" mnemonicParsing="false" onAction="#mostrarPainelSelecaoOrg" prefHeight="59.0" prefWidth="428.0" stylesheets="@style.css" text="Organizar Seleçao">
+                           <font><Font name="SansSerif Regular" size="23.0" /></font>
+                        </Button>
+                        <Button id="tasksbutton" fx:id="btnEstadiosOrg" alignment="BASELINE_LEFT" layoutX="27.0" layoutY="433.0" mnemonicParsing="false" onAction="#mostrarPainelEstadiosOrg" prefHeight="59.0" prefWidth="428.0" stylesheets="@style.css" text="Organizar Estadios">
+                           <font><Font name="SansSerif Regular" size="23.0" /></font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+
+                  <AnchorPane fx:id="buttonsOperador" prefHeight="929.0" prefWidth="493.0" visible="false">
+                     <children>
+                        <Button id="tasksbutton" fx:id="buttonVenderIngressos" alignment="BASELINE_LEFT" layoutX="27.0" layoutY="253.0" mnemonicParsing="false" onAction="#irParaTelaIngressos" prefHeight="59.0" prefWidth="428.0" stylesheets="@style.css" text="VENDER INGRESSOS">
+                           <font><Font name="SansSerif Regular" size="23.0" /></font>
+                        </Button>
+                        <Button id="tasksbutton" fx:id="btnIngressosOp1" alignment="BASELINE_LEFT" layoutX="27.0" layoutY="312.0" mnemonicParsing="false" onAction="#mostrarPainelIngressosOp" prefHeight="59.0" prefWidth="428.0" stylesheets="@style.css" text="INGRESSOS">
                            <font>
                               <Font name="SansSerif Regular" size="23.0" />
                            </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+
+                  <AnchorPane fx:id="buttonsArbitro" prefHeight="929.0" prefWidth="493.0" visible="false">
+                     <children>
+                        <Button id="tasksbutton" fx:id="btnPartidasArb" alignment="BASELINE_LEFT" layoutX="27.0" layoutY="253.0" mnemonicParsing="false" onAction="#mostrarPainelPartidasArb" prefHeight="59.0" prefWidth="428.0" stylesheets="@style.css" text="Visualizar Partidas Designadas">
+                           <font><Font name="SansSerif Regular" size="23.0" /></font>
                         </Button>
                      </children>
                   </AnchorPane>
@@ -102,7 +127,8 @@
                         </TableView>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="desempenhoPanelAdm" layoutX="500.0" layoutY="10.0" prefHeight="1080.0" prefWidth="1430.0">
+
+                  <AnchorPane fx:id="desempenhoPanelAdm" layoutX="500.0" layoutY="10.0" prefHeight="1080.0" prefWidth="1430.0" visible="false">
                      <children>
                         <TableView fx:id="relatorioDesempenho" layoutX="15.0" layoutY="186.0" prefHeight="879.0" prefWidth="1400.0">
                            <columns>
@@ -119,11 +145,73 @@
                            </columns>
                         </TableView>
                         <TableView fx:id="infos" layoutX="14.0" layoutY="14.0" prefHeight="163.0" prefWidth="1400.0">
-                          <columns>
-                            <TableColumn prefWidth="466.6" text="Total de Partidas" />
-                            <TableColumn prefWidth="466.6" text="Publico Total" />
+                           <columns>
+                              <TableColumn prefWidth="466.6" text="Total de Partidas" />
+                              <TableColumn prefWidth="466.6" text="Publico Total" />
                               <TableColumn prefWidth="465.0" text="Ganho total R$" />
-                          </columns>
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+
+                  <AnchorPane fx:id="partidaPanelOrg" layoutX="490.0" prefHeight="1080.0" prefWidth="1430.0" visible="false">
+                     <children>
+                        <Label layoutX="40.0" layoutY="30.0" style="-fx-text-fill: #2c1035;" text="Painel Geral: Gestão de Partidas (Organizador)">
+                           <font><Font size="32.0" /></font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+
+                  <AnchorPane fx:id="arbitroPanelOrg" layoutX="490.0" prefHeight="1080.0" prefWidth="1430.0" visible="false">
+                     <children>
+                        <Label layoutX="40.0" layoutY="30.0" style="-fx-text-fill: #2c1035;" text="Painel Geral: Gestão de Árbitros (Organizador)">
+                           <font><Font size="32.0" /></font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+
+                  <AnchorPane fx:id="selecaoPanelOrg" layoutX="490.0" prefHeight="1080.0" prefWidth="1430.0" visible="false">
+                     <children>
+                        <Label layoutX="40.0" layoutY="30.0" style="-fx-text-fill: #2c1035;" text="Painel Geral: Gestão de Seleções e Jogadores (Organizador)">
+                           <font><Font size="32.0" /></font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+
+                  <AnchorPane fx:id="estadioPanelOrg" layoutX="490.0" prefHeight="1080.0" prefWidth="1430.0" visible="false">
+                     <children>
+                        <Label layoutX="40.0" layoutY="30.0" style="-fx-text-fill: #2c1035;" text="Painel Geral: Gestão de Estádios (Organizador)">
+                           <font><Font size="32.0" /></font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+
+                  <AnchorPane fx:id="ingressoPanelOp" layoutX="490.0" prefHeight="1080.0" prefWidth="1430.0" visible="false">
+                     <children>
+                        <TableView fx:id="tabelaIngressosOp" layoutX="15.0" layoutY="15.0" prefHeight="1050.0" prefWidth="1400.0">
+                           <columns>
+                              <TableColumn prefWidth="350.0" text="JOGO" />
+                              <TableColumn prefWidth="350.0" text="INGRESSOS VENDIDOS" />
+                              <TableColumn prefWidth="350.0" text="CAPACIDADE MAXIMA" />
+                              <TableColumn prefWidth="348.0" text="ARRECADACAO TOTAL" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+
+                  <AnchorPane fx:id="partidaPanelArb" layoutX="490.0" prefHeight="1080.0" prefWidth="1430.0" visible="false">
+                     <children>
+                        <Label layoutX="40.0" layoutY="30.0" style="-fx-text-fill: #2c1035;" text="Minhas Partidas Designadas (Apenas Visualização)">
+                           <font><Font size="32.0" /></font>
+                        </Label>
+                        <TableView layoutX="40.0" layoutY="100.0" prefHeight="800.0" prefWidth="1300.0">
+                           <columns>
+                              <TableColumn prefWidth="200.0" text="Data/Hora" />
+                              <TableColumn prefWidth="300.0" text="Seleção 1" />
+                              <TableColumn prefWidth="300.0" text="Seleção 2" />
+                              <TableColumn prefWidth="300.0" text="Estádio" />
+                              <TableColumn prefWidth="198.0" text="Função de Arbitragem" />
+                           </columns>
                         </TableView>
                      </children>
                   </AnchorPane>
