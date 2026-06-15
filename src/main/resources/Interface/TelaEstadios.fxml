@@ -17,9 +17,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaEstadios">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaEstadios">
    <children>
-      <ImageView fitHeight="1080.0" fitWidth="1920.0" layoutX="-717.0" layoutY="-112.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/stadium2.jpg" />
          </image>
@@ -27,7 +27,7 @@
             <GaussianBlur />
          </effect>
       </ImageView>
-      <Rectangle id="background-capa" height="717.0" layoutX="154.0" layoutY="29.0" smooth="false" stroke="#2f1f1f" strokeType="INSIDE" strokeWidth="0.0" width="700.0">
+      <Rectangle id="background-capa" height="717.0" layoutX="620.0" layoutY="151.0" smooth="false" stroke="#2f1f1f" strokeType="INSIDE" strokeWidth="0.0" width="700.0">
          <effect>
             <ColorAdjust />
          </effect>
@@ -48,18 +48,18 @@
             </LinearGradient>
          </fill>
       </Rectangle>
-      <Button id="button-login" layoutX="347.0" layoutY="387.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Ver Detalhes do Estádio">
+      <Button id="button-login" layoutX="813.0" layoutY="509.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Ver Detalhes do Estádio">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Text fill="#e7e7ee" layoutX="375.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GESTÃO DE ESTÁDIOS" textAlignment="JUSTIFY">
+      <Text fill="#e7e7ee" layoutX="841.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GESTÃO DE ESTÁDIOS" textAlignment="JUSTIFY">
          <font>
             <Font size="28.0" />
          </font>
       </Text>
       
-      <TableView fx:id="tabelaEstadios" layoutX="251.0" layoutY="122.0" prefHeight="200.0" prefWidth="525.0">
+      <TableView fx:id="tabelaEstadios" layoutX="717.0" layoutY="244.0" prefHeight="200.0" prefWidth="525.0">
         <columns>
           <TableColumn fx:id="colunaNome" prefWidth="151.0" text="Nome" />
           <TableColumn fx:id="colunaLocal" minWidth="0.0" prefWidth="184.66668701171875" text="Local" />
@@ -70,18 +70,18 @@
          </columnResizePolicy>
       </TableView>
       
-      <Button id="button-login" layoutX="355.0" layoutY="447.0" mnemonicParsing="false" onAction="#handleEditarEstadio" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Alterar Informações do Estádio">
+      <Button id="button-login" layoutX="821.0" layoutY="569.0" mnemonicParsing="false" onAction="#handleEditarEstadio" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Alterar Informações do Estádio">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button id="button-login" layoutX="355.0" layoutY="505.0" mnemonicParsing="false" onAction="#handleRemoverEstadio" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Remover Estádio">
+      <Button id="button-login" layoutX="821.0" layoutY="627.0" mnemonicParsing="false" onAction="#handleRemoverEstadio" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Remover Estádio">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
 
-      <AnchorPane id="PopupAdicionarSelecao" layoutX="255.0" layoutY="653.0" prefHeight="57.0" prefWidth="517.0">
+      <AnchorPane id="PopupAdicionarSelecao" layoutX="721.0" layoutY="775.0" prefHeight="57.0" prefWidth="517.0">
          <children>
             <TextField fx:id="txtNome" layoutX="14.0" layoutY="16.0" prefHeight="26.0" prefWidth="141.0" promptText="Nome do Estádio" />
             <TextField fx:id="txtLocal" layoutX="167.0" layoutY="16.0" prefHeight="26.0" prefWidth="126.0" promptText="Local" />
@@ -90,12 +90,12 @@
          </children>
       </AnchorPane>
       
-      <Button id="button-login" layoutX="251.0" layoutY="336.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="225.0" stylesheets="@style.css" text="Buscar">
+      <Button id="button-login" layoutX="717.0" layoutY="458.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="225.0" stylesheets="@style.css" text="Buscar">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button id="button-login" layoutX="531.0" layoutY="336.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="225.0" stylesheets="@style.css" text="Filtrar">
+      <Button id="button-login" layoutX="997.0" layoutY="458.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="225.0" stylesheets="@style.css" text="Filtrar">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
