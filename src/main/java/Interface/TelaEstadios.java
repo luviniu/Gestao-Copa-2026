@@ -104,7 +104,7 @@ public class TelaEstadios implements Initializable {
             String capacidadeStr = txtCapacidadePop.getText();
 
             if (nome.isBlank() || local.isBlank() || capacidadeStr.isBlank()) {
-                Toast.exibir(stageActual, "Todos os campos devem ser preenchidos!");
+                alerta(Alert.AlertType.WARNING, "Todos os campos devem ser preenchidos!");
                 return;
             }
 
@@ -113,7 +113,7 @@ public class TelaEstadios implements Initializable {
                 capacidade = Integer.parseInt(capacidadeStr.trim());
                 if (capacidade <= 0) throw new NumberFormatException();
             } catch (NumberFormatException e) {
-                Toast.exibir(stageActual, "A capacidade deve ser um número inteiro positivo!");
+                alerta(Alert.AlertType.WARNING, "A capacidade deve ser um número inteiro positivo!");
                 return;
             }
 
@@ -121,7 +121,7 @@ public class TelaEstadios implements Initializable {
                 atualizarTabela(txtBusca.getText());
                 Toast.exibir(stageActual, "Estádio cadastrado com sucesso!");
             } else {
-                Toast.exibir(stageActual, "Erro ao cadastrar estádio. Verifique duplicidade.");
+                alerta(Alert.AlertType.WARNING, "Erro ao cadastrar estádio. Verifique duplicidade.");
             }
         }
     }
@@ -174,7 +174,7 @@ public class TelaEstadios implements Initializable {
                     novaCapacidade = Integer.parseInt(txtCapacidadePop.getText().trim());
                     if (novaCapacidade <= 0) throw new NumberFormatException();
                 } catch (NumberFormatException e) {
-                    Toast.exibir(stageActual, "Capacidade inválida.");
+                    alerta(Alert.AlertType.WARNING, "Capacidade inválida");
                     return;
                 }
             }
@@ -184,7 +184,7 @@ public class TelaEstadios implements Initializable {
                 tabelaEstadios.getSelectionModel().clearSelection();
                 Toast.exibir(stageActual, "Estádio alterado com sucesso!");
             } else {
-                Toast.exibir(stageActual, "Erro ao atualizar dados.");
+                alerta(Alert.AlertType.WARNING, "Erro ao atualizar dados.");
             }
         }
     }
@@ -206,5 +206,12 @@ public class TelaEstadios implements Initializable {
         } else {
             Toast.exibir(stageActual, "Selecione um estádio da lista para remover.");
         }
+    }
+
+    private void alerta(Alert.AlertType tipo, String mensagem) {
+        Alert alert = new Alert(tipo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
     }
 }
