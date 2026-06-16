@@ -1,381 +1,310 @@
 package Interface;
-import javafx.scene.control.ComboBox;
+
+import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import Aplicacoes.OprPartida;
+import Aplicacoes.OprSel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
-
-import javafx.scene.control.TextArea;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.geometry.Insets;
 import Objetos.Partida;
-import javafx.stage.Stage;
-import javafx.scene.Node;
+import Objetos.Selecao;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Optional;
 
 public class TelaPartidas implements Initializable {
 
     private OprPartida oprPartida;
+    private OprSel oprSel;
+    private Partida partidaSelecionada;
 
-    @FXML
-    private TextArea txtAreaPartidas;
+    @FXML private TextField txtBusca;
+    @FXML private TableView<Partida> tabelaPartidas;
+    @FXML private TableColumn<Partida, String> colCasa;
+    @FXML private TableColumn<Partida, String> colVisitante;
+    @FXML private TableColumn<Partida, String> colEstadio;
+    @FXML private TableColumn<Partida, String> colData;
+    @FXML private TableColumn<Partida, String> colHorario;
+    @FXML private TableColumn<Partida, String> colFase;
+    @FXML private TableColumn<Partida, String> colPlacar;
+    @FXML private TableColumn<Partida, String> colStatus;
 
-    @FXML
-    private TextField txtSelecaoCasa;
-
-    @FXML
-    private TextField txtSelecaoVisitante;
-
-    @FXML
-    private TextField txtEstadio;
-
-    @FXML
-    private TextField txtData;
-
-    @FXML
-    private TextField txtHorario;
-
-
-    @FXML
-    private ComboBox<String> cmbFase;
-    @FXML
-    private TextField txtGolCasa;
-
-    @FXML
-    private TextField txtGolVisitante;
+    private final String[] fasesCampeonato = {
+            "Grupo - Jogo 1", "Grupo - Jogo 2", "Grupo - Jogo 3",
+            "Dezesseis-avos", "Oitavas", "Quartas", "Semifinal", "Final"
+    };
 
     @Override
-
     public void initialize(URL url, ResourceBundle rb) {
-
         oprPartida = new OprPartida();
+        oprSel = OprSel.getInstancia();
 
-        cmbFase.getItems().addAll(
-                "Grupo - Jogo 1",
-                "Grupo - Jogo 2",
-                "Grupo - Jogo 3",
-                "Dezesseis-avos",
-                "Oitavas",
-                "Quartas",
-                "Semifinal",
-                "Final"
-        );
+        configurarTabela();
+        atualizarTabela("");
+
+        txtBusca.textProperty().addListener((observable, oldValue, newValue) -> {
+            atualizarTabela(newValue);
+        });
+
+        tabelaPartidas.getSelectionModel().selectedItemProperty().addListener((obs, antigo, novo) -> {
+            if (novo != null) {
+                partidaSelecionada = novo;
+            }
+        });
     }
 
+    private void configurarTabela() {
+        colData.setCellValueFactory(new PropertyValueFactory<>("data"));
+        colHorario.setCellValueFactory(new PropertyValueFactory<>("hora"));
+        colFase.setCellValueFactory(new PropertyValueFactory<>("fase"));
+        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        colEstadio.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getEstadio().getNome()));
+        colCasa.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getTimeCasa().getPais()));
+        colVisitante.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getTimeVisita().getPais()));
+        colPlacar.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getGolCasa() + " x " + p.getValue().getGolVisita()));
+    }
+
+    private void atualizarTabela(String termoBusca) {
+        ObservableList<Partida> dados = FXCollections.observableArrayList(oprPartida.buscarPartidas(termoBusca));
+        tabelaPartidas.setItems(dados);
+        tabelaPartidas.refresh();
+    }
+
+    private void exibirAlerta(Alert.AlertType tipo, String mensagem) {
+        Alert alert = new Alert(tipo);
+        alert.setContentText(mensagem);
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
+
+    // =========================================================================
+    // POP-UP ÚNICO: CADASTRAR/AGENDAR PARTIDA
+    // =========================================================================
     @FXML
+    public void handleBotaoCadastrar(ActionEvent event) {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Agendar Nova Partida");
+        dialog.setHeaderText("Preencha todos os dados do confronto:");
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
-    public void cadastrarPartida(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        // Criando a estrutura de Grid (Formulário)
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
 
-        if (txtSelecaoCasa.getText().isEmpty() ||
-                txtSelecaoVisitante.getText().isEmpty() ||
-                txtEstadio.getText().isEmpty() ||
-                txtData.getText().isEmpty() ||
-                txtHorario.getText().isEmpty() ||
-                cmbFase.getValue() == null) {
+        TextField txtCasa = new TextField();
+        txtCasa.setPromptText("Ex: Brasil");
+        TextField txtVisitante = new TextField();
+        txtVisitante.setPromptText("Ex: Argentina");
+        TextField txtEstadio = new TextField();
+        txtEstadio.setPromptText("Ex: Maracanã");
+        TextField txtData = new TextField("16/06/2026");
+        TextField txtHora = new TextField("20:00");
 
-            Toast.exibir(stage, "Preencha todos os campos!");
+        ComboBox<String> cmbFase = new ComboBox<>();
+        cmbFase.getItems().addAll(fasesCampeonato);
+        cmbFase.setValue(fasesCampeonato[0]);
+
+        // Posicionando no Grid (Coluna, Linha)
+        grid.add(new Label("Seleção Casa:"), 0, 0);
+        grid.add(txtCasa, 1, 0);
+        grid.add(new Label("Seleção Visitante:"), 0, 1);
+        grid.add(txtVisitante, 1, 1);
+        grid.add(new Label("Estádio:"), 0, 2);
+        grid.add(txtEstadio, 1, 2);
+        grid.add(new Label("Data:"), 0, 3);
+        grid.add(txtData, 1, 3);
+        grid.add(new Label("Horário:"), 0, 4);
+        grid.add(txtHora, 1, 4);
+        grid.add(new Label("Fase:"), 0, 5);
+        grid.add(cmbFase, 1, 5);
+
+        dialog.getDialogPane().setContent(grid);
+
+        Optional<ButtonType> resultado = dialog.showAndWait();
+        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+            // Validação de campos vazios
+            if (txtCasa.getText().isBlank() || txtVisitante.getText().isBlank() ||
+                    txtEstadio.getText().isBlank() || txtData.getText().isBlank() || txtHora.getText().isBlank()) {
+                exibirAlerta(Alert.AlertType.WARNING, "Todos os campos devem ser preenchidos!");
+                return;
+            }
+
+            Selecao casaObj = oprSel.buscarSelecaoPorNome(txtCasa.getText());
+            Selecao visitaObj = oprSel.buscarSelecaoPorNome(txtVisitante.getText());
+
+            if (casaObj == null || visitaObj == null) {
+                exibirAlerta(Alert.AlertType.ERROR, "Uma ou ambas as seleções digitadas não existem no cadastro!");
+                return;
+            }
+
+            if (!casaObj.isElegivel() || !visitaObj.isElegivel()) {
+                exibirAlerta(Alert.AlertType.ERROR, "Não foi possível agendar! Uma das seleções possui elenco irregular (Menos de 18 ativos).");
+                return;
+            }
+
+            boolean sucesso = oprPartida.cadastrarPartida(casaObj, visitaObj, txtEstadio.getText(), txtData.getText(), txtHora.getText(), cmbFase.getValue());
+            if (sucesso) {
+                exibirAlerta(Alert.AlertType.INFORMATION, "Partida cadastrada com sucesso!");
+                atualizarTabela("");
+            } else {
+                exibirAlerta(Alert.AlertType.ERROR, "Erro ao cadastrar! Verifique choques de estádio/horário ou se os times são iguais.");
+            }
+        }
+    }
+
+    // =========================================================================
+    // POP-UP ÚNICO: EDITAR HORÁRIO/DATA/FASE
+    // =========================================================================
+    @FXML
+    public void handleBotaoEditar(ActionEvent event) {
+        if (partidaSelecionada == null) {
+            exibirAlerta(Alert.AlertType.WARNING, "Selecione uma partida na tabela primeiro!");
             return;
         }
-        if (txtSelecaoCasa.getText().equalsIgnoreCase(
-                txtSelecaoVisitante.getText())) {
 
-            Toast.exibir(stage,
-                    "Uma selecao nao pode jogar contra ela mesma!");
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Editar Dados da Partida");
+        dialog.setHeaderText("Altere as informações desejadas:");
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        // Carrega os dados atuais da partida selecionada para o usuário alterar
+        TextField txtData = new TextField(partidaSelecionada.getData());
+        TextField txtHora = new TextField(partidaSelecionada.getHora());
+        ComboBox<String> cmbFase = new ComboBox<>();
+        cmbFase.getItems().addAll(fasesCampeonato);
+        cmbFase.setValue(partidaSelecionada.getFase());
+
+        grid.add(new Label("Nova Data:"), 0, 0);
+        grid.add(txtData, 1, 0);
+        grid.add(new Label("Novo Horário:"), 0, 1);
+        grid.add(txtHora, 1, 1);
+        grid.add(new Label("Nova Fase:"), 0, 2);
+        grid.add(cmbFase, 1, 2);
+
+        dialog.getDialogPane().setContent(grid);
+
+        Optional<ButtonType> resultado = dialog.showAndWait();
+        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+            if (txtData.getText().isBlank() || txtHora.getText().isBlank()) {
+                exibirAlerta(Alert.AlertType.WARNING, "Os campos não podem ficar vazios!");
+                return;
+            }
+
+            boolean sucesso = oprPartida.editarPartida(
+                    partidaSelecionada.getData(), partidaSelecionada.getHora(),
+                    txtData.getText(), txtHora.getText(), cmbFase.getValue()
+            );
+
+            if (sucesso) {
+                exibirAlerta(Alert.AlertType.INFORMATION, "Partida editada com sucesso!");
+                atualizarTabela("");
+                tabelaPartidas.getSelectionModel().clearSelection();
+                partidaSelecionada = null;
+            } else {
+                exibirAlerta(Alert.AlertType.ERROR, "Erro ao salvar as edições.");
+            }
+        }
+    }
+
+    // =========================================================================
+    // POP-UP ÚNICO: REGISTRAR RESULTADO
+    // =========================================================================
+    @FXML
+    public void handleBotaoRegistrarResultado(ActionEvent event) {
+        if (partidaSelecionada == null) {
+            exibirAlerta(Alert.AlertType.WARNING, "Selecione uma partida na tabela para definir o placar!");
             return;
         }
-        boolean sucesso = oprPartida.cadastrarPartida(
-                txtSelecaoCasa.getText(),
-                txtSelecaoVisitante.getText(),
-                txtEstadio.getText(),
-                txtData.getText(),
-                txtHorario.getText(),
-                cmbFase.getValue()
-        );
 
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Registrar Placar");
+        dialog.setHeaderText("Confronto: " + partidaSelecionada.getTimeCasa().getPais() + " x " + partidaSelecionada.getTimeVisita().getPais());
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
-        if (sucesso) {
-            Toast.exibir(stage, "Partida cadastrada com sucesso!");
-        } else {
-            Toast.exibir(stage, "Erro ao cadastrar partida!");
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 80, 10, 10));
+
+        TextField txtGolsCasa = new TextField("0");
+        TextField txtGolsVisita = new TextField("0");
+
+        grid.add(new Label("Gols " + partidaSelecionada.getTimeCasa().getPais() + ":"), 0, 0);
+        grid.add(txtGolsCasa, 1, 0);
+        grid.add(new Label("Gols " + partidaSelecionada.getTimeVisita().getPais() + ":"), 0, 1);
+        grid.add(txtGolsVisita, 1, 1);
+
+        dialog.getDialogPane().setContent(grid);
+
+        Optional<ButtonType> resultado = dialog.showAndWait();
+        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+            try {
+                int gCasa = Integer.parseInt(txtGolsCasa.getText().trim());
+                int gVisita = Integer.parseInt(txtGolsVisita.getText().trim());
+
+                if (gCasa < 0 || gVisita < 0) {
+                    exibirAlerta(Alert.AlertType.ERROR, "Quantidade de gols não pode ser negativa!");
+                    return;
+                }
+
+                boolean sucesso = oprPartida.registrarResultado(partidaSelecionada.getData(), partidaSelecionada.getHora(), gCasa, gVisita);
+                if (sucesso) {
+                    exibirAlerta(Alert.AlertType.INFORMATION, "Resultado gravado e status atualizado para Finalizada!");
+                    atualizarTabela("");
+                    tabelaPartidas.getSelectionModel().clearSelection();
+                    partidaSelecionada = null;
+                }
+            } catch (NumberFormatException e) {
+                exibirAlerta(Alert.AlertType.ERROR, "Por favor, insira números válidos para o placar.");
+            }
         }
-        if (sucesso) {
-            System.out.println("Partida cadastrada com sucesso!");
-        } else {
-            System.out.println("Erro ao cadastrar partida.");
+    }
+
+    // =========================================================================
+    // EXCLUIR PARTIDA E MÉTODOS DE SUPORTE
+    // =========================================================================
+    @FXML
+    public void handleBotaoExcluir(ActionEvent event) {
+        if (partidaSelecionada == null) {
+            exibirAlerta(Alert.AlertType.WARNING, "Selecione uma partida na tabela antes de excluir!");
+            return;
         }
 
+        boolean sucesso = oprPartida.excluirPartida(partidaSelecionada.getData(), partidaSelecionada.getHora());
         if (sucesso) {
-            txtSelecaoCasa.clear();
-            txtSelecaoVisitante.clear();
-            txtEstadio.clear();
-            txtData.clear();
-            txtHorario.clear();
-            cmbFase.setValue(null);
+            exibirAlerta(Alert.AlertType.INFORMATION, "Partida desmarcada e removida com sucesso.");
+            atualizarTabela("");
+            tabelaPartidas.getSelectionModel().clearSelection();
+            partidaSelecionada = null;
+        } else {
+            exibirAlerta(Alert.AlertType.ERROR, "Não foi possível remover a partida.");
         }
     }
 
     @FXML
     public void listarPartidas(ActionEvent event) {
-
-        txtAreaPartidas.clear();
-
-        for (var p : oprPartida.getListaPartidas()) {
-
-            txtAreaPartidas.appendText(
-                    "Casa: " + p.getTimeCasa().getPais() + "\n" +
-                            "Visitante: " + p.getTimeVisita().getPais() + "\n" +
-                            "Estadio: " + p.getEstadio().getNome() + "\n" +
-                            "Data: " + p.getData() + "\n" +
-                            "Horario: " + p.getHora() + "\n" +
-                            "Fase: " + p.getFase() + "\n" +
-                            "Gols Casa: " + p.getGolCasa() + "\n" +
-                            "Gols Visitante: " + p.getGolVisita() + "\n" +
-                            "Status: " + p.getStatus() + "\n" +
-                            "--------------------------\n"
-            );
-        }
+        atualizarTabela("");
     }
-
-    @FXML
-    public void excluirPartida(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        if (txtData.getText().isEmpty()) {
-
-            Toast.exibir(stage, "Informe a data da partida!");
-            return;
-        }
-
-        boolean sucesso = oprPartida.excluirPartida(
-                txtData.getText()
-        );
-
-
-        if (sucesso) {
-            Toast.exibir(stage, "Partida excluida com sucesso!");
-        } else {
-            Toast.exibir(stage, "Partida nao encontrada!");
-        }
-        if (sucesso) {
-            System.out.println("Partida excluido com sucesso!");
-        } else {
-            System.out.println("Erro ao excluir partida.");
-        }
-        if (sucesso) {
-            txtSelecaoCasa.clear();
-            txtSelecaoVisitante.clear();
-            txtEstadio.clear();
-            txtData.clear();
-            txtHorario.clear();
-            cmbFase.setValue(null);
-        }
-    }
-    @FXML
-    public void editarPartida(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        if (txtData.getText().isEmpty() ||
-                txtHorario.getText().isEmpty() ||
-                cmbFase.getValue() == null) {
-
-            Toast.exibir(stage, "Preencha todos os campos!");
-            return;
-        }
-
-        boolean sucesso = oprPartida.editarPartida(
-                txtData.getText(),
-                txtData.getText(),
-                txtHorario.getText(),
-                cmbFase.getValue()
-        );
-
-
-        if (sucesso) {
-
-            Toast.exibir(stage, "Partida editada com sucesso!");
-
-            txtSelecaoCasa.clear();
-            txtSelecaoVisitante.clear();
-            txtEstadio.clear();
-            txtData.clear();
-            txtHorario.clear();
-            cmbFase.setValue(null);
-
-        } else {
-
-            Toast.exibir(stage, "Erro ao editar partida!");
-        }
-
-
-        if (sucesso) {
-            System.out.println("Partida editado com sucesso!");
-        } else {
-            System.out.println("Erro ao editar partida.");
-        }
-        if (sucesso) {
-            txtSelecaoCasa.clear();
-            txtSelecaoVisitante.clear();
-            txtEstadio.clear();
-            txtData.clear();
-            txtHorario.clear();
-            cmbFase.setValue(null);
-        }
-    }
-    @FXML
-    public void registrarResultado(ActionEvent event) {
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        if (txtData.getText().isEmpty() ||
-                txtGolCasa.getText().isEmpty() ||
-                txtGolVisitante.getText().isEmpty()) {
-
-            Toast.exibir(stage, "Preencha todos os campos!");
-            return;
-        }
-
-        int golsCasa;
-        int golsVisitante;
-
-        try {
-            golsCasa = Integer.parseInt(txtGolCasa.getText());
-            golsVisitante = Integer.parseInt(txtGolVisitante.getText());
-        }
-        catch (NumberFormatException e) {
-
-            Toast.exibir(stage, "Digite apenas numeros nos gols!");
-            return;
-        }
-
-        boolean sucesso = oprPartida.registrarResultado(
-                txtData.getText(),
-                golsCasa,
-                golsVisitante
-        );
-        if (golsCasa < 0 || golsVisitante < 0) {
-
-            Toast.exibir(stage, "Gols nao podem ser negativos!");
-            return;
-        }
-
-        if (sucesso) {
-
-            Toast.exibir(stage, "Resultado registrado!");
-
-            txtGolCasa.clear();
-            txtGolVisitante.clear();
-
-        } else {
-
-            Toast.exibir(stage, "Partida nao encontrada!");
-        }
-        Toast.exibir(stage, "Resultado registrado!");
-    }
-    @FXML
-    public void consultarPorSelecao(ActionEvent event) {
-
-        txtAreaPartidas.clear();
-
-        var partidas =
-                oprPartida.consultarPorSelecao(
-                        txtSelecaoCasa.getText()
-                );
-
-        if (partidas.isEmpty()) {
-
-            txtAreaPartidas.setText(
-                    "Nenhuma partida encontrada."
-            );
-
-            return;
-        }
-
-        for (Partida p : partidas) {
-
-            txtAreaPartidas.appendText(
-                    p.getTimeCasa().getPais()
-                            + " x "
-                            + p.getTimeVisita().getPais()
-                            + " | "
-                            + p.getFase()
-                            + " | "
-                            + p.getData()
-                            + "\n"
-            );
-        }
-    }
-    @FXML
-    public void consultarPorFase(ActionEvent event) {
-
-        txtAreaPartidas.clear();
-
-        var partidas =
-                oprPartida.consultarPorFase(
-                        cmbFase.getValue()
-                );
-
-        if (partidas.isEmpty()) {
-
-            txtAreaPartidas.setText(
-                    "Nenhuma partida encontrada."
-            );
-
-            return;
-        }
-
-        for (Partida p : partidas) {
-
-            txtAreaPartidas.appendText(
-                    p.getTimeCasa().getPais()
-                            + " x "
-                            + p.getTimeVisita().getPais()
-                            + " - "
-                            + p.getData()
-                            + " - "
-                            + p.getHora()
-                            + "\n"
-            );
-        }
-    }
-
-    @FXML
-    public void consultarPartida(ActionEvent event) {
-
-        txtAreaPartidas.clear();
-
-        Partida p = oprPartida.consultarPartida(
-                txtData.getText()
-        );
-
-        if (p == null) {
-
-            txtAreaPartidas.setText(
-                    "Partida nao encontrada."
-            );
-
-            return;
-        }
-
-        txtAreaPartidas.setText(
-                "Casa: " + p.getTimeCasa().getPais() + "\n" +
-                        "Visitante: " + p.getTimeVisita().getPais() + "\n" +
-                        "Estadio: " + p.getEstadio().getNome() + "\n" +
-                        "Data: " + p.getData() + "\n" +
-                        "Horario: " + p.getHora() + "\n" +
-                        "Fase: " + p.getFase() + "\n" +
-                        "Gols Casa: " + p.getGolCasa() + "\n" +
-                        "Gols Visitante: " + p.getGolVisita() + "\n" +
-                        "Status: " + p.getStatus()
-        );
-        txtSelecaoCasa.clear();
-        txtSelecaoVisitante.clear();
-        txtEstadio.clear();
-        txtHorario.clear();
-        txtGolCasa.clear();
-        txtGolVisitante.clear();
-        cmbFase.setValue(null);
-    }
-
-
 }
