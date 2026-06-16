@@ -1,5 +1,6 @@
 package Interface;
 
+import Aplicacoes.OprEst;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -147,8 +148,23 @@ public class TelaPartidas implements Initializable {
             if (!filtradas.isEmpty()) cmbVisitante.show();
         });
 
-        TextField txtEstadio = new TextField();
-        txtEstadio.setPromptText("Ex: Maracanã");
+        // ── ComboBox com filtro para Estádio ──
+        OprEst oprEst = new Aplicacoes.OprEst();
+        ObservableList<String> todosEstadios = FXCollections.observableArrayList(
+                oprEst.getListaEstadio().stream().map(e -> e.getNome()).collect(java.util.stream.Collectors.toList())
+        );
+        ComboBox<String> cmbEstadio = new ComboBox<>();
+        cmbEstadio.setEditable(true);
+        cmbEstadio.setPromptText("Ex: Maracanã");
+        cmbEstadio.setItems(todosEstadios);
+        cmbEstadio.getEditor().textProperty().addListener((obs, oldVal, newVal) -> {
+            String filtro = newVal == null ? "" : newVal.toLowerCase();
+            ObservableList<String> filtradas = FXCollections.observableArrayList(
+                    todosEstadios.stream().filter(e -> e.toLowerCase().contains(filtro)).collect(java.util.stream.Collectors.toList()));
+            cmbEstadio.setItems(filtradas);
+            if (!filtradas.isEmpty()) cmbEstadio.show();
+        });
+
         TextField txtData    = new TextField("16/06/2026");
         TextField txtHora    = new TextField("20:00");
 
@@ -156,12 +172,12 @@ public class TelaPartidas implements Initializable {
         cmbFase.getItems().addAll(fasesCampeonato);
         cmbFase.setValue(fasesCampeonato[0]);
 
-        grid.add(new Label("Seleção Casa:"),      0, 0); grid.add(cmbCasa,      1, 0);
-        grid.add(new Label("Seleção Visitante:"), 0, 1); grid.add(cmbVisitante, 1, 1);
-        grid.add(new Label("Estádio:"),           0, 2); grid.add(txtEstadio,   1, 2);
-        grid.add(new Label("Data:"),              0, 3); grid.add(txtData,      1, 3);
-        grid.add(new Label("Horário:"),           0, 4); grid.add(txtHora,      1, 4);
-        grid.add(new Label("Fase:"),              0, 5); grid.add(cmbFase,      1, 5);
+        grid.add(new Label("Seleção Casa:"),0, 0); grid.add(cmbCasa,1,0);
+        grid.add(new Label("Seleção Visitante:"), 0, 1); grid.add(cmbVisitante,1,1);
+        grid.add(new Label("Estádio:"),0, 2); grid.add(cmbEstadio,1,2);
+        grid.add(new Label("Data:"),0, 3); grid.add(txtData,1,3);
+        grid.add(new Label("Horário:"),0, 4); grid.add(txtHora,1,4);
+        grid.add(new Label("Fase:"),0, 5); grid.add(cmbFase,1,5);
 
         dialog.getDialogPane().setContent(grid);
 
@@ -170,8 +186,7 @@ public class TelaPartidas implements Initializable {
             String nomeCasa     = cmbCasa.getEditor().getText().trim();
             String nomeVisita   = cmbVisitante.getEditor().getText().trim();
 
-            if (nomeCasa.isBlank() || nomeVisita.isBlank() ||
-                    txtEstadio.getText().isBlank() || txtData.getText().isBlank() || txtHora.getText().isBlank()) {
+            if (nomeCasa.isBlank() || nomeVisita.isBlank() || cmbEstadio.getEditor().getText().trim().isBlank() || txtData.getText().isBlank() || txtHora.getText().isBlank()) {
                 exibirAlerta(Alert.AlertType.WARNING, "Todos os campos devem ser preenchidos!");
                 return;
             }
@@ -189,8 +204,7 @@ public class TelaPartidas implements Initializable {
                 return;
             }
 
-            boolean sucesso = oprPartida.cadastrarPartida(casaObj, visitaObj,
-                    txtEstadio.getText(), txtData.getText(), txtHora.getText(), cmbFase.getValue());
+            boolean sucesso = oprPartida.cadastrarPartida(casaObj, visitaObj,cmbEstadio.getEditor().getText().trim(), txtData.getText(), txtHora.getText(), cmbFase.getValue());
             if (sucesso) {
                 exibirAlerta(Alert.AlertType.INFORMATION, "Partida cadastrada com sucesso!");
                 atualizarTabela("");
