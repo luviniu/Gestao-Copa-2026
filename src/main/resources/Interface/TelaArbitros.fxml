@@ -53,7 +53,7 @@
             <Font size="28.0" />
          </font>
       </Text>
-      <TableView fx:id="tabelaArbitro" layoutX="738.0" layoutY="254.0" prefHeight="332.0" prefWidth="525.0">
+      <TableView fx:id="tabelaArbitro" layoutX="738.0" layoutY="262.0" prefHeight="200.0" prefWidth="525.0">
         <columns>
           <TableColumn fx:id="colunaNome" prefWidth="151.0" text="Árbitro" />
           <TableColumn fx:id="colunaNacionalidade" minWidth="0.0" prefWidth="184.66668701171875" text="Nacionalidade" />
@@ -64,12 +64,12 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button id="button-login" layoutX="894.0" layoutY="602.0" mnemonicParsing="false" onAction="#handleEditarArbitro" prefHeight="41.0" prefWidth="198.0" stylesheets="@style.css" text="Editar Árbitro">
+      <Button id="button-login" layoutX="828.0" layoutY="534.0" mnemonicParsing="false" onAction="#handleEditarArbitro" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Editar Árbitro">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button id="button-login" layoutX="1104.0" layoutY="602.0" mnemonicParsing="false" onAction="#handleRemoverArbitro" prefHeight="41.0" prefWidth="198.0" stylesheets="@style.css" text="Remover Árbitro">
+      <Button id="button-login" layoutX="827.0" layoutY="582.0" mnemonicParsing="false" onAction="#handleRemoverArbitro" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Remover Árbitro">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -79,23 +79,21 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <AnchorPane id="PopupAdicionarJogador" layoutX="693.0" layoutY="747.0" prefHeight="64.0" prefWidth="596.0">
+      <AnchorPane id="PopupAdicionarJogador" layoutX="726.0" layoutY="754.0" prefHeight="57.0" prefWidth="561.0">
          <children>
-            <TextField fx:id="txtExperiencia" layoutX="265.0" layoutY="26.0" prefHeight="26.0" prefWidth="92.0" promptText="5 anos" style="-fx-background-color: #1a2340;" />
-            <ComboBox fx:id="comboCategoria" layoutX="371.0" layoutY="26.0" prefHeight="26.0" prefWidth="119.0" promptText="Categoria" style="-fx-background-color: #1a2340;" />
-            <ComboBox fx:id="comboUsuario" layoutX="8.0" layoutY="26.0" prefHeight="26.0" prefWidth="119.0" promptText="Usuarios" style="-fx-background-color: #1a2340;" />
-            <Text fill="WHITE" layoutX="8.0" layoutY="15.0" text="Nome" />
-            <Text fill="WHITE" layoutX="136.0" layoutY="15.0" text="Nacionalidade" />
-            <Text fill="WHITE" layoutX="263.0" layoutY="15.0" text="Experiência" />
-            <ComboBox fx:id="comboNacionalidade" layoutX="136.0" layoutY="26.0" prefHeight="26.0" prefWidth="119.0" promptText="Países" style="-fx-background-color: #1a2340;" />
-            <Button id="button-login" layoutX="497.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleAdicionarArbitro" prefHeight="41.0" prefWidth="92.0" stylesheets="@style.css" text="Adicionar">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
+            <TextField fx:id="txtNacionalidade" layoutX="136.0" layoutY="17.0" prefHeight="26.0" prefWidth="105.0" promptText="Nacionalidade" />
+            <Button layoutX="486.0" layoutY="18.0" mnemonicParsing="false" onAction="#handleAdicionarArbitro" text="Adicionar" />
+            <TextField fx:id="txtExperiencia" layoutX="249.0" layoutY="17.0" prefHeight="26.0" prefWidth="92.0" promptText="Experiência" />
+            <ComboBox fx:id="comboCategoria" editable="true" layoutX="347.0" layoutY="18.0" prefHeight="26.0" prefWidth="119.0" promptText="Categoria" />
+            <ComboBox fx:id="comboUsuario" layoutY="16.0" prefHeight="26.0" prefWidth="119.0" promptText="Usuario" />
          </children>
       </AnchorPane>
-      <Button id="button-login" layoutX="676.0" layoutY="602.0" mnemonicParsing="false" onAction="#handleRemoverArbitro" prefHeight="41.0" prefWidth="198.0" stylesheets="@style.css" text="Buscar/Filtrar">
+      <Button id="button-login" layoutX="1046.0" layoutY="471.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="195.0" stylesheets="@style.css" text="Filtrar">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button id="button-login" layoutX="738.0" layoutY="471.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="195.0" stylesheets="@style.css" text="Buscar">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

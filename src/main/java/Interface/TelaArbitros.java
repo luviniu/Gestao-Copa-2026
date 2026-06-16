@@ -1,13 +1,10 @@
 package Interface;
 
 import java.util.List;
-
-import Aplicacoes.OprSel;
 import Aplicacoes.OprUser;
 import Aplicacoes.OprArbitro;
 import Aplicacoes.oprSessao;
 import Objetos.Arbitro;
-import Objetos.Selecao;
 import Objetos.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,7 +23,6 @@ import java.util.ResourceBundle;
 public class TelaArbitros implements Initializable {
     @FXML private ComboBox<String> comboCategoria;
     @FXML private ComboBox<Usuario> comboUsuario;
-    @FXML private ComboBox<String> comboNacionalidade;
     @FXML private TextField txtNacionalidade;
     @FXML private TextField txtExperiencia;
 
@@ -48,7 +44,7 @@ public class TelaArbitros implements Initializable {
 
         atualizarTabela();
         carregarComboUsuarios();
-        carregarComboNacionalidade();
+
     }
 
     private void atualizarTabela() {
@@ -65,24 +61,13 @@ public class TelaArbitros implements Initializable {
             String perfil = u.getPerfilUsuario();
             if (perfil != null && (perfil.equalsIgnoreCase("Sem cargo") || perfil.equalsIgnoreCase("Funcionario"))) {
                 usuariosDisponiveis.add(u);
+
             }
+
         }
         comboUsuario.setItems(usuariosDisponiveis);
+
     }
-
-    private void carregarComboNacionalidade() {
-        List<Selecao> listaDoSistema = OprSel.getInstancia().getListaSelecoes();
-        ObservableList<String> nacionalidadeDisponiveis = FXCollections.observableArrayList();
-
-        for (Selecao s : listaDoSistema) {
-            String perfil = s.getPais();
-            if (perfil != null) {
-                nacionalidadeDisponiveis.add(perfil);
-            }
-        }
-        comboNacionalidade.setItems(nacionalidadeDisponiveis);
-    }
-
 
     @FXML
     public void handleAdicionarArbitro(ActionEvent event) {
@@ -90,7 +75,7 @@ public class TelaArbitros implements Initializable {
 
         Usuario usuarioSelecionado = comboUsuario.getSelectionModel().getSelectedItem();
         String categoriaSelecionada = comboCategoria.getSelectionModel().getSelectedItem();
-        String nacionalidade = comboNacionalidade.getSelectionModel().getSelectedItem();
+        String nacionalidade = txtNacionalidade.getText();
         String experiencia = txtExperiencia.getText();
 
         if (usuarioSelecionado == null || categoriaSelecionada == null || nacionalidade.trim().isEmpty() || experiencia.trim().isEmpty()) {
@@ -116,7 +101,7 @@ public class TelaArbitros implements Initializable {
 
             comboUsuario.getSelectionModel().clearSelection();
             comboCategoria.getSelectionModel().clearSelection();
-            comboNacionalidade.getSelectionModel().clearSelection();
+            txtNacionalidade.clear();
             txtExperiencia.clear();
 
             Toast.exibir(stageActual, "Árbitro cadastrado com sucesso!");
@@ -154,7 +139,7 @@ public class TelaArbitros implements Initializable {
         Arbitro selecionado = tabelaArbitro.getSelectionModel().getSelectedItem();
 
         if (selecionado != null) {
-            String novaNacionalidade = comboNacionalidade.getSelectionModel().getSelectedItem();
+            String novaNacionalidade = txtNacionalidade.getText();
             String novaExperiencia = txtExperiencia.getText();
             String novaCategoria = comboCategoria.getSelectionModel().getSelectedItem();
 
@@ -187,7 +172,7 @@ public class TelaArbitros implements Initializable {
             atualizarTabela();
             tabelaArbitro.refresh();
 
-            comboNacionalidade.getSelectionModel().clearSelection();
+            txtNacionalidade.clear();
             txtExperiencia.clear();
             comboCategoria.getSelectionModel().clearSelection();
 

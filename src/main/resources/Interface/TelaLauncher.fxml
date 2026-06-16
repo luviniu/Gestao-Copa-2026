@@ -110,45 +110,53 @@
                      </children>
                   </AnchorPane>
 
+                  <!-- ═══════════════════════════════════════════════════════
+                       PAINEL: Relatório de Partidas (ADM)
+                       fx:id adicionados em todas as TableColumn
+                  ════════════════════════════════════════════════════════ -->
                   <AnchorPane fx:id="partidaPanelAdm" layoutX="490.0" prefHeight="1080.0" prefWidth="1430.0" visible="false">
                      <children>
                         <TableView fx:id="relatorioPartida" layoutX="15.0" layoutY="15.0" prefHeight="1050.0" prefWidth="1400.0">
                            <columns>
-                              <TableColumn prefWidth="155.0" text="STATUS" />
-                              <TableColumn prefWidth="155.0" text="TIME 1" />
-                              <TableColumn prefWidth="155.0" text="TIME 2" />
-                              <TableColumn prefWidth="155.0" text="ESTADIO" />
-                              <TableColumn prefWidth="155.0" text="GOLS TIME 1" />
-                              <TableColumn prefWidth="155.0" text="GOLS TIME 2" />
-                              <TableColumn prefWidth="155.0" text="PUBLICO" />
-                              <TableColumn prefWidth="155.0" text="FALTAS" />
-                              <TableColumn prefWidth="159.0" text="VENCEDOR" />
+                              <TableColumn fx:id="colStatus"   prefWidth="155.0" text="STATUS" />
+                              <TableColumn fx:id="colTime1"    prefWidth="155.0" text="TIME 1" />
+                              <TableColumn fx:id="colTime2"    prefWidth="155.0" text="TIME 2" />
+                              <TableColumn fx:id="colEstadio"  prefWidth="155.0" text="ESTADIO" />
+                              <TableColumn fx:id="colGolsT1"   prefWidth="155.0" text="GOLS TIME 1" />
+                              <TableColumn fx:id="colGolsT2"   prefWidth="155.0" text="GOLS TIME 2" />
+                              <TableColumn fx:id="colPublico"  prefWidth="155.0" text="PUBLICO" />
+                              <TableColumn fx:id="colFaltas"   prefWidth="155.0" text="FALTAS" />
+                              <TableColumn fx:id="colVencedor" prefWidth="159.0" text="VENCEDOR" />
                            </columns>
                         </TableView>
                      </children>
                   </AnchorPane>
 
+                  <!-- ═══════════════════════════════════════════════════════
+                       PAINEL: Desempenho por Seleção (ADM)
+                       fx:id adicionados em todas as TableColumn
+                  ════════════════════════════════════════════════════════ -->
                   <AnchorPane fx:id="desempenhoPanelAdm" layoutX="500.0" layoutY="10.0" prefHeight="1080.0" prefWidth="1430.0" visible="false">
                      <children>
                         <TableView fx:id="relatorioDesempenho" layoutX="15.0" layoutY="186.0" prefHeight="879.0" prefWidth="1400.0">
                            <columns>
-                              <TableColumn prefWidth="140.0" text="SELEÇAO" />
-                              <TableColumn prefWidth="140.0" text="PONTOS" />
-                              <TableColumn prefWidth="140.0" text="JOGOS" />
-                              <TableColumn prefWidth="140.0" text="VITORIAS" />
-                              <TableColumn prefWidth="140.0" text="EMPATES" />
-                              <TableColumn prefWidth="140.0" text="DERROTAS" />
-                              <TableColumn prefWidth="140.0" text="GOLS" />
-                              <TableColumn prefWidth="140.0" text="GOLS CONTRA" />
-                              <TableColumn prefWidth="140.0" text="SALDO DE GOLS" />
-                              <TableColumn prefWidth="140.0" text="CLASSIFICAÇAO" />
+                              <TableColumn fx:id="colDSelecao"       prefWidth="140.0" text="SELEÇAO" />
+                              <TableColumn fx:id="colDPontos"        prefWidth="140.0" text="PONTOS" />
+                              <TableColumn fx:id="colDJogos"         prefWidth="140.0" text="JOGOS" />
+                              <TableColumn fx:id="colDVitorias"      prefWidth="140.0" text="VITORIAS" />
+                              <TableColumn fx:id="colDEmpates"       prefWidth="140.0" text="EMPATES" />
+                              <TableColumn fx:id="colDDerrotas"      prefWidth="140.0" text="DERROTAS" />
+                              <TableColumn fx:id="colDGols"          prefWidth="140.0" text="GOLS" />
+                              <TableColumn fx:id="colDGolsContra"    prefWidth="140.0" text="GOLS CONTRA" />
+                              <TableColumn fx:id="colDSaldo"         prefWidth="140.0" text="SALDO DE GOLS" />
+                              <TableColumn fx:id="colDClassificacao" prefWidth="140.0" text="CLASSIFICAÇAO" />
                            </columns>
                         </TableView>
                         <TableView fx:id="infos" layoutX="14.0" layoutY="14.0" prefHeight="163.0" prefWidth="1400.0">
                            <columns>
-                              <TableColumn prefWidth="466.6" text="Total de Partidas" />
-                              <TableColumn prefWidth="466.6" text="Publico Total" />
-                              <TableColumn prefWidth="465.0" text="Ganho total R$" />
+                              <TableColumn fx:id="colInfoPartidas" prefWidth="466.6" text="Total de Partidas" />
+                              <TableColumn fx:id="colInfoPublico"  prefWidth="466.6" text="Publico Total" />
+                              <TableColumn fx:id="colInfoGanho"    prefWidth="465.0" text="Ganho total R$" />
                            </columns>
                         </TableView>
                      </children>
