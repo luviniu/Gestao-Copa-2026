@@ -133,16 +133,21 @@ public class TelaGestaoUser {
 
         TextField campoNacionalidade = new TextField();
         TextField campoExperiencia = new TextField();
+        TextField campoCategoria = new TextField();
         campoNacionalidade.setDisable(true);
         campoExperiencia.setDisable(true);
+        campoCategoria.setDisable(true);
 
         comboPerfil.valueProperty().addListener((obs, oldVal, newVal) -> {
             boolean isArbitro = "Arbitro".equals(newVal);
             campoNacionalidade.setDisable(!isArbitro);
             campoExperiencia.setDisable(!isArbitro);
+            campoCategoria.setDisable(!isArbitro);
+
             if (!isArbitro) {
                 campoNacionalidade.clear();
                 campoExperiencia.clear();
+                campoCategoria.clear();
 
             }
 
@@ -167,6 +172,8 @@ public class TelaGestaoUser {
         grid.add(campoNacionalidade, 1, 6);
         grid.add(new Label("Experiência:"), 0, 7);
         grid.add(campoExperiencia, 1, 7);
+        grid.add(new Label("Categoria:"), 0, 8);
+        grid.add(campoCategoria, 1, 8);
 
         dialog.getDialogPane().setContent(grid);
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
@@ -181,6 +188,7 @@ public class TelaGestaoUser {
                 String perfil = comboPerfil.getValue();
                 String nacionalidade = campoNacionalidade.getText().trim();
                 String experiencia = campoExperiencia.getText().trim();
+                String categoria = campoCategoria.getText().trim();
 
                 if (nome.isEmpty() || email.isEmpty() || cpf.isEmpty() || senha.isEmpty() || confirmarSenha.isEmpty()) {
                     alerta(Alert.AlertType.WARNING, "Preencha todos os campos obrigatórios!");
@@ -207,7 +215,7 @@ public class TelaGestaoUser {
                         novoUsuario = new Objetos.Organizador(nome, cpf, email, senha);
 
                     } else {
-                        novoUsuario = new Objetos.Arbitro(nome, cpf, email, senha, nacionalidade, experiencia);
+                        novoUsuario = new Objetos.Arbitro(nome, cpf, email, senha, nacionalidade, experiencia, categoria);
 
                     }
 
@@ -258,15 +266,17 @@ public class TelaGestaoUser {
 
         TextField campoNacionalidade = new TextField();
         TextField campoExperiencia = new TextField();
+        TextField campoCategoria = new TextField();
 
         campoNacionalidade.setDisable(!selecionado.getPerfilUsuario().equals("Arbitro"));
         campoExperiencia.setDisable(!selecionado.getPerfilUsuario().equals("Arbitro"));
+        campoCategoria.setDisable(!selecionado.getPerfilUsuario().equals("Arbitro"));
 
         comboPerfil.valueProperty().addListener((obs, oldVal, newVal) -> {
             boolean isArbitro = "Arbitro".equals(newVal);
             campoNacionalidade.setDisable(!isArbitro);
             campoExperiencia.setDisable(!isArbitro);
-
+            campoCategoria.setDisable(!isArbitro);
         });
 
         javafx.scene.layout.GridPane grid = new javafx.scene.layout.GridPane();
@@ -296,6 +306,7 @@ public class TelaGestaoUser {
                 String novoPerfil = comboPerfil.getValue();
                 String nacionalidade = campoNacionalidade.getText().trim();
                 String experiencia = campoExperiencia.getText().trim();
+                String categoria = campoCategoria.getText().trim();
 
                 if (novoNome.isEmpty() || novoEmail.isEmpty()) {
                     alerta(Alert.AlertType.WARNING, "Nome e Email são obrigatórios!");
@@ -309,7 +320,7 @@ public class TelaGestaoUser {
                 }
 
                 OprUser user = OprUser.getInstancia();
-                user.editarUser(selecionado.getCpf(), novoNome, novoEmail, novaSenha, nacionalidade, experiencia, novoPerfil, logado);
+                user.editarUser(selecionado.getCpf(), novoNome, novoEmail, novaSenha, nacionalidade, experiencia, categoria, novoPerfil, logado);
                 carregarTabela();
                 alerta(Alert.AlertType.INFORMATION, "Usuário editado com sucesso!");
 

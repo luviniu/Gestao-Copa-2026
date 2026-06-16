@@ -1,10 +1,17 @@
 package Aplicacoes;
 
 import Objetos.Arbitro;
+<<<<<<< HEAD
 import Objetos.Usuario;
+=======
+import Objetos.Estadio;
+import Objetos.Usuario;
+//import Objetos.Selecao;
+>>>>>>> parent of c29fb50 (Merge remote-tracking branch 'origin/main')
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class OprArbitro {
 
@@ -50,9 +57,15 @@ public class OprArbitro {
 
     }
 
+<<<<<<< HEAD
     public boolean excluirArbitro(String cpf, Usuario usuarioLogado) {
         if (cpf == null || cpf.trim().isEmpty()) return false;
 
+=======
+    // Delega a exclusão ao OprUser
+    public boolean excluirArbitro(String cpf) {
+        if (cpf == null || cpf.trim().isEmpty()) return false;
+>>>>>>> parent of c29fb50 (Merge remote-tracking branch 'origin/main')
         boolean existe = getListaArbitros().stream()
                 .anyMatch(a -> a.getCpf().equals(cpf.trim()));
 
@@ -62,7 +75,11 @@ public class OprArbitro {
 
         }
 
+<<<<<<< HEAD
         OprUser.getInstancia().excluirUser(cpf.trim(), usuarioLogado);
+=======
+        OprUser.getInstancia().excluirUser(cpf.trim(), oprSessao.getUsuario());
+>>>>>>> parent of c29fb50 (Merge remote-tracking branch 'origin/main')
         return true;
 
     }
@@ -79,5 +96,8 @@ public class OprArbitro {
         return arbitros;
 
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of c29fb50 (Merge remote-tracking branch 'origin/main')
 }
