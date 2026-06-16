@@ -206,7 +206,7 @@ public class OprUser {
                 String linha = u.getPerfilUsuario() + ";" + u.getNome() + ";" + u.getCpf() + ";" + u.getEmail() + ";" + u.getSenha();
                 if (u instanceof Arbitro) {
                     Arbitro a = (Arbitro) u;
-                    linha += ";" + a.getNacionalidade() + ";" + a.getExperiencia();
+                    linha += ";" + a.getNacionalidade() + ";" + a.getExperiencia() + ";" + a.getCategoria();
 
                 }
                 writer.write(linha);
