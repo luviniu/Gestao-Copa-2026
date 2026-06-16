@@ -3,6 +3,8 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.GaussianBlur?>
@@ -16,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1074.0" prefWidth="1922.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaIngressos">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1074.0" prefWidth="1922.0" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaIngressos">
    <children>
       <ImageView fitHeight="1085.0" fitWidth="1926.0" pickOnBounds="true" preserveRatio="false">
          <image>
@@ -26,7 +28,7 @@
             <GaussianBlur />
          </effect>
       </ImageView>
-      <Rectangle id="background-capa" height="1099.0" layoutX="303.0" layoutY="-8.0" smooth="false" stroke="#2f1f1f" strokeType="INSIDE" strokeWidth="0.0" width="1016.0">
+      <Rectangle id="background-capa" height="1099.0" layoutX="453.0" layoutY="-12.0" smooth="false" stroke="#2f1f1f" strokeType="INSIDE" strokeWidth="0.0" width="1016.0">
          <effect>
             <ColorAdjust />
          </effect>
@@ -46,43 +48,56 @@
                </stops>
             </LinearGradient>
          </fill></Rectangle>
-      <Text fill="#e7e7ee" layoutX="673.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INGRESSOS" textAlignment="JUSTIFY" wrappingWidth="258.79999999999995">
+      <Text fill="#e7e7ee" layoutX="823.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INGRESSOS" textAlignment="JUSTIFY" wrappingWidth="296.79999999999995">
          <font>
             <Font name="System Bold" size="45.0" />
          </font>
       </Text>
 
-      <AnchorPane id="PopupAdicionarSelecao" layoutX="237.0" layoutY="641.0" prefHeight="57.0" prefWidth="517.0" />
-      <ComboBox fx:id="comboPartida" layoutX="375.0" layoutY="345.0" prefHeight="26.0" prefWidth="202.0" />
-      <ComboBox fx:id="comboCategoria" layoutX="698.0" layoutY="349.0" prefHeight="26.0" prefWidth="214.0" />
-      <TextField fx:id="txtQuantidade" layoutX="1020.0" layoutY="349.0" prefHeight="28.0" prefWidth="214.0" />
-      <Button fx:id="btnVender" layoutX="729.0" layoutY="442.0" mnemonicParsing="false" onAction="#venderIngresso" text="VENDER" textFill="#1a00ff">
+      <TextField fx:id="txtBuscaPartida" layoutX="540.0" layoutY="286.0" prefHeight="35.0" prefWidth="214.0" promptText="BrasilxArgentina" />
+
+      <TableView fx:id="tabelaInfoPartida" fixedCellSize="30.0" layoutX="455.0" layoutY="358.0" prefHeight="270.0" prefWidth="1016.0">
+         <columns>
+            <TableColumn fx:id="colInfoJogo" prefWidth="204.0" resizable="false" text="PARTIDA" />
+            <TableColumn fx:id="colInfoHorario" prefWidth="146.0" text="HORARIO" />
+            <TableColumn fx:id="colInfoData" prefWidth="92.0" text="DATA" />
+            <TableColumn fx:id="colInfoLocal" prefWidth="163.0" text="Local" />
+            <TableColumn fx:id="colInfoCapacidade" prefWidth="204.0" text="CAPACIDADE MAXIMA" />
+            <TableColumn fx:id="colInfoVendidos" prefWidth="206.0" text="INGRESSOS VENDIDOS" />
+         </columns>
+      </TableView>
+
+      <Text fill="WHITE" layoutX="883.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CATEGORIA">
+         <font><Font size="30.0" /></font>
+      </Text>
+      <Text fill="WHITE" layoutX="1177.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="QUANTIDADE">
+         <font><Font size="30.0" /></font>
+      </Text>
+
+      <ComboBox fx:id="comboCategoria" layoutX="864.0" layoutY="291.0" prefHeight="26.0" prefWidth="214.0" />
+      <TextField fx:id="txtQuantidade" layoutX="1171.0" layoutY="291.0" prefHeight="28.0" prefWidth="214.0" />
+
+      <Button fx:id="btnVender" layoutX="769.0" layoutY="701.0" mnemonicParsing="false" onAction="#venderIngresso" text="VENDER" textFill="#1a00ff">
+         <font><Font size="28.0" /></font>
+      </Button>
+
+      <Button layoutX="846.0" layoutY="798.0" mnemonicParsing="false" onAction="#abrirRelatorio" text="Relatorio financeiro" textFill="#3500ff">
+         <font><Font size="21.0" /></font>
+      </Button>
+      <Text fill="WHITE" layoutX="581.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PARTIDA">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <Button fx:id="btnVender1" layoutX="981.0" layoutY="701.0" mnemonicParsing="false" onAction="#devolverIngresso" text="DEVOLVER" textFill="#1a00ff">
          <font>
             <Font size="28.0" />
-         </font></Button>
-      <Text fill="WHITE" layoutX="411.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PARTIDA">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Text>
-      <Text fill="WHITE" layoutX="725.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CATEGORIA">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Text>
-      <Text fill="WHITE" layoutX="1014.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="QUANTIDADE">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Text>
-      <Button layoutX="710.0" layoutY="759.0" mnemonicParsing="false" onAction="#abrirControlePublico" text="Controle de publico" textFill="#1100fa">
-         <font>
-            <Font size="21.0" />
          </font>
       </Button>
-      <Button layoutX="714.0" layoutY="817.0" mnemonicParsing="false" onAction="#abrirRelatorio" text="Relatorio financeiro" textFill="#3500ff">
+
+      <Button layoutX="455.0" layoutY="20.0" mnemonicParsing="false" onAction="#voltarTela" text="â† Voltar" textFill="#e7e7ee">
          <font>
-            <Font size="21.0" />
+            <Font size="18.0" />
          </font>
       </Button>
 

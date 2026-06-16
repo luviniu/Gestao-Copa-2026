@@ -24,14 +24,12 @@ import java.util.*;
 
 public class TelaLauncher {
 
-    // Labels
     @FXML private Label labelNomeCentro;
     @FXML private Label labelCargoCentro;
     @FXML private Label labelCpfCentro;
     @FXML private Label labelNomeSidebar;
     @FXML private Label labelCargoSidebar;
 
-    // Painéis de conteúdo
     @FXML private AnchorPane painelInicial;
     @FXML private AnchorPane partidaPanelAdm;
     @FXML private AnchorPane desempenhoPanelAdm;
@@ -42,21 +40,16 @@ public class TelaLauncher {
     @FXML private AnchorPane ingressoPanelOp;
     @FXML private AnchorPane partidaPanelArb;
 
-    // Grupos de botões por perfil
     @FXML private AnchorPane buttonsAdmin;
     @FXML private AnchorPane buttonsOrganizador;
     @FXML private AnchorPane buttonsOperador;
     @FXML private AnchorPane buttonsArbitro;
 
-    // Botões
     @FXML private Button btnPerfilInicio;
     @FXML private Button btnPartidasAdm;
     @FXML private Button buttonGestaoUsr;
     @FXML private Button btnDesempenhoAdm;
 
-    // =========================================================================
-    //  TABELA: Relatório de Partidas (ADM)
-    // =========================================================================
     @FXML private TableView<Partida>           relatorioPartida;
     @FXML private TableColumn<Partida, String>    colStatus;
     @FXML private TableColumn<Partida, String>    colTime1;
@@ -68,11 +61,6 @@ public class TelaLauncher {
     @FXML private TableColumn<Partida, Integer>   colFaltas;
     @FXML private TableColumn<Partida, String>    colVencedor;
 
-    // =========================================================================
-    //  TABELA: Resumo geral (ADM - painel desempenho, tabela superior)
-    // =========================================================================
-
-    /** DTO simples para a linha de resumo geral */
     public static class ResumoGeral {
         private final String totalPartidas;
         private final String publicoTotal;
@@ -93,11 +81,6 @@ public class TelaLauncher {
     @FXML private TableColumn<ResumoGeral, String>    colInfoPublico;
     @FXML private TableColumn<ResumoGeral, String>    colInfoGanho;
 
-    // =========================================================================
-    //  TABELA: Desempenho por Seleção (ADM)
-    // =========================================================================
-
-    /** DTO que agrega as estatísticas calculadas de uma seleção */
     public static class DesempenhoSelecao {
         private final String selecao;
         private final int pontos, jogos, vitorias, empates, derrotas,
@@ -141,7 +124,30 @@ public class TelaLauncher {
     @FXML private TableColumn<DesempenhoSelecao, Integer>   colDSaldo;
     @FXML private TableColumn<DesempenhoSelecao, Integer>   colDClassificacao;
 
-    // Serviços
+    public static class ResumoIngresso {
+        private final String jogo;
+        private final int    vendidos;
+        private final int    capacidade;
+        private final double arrecadacao;
+
+        public ResumoIngresso(String jogo, int vendidos, int capacidade, double arrecadacao) {
+            this.jogo        = jogo;
+            this.vendidos    = vendidos;
+            this.capacidade  = capacidade;
+            this.arrecadacao = arrecadacao;
+        }
+        public String getJogo()        { return jogo; }
+        public int    getVendidos()    { return vendidos; }
+        public int    getCapacidade()  { return capacidade; }
+        public double getArrecadacao() { return arrecadacao; }
+    }
+
+    @FXML private TableView<ResumoIngresso>           tabelaIngressosOp;
+    @FXML private TableColumn<ResumoIngresso, String>  colOpJogo;
+    @FXML private TableColumn<ResumoIngresso, Integer> colOpVendidos;
+    @FXML private TableColumn<ResumoIngresso, Integer> colOpCapacidade;
+    @FXML private TableColumn<ResumoIngresso, String>  colOpArrecadacao;
+
     private final OprPartida  oprPartida  = new OprPartida();
     private final OprIngresso oprIngresso = new OprIngresso();
 
@@ -151,6 +157,7 @@ public class TelaLauncher {
     public void initialize() {
         configurarTabelaPartidas();
         configurarTabelaDesempenho();
+        configurarTabelaIngressosOp();
 
         Usuario logado = oprSessao.getUsuario();
         if (logado != null) {
@@ -162,7 +169,6 @@ public class TelaLauncher {
 
             voltarInicio(null);
 
-            // Oculta todos os grupos de botões e exibe apenas o do perfil
             if (buttonsAdmin      != null) buttonsAdmin     .setVisible(false);
             if (buttonsOrganizador!= null) buttonsOrganizador.setVisible(false);
             if (buttonsOperador   != null) buttonsOperador  .setVisible(false);
@@ -198,16 +204,13 @@ public class TelaLauncher {
         colGolsT1  .setCellValueFactory(c -> new SimpleIntegerProperty(c.getValue().getGolCasa())   .asObject());
         colGolsT2  .setCellValueFactory(c -> new SimpleIntegerProperty(c.getValue().getGolVisita()) .asObject());
 
-        // Público: ingressos vendidos para aquela partida
         colPublico .setCellValueFactory(c -> {
             int pub = oprIngresso.calcularPublicoPorPartida(c.getValue());
             return new SimpleIntegerProperty(pub).asObject();
         });
 
-        // Faltas: não existe no modelo atual -> exibe 0
         colFaltas  .setCellValueFactory(c -> new SimpleIntegerProperty(0).asObject());
 
-        // Vencedor derivado dos gols (apenas para partidas finalizadas)
         colVencedor.setCellValueFactory(c -> {
             Partida p = c.getValue();
             if (!"Finalizada".equalsIgnoreCase(p.getStatus())) {
@@ -237,7 +240,6 @@ public class TelaLauncher {
         colDSaldo        .setCellValueFactory(c -> new SimpleIntegerProperty(c.getValue().getSaldoGols())   .asObject());
         colDClassificacao.setCellValueFactory(c -> new SimpleIntegerProperty(c.getValue().getClassificacao()).asObject());
 
-        // Tabela de resumo (linha superior do painel desempenho)
         if (infos != null) {
             colInfoPartidas.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTotalPartidas()));
             colInfoPublico .setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getPublicoTotal()));
@@ -245,18 +247,24 @@ public class TelaLauncher {
         }
     }
 
-    // CORREÇÃO AQUI: Alterado de .consultarPartidas() para .getListaPartidas()
+    private void configurarTabelaIngressosOp() {
+        if (tabelaIngressosOp == null) return;
+
+        colOpJogo       .setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getJogo()));
+        colOpVendidos   .setCellValueFactory(c -> new SimpleIntegerProperty(c.getValue().getVendidos()).asObject());
+        colOpCapacidade .setCellValueFactory(c -> new SimpleIntegerProperty(c.getValue().getCapacidade()).asObject());
+        colOpArrecadacao.setCellValueFactory(c -> new SimpleStringProperty(String.format("R$ %.2f", c.getValue().getArrecadacao())));
+    }
+
     private void carregarRelatorioPartidas() {
         if (relatorioPartida == null) return;
         List<Partida> lista = oprPartida.getListaPartidas();
         relatorioPartida.setItems(FXCollections.observableArrayList(lista));
     }
 
-    // CORREÇÃO AQUI: Alterado de .consultarPartidas() para .getListaPartidas()
     private void carregarDesempenho() {
         List<Partida> partidas = oprPartida.getListaPartidas();
 
-        // Acumula estatísticas por seleção
         Map<String, int[]> stats = new LinkedHashMap<>();
 
         for (Partida p : partidas) {
@@ -273,30 +281,29 @@ public class TelaLauncher {
             int[] sc = stats.get(casa);
             int[] sv = stats.get(visita);
 
-            sc[1]++; sv[1]++;         // jogos
-            sc[5] += gC; sv[5] += gV; // gols pró
-            sc[6] += gV; sv[6] += gC; // gols contra
+            sc[1]++; sv[1]++;
+            sc[5] += gC; sv[5] += gV;
+            sc[6] += gV; sv[6] += gC;
 
-            if (gC > gV) {            // casa venceu
+            if (gC > gV) {
                 sc[2]++; sc[0] += 3;
                 sv[4]++;
-            } else if (gV > gC) {     // visita venceu
+            } else if (gV > gC) {
                 sv[2]++; sv[0] += 3;
                 sc[4]++;
-            } else {                  // empate
+            } else {
                 sc[3]++; sc[0]++;
                 sv[3]++; sv[0]++;
             }
         }
 
-        // Ordena por pontos (desc), depois saldo de gols (desc)
         List<Map.Entry<String, int[]>> ordenado = new ArrayList<>(stats.entrySet());
         ordenado.sort((a, b) -> {
             int[] sa = a.getValue(), sb = b.getValue();
             int saldoA = sa[5] - sa[6];
             int saldoB = sb[5] - sb[6];
-            if (sb[0] != sa[0]) return sb[0] - sa[0]; // pontos
-            return saldoB - saldoA;                    // saldo
+            if (sb[0] != sa[0]) return sb[0] - sa[0];
+            return saldoB - saldoA;
         });
 
         ObservableList<DesempenhoSelecao> desempenhos = FXCollections.observableArrayList();
@@ -313,7 +320,6 @@ public class TelaLauncher {
             relatorioDesempenho.setItems(desempenhos);
         }
 
-        // Resumo geral (tabela superior)
         if (infos != null) {
             int    totalPartidas = (int) partidas.stream()
                     .filter(p -> "Finalizada".equalsIgnoreCase(p.getStatus())).count();
@@ -329,6 +335,22 @@ public class TelaLauncher {
             );
             infos.setItems(resumo);
         }
+    }
+
+    private void carregarTabelaIngressosOp() {
+        if (tabelaIngressosOp == null) return;
+
+        ObservableList<ResumoIngresso> itens = FXCollections.observableArrayList();
+
+        for (Partida p : oprPartida.getListaPartidas()) {
+            String jogo        = p.getTimeCasa().getPais() + " x " + p.getTimeVisita().getPais();
+            int    vendidos    = oprIngresso.calcularPublicoPorPartida(p);
+            int    capacidade  = (p.getEstadio() != null) ? p.getEstadio().getVagas() : 0;
+            double arrecadacao = oprIngresso.calcularArrecadacaoPorPartida(p);
+            itens.add(new ResumoIngresso(jogo, vendidos, capacidade, arrecadacao));
+        }
+
+        tabelaIngressosOp.setItems(itens);
     }
 
     private void esconderTodosOsPaineis() {
@@ -445,6 +467,7 @@ public class TelaLauncher {
     public void mostrarPainelIngressosOp(ActionEvent event) {
         esconderTodosOsPaineis();
         if (ingressoPanelOp != null) {
+            carregarTabelaIngressosOp();
             ingressoPanelOp.setVisible(true);
             ingressoPanelOp.toFront();
         }

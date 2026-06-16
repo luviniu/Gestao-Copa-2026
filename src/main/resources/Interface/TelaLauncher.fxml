@@ -198,10 +198,10 @@
                      <children>
                         <TableView fx:id="tabelaIngressosOp" layoutX="15.0" layoutY="15.0" prefHeight="1050.0" prefWidth="1400.0">
                            <columns>
-                              <TableColumn prefWidth="350.0" text="JOGO" />
-                              <TableColumn prefWidth="350.0" text="INGRESSOS VENDIDOS" />
-                              <TableColumn prefWidth="350.0" text="CAPACIDADE MAXIMA" />
-                              <TableColumn prefWidth="348.0" text="ARRECADACAO TOTAL" />
+                              <TableColumn fx:id="colOpJogo"       prefWidth="350.0" text="JOGO" />
+                              <TableColumn fx:id="colOpVendidos"   prefWidth="350.0" text="INGRESSOS VENDIDOS" />
+                              <TableColumn fx:id="colOpCapacidade" prefWidth="350.0" text="CAPACIDADE MAXIMA" />
+                              <TableColumn fx:id="colOpArrecadacao" prefWidth="348.0" text="ARRECADACAO TOTAL" />
                            </columns>
                         </TableView>
                      </children>
