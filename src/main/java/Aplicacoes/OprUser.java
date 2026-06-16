@@ -103,7 +103,7 @@ public class OprUser {
 
     }
 
-    public void editarUser(String cpf, String novoNome, String novoEmail, String novoSenha, String nacionalidade, String experiencia, String categoria, String novoPerfil, Usuario usuarioLogado){
+    public void editarUser(String cpf, String novoNome, String novoEmail, String novoSenha, String nacionalidade, String experiencia, String novoPerfil, Usuario usuarioLogado){
         if(!usuarioLogado.getPerfilUsuario().equals("Administrador")){
             return;
 
@@ -142,7 +142,7 @@ public class OprUser {
                         usuarioMod=new Organizador(novoNome, usuario.getCpf(), novoEmail, novoSenha);
 
                     }else{
-                        usuarioMod=new Arbitro(novoNome, usuario.getCpf(), novoEmail, novoSenha, nacionalidade, experiencia, categoria);
+                        usuarioMod=new Arbitro(novoNome, usuario.getCpf(), novoEmail, novoSenha, nacionalidade, experiencia);
 
                     }
                     usuarios.set(i,usuarioMod);
@@ -251,8 +251,7 @@ public class OprUser {
                 } else if (perfil.equals("Arbitro")) {
                     String nacionalidade = partes.length > 5 ? partes[5] : "";
                     String experiencia = partes.length > 6 ? partes[6] : "";
-                    String categoria = partes.length > 7 ? partes[7] : "";
-                    usuario = new Arbitro(nome, cpf, email, senha, nacionalidade, experiencia, categoria);
+                    usuario = new Arbitro(nome, cpf, email, senha, nacionalidade, experiencia);
 
                 } else {
                     usuario = new Funcionario(nome, cpf, email, senha);

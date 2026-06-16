@@ -64,4 +64,21 @@ public class Selecao {
 
     }
 
+    public boolean isElegivel() {
+        int totalJogadores = time.size();
+
+        // Se o elenco total desrespeitar o limite do campeonato, já barra aqui
+        if (totalJogadores < 18 || totalJogadores > 26) {
+            return false;
+        }
+
+        // Conta quantos atletas estão realmente aptos (Ativos)
+        long ativos = time.stream()
+                .filter(j -> "Ativo".equals(j.getStatus()))
+                .count();
+
+        // Verifica se há pelo menos 18 ativos
+        return ativos >= 18;
+    }
+
 }

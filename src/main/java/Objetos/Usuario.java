@@ -53,8 +53,4 @@ public abstract class Usuario implements java.io.Serializable {
 
     public abstract String getPerfilUsuario();
 
-    @Override
-    public String toString() {
-        return this.nome; // O ComboBox vai exibir o nome do usuário
-    }
 }
