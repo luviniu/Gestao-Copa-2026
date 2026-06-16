@@ -24,14 +24,14 @@ import java.util.*;
 
 public class TelaLauncher {
 
-    // Labels
+    // ── Labels ──────────────────────────────────────────────────────────────
     @FXML private Label labelNomeCentro;
     @FXML private Label labelCargoCentro;
     @FXML private Label labelCpfCentro;
     @FXML private Label labelNomeSidebar;
     @FXML private Label labelCargoSidebar;
 
-    // Painéis de conteúdo
+    // ── Painéis de conteúdo ──────────────────────────────────────────────────
     @FXML private AnchorPane painelInicial;
     @FXML private AnchorPane partidaPanelAdm;
     @FXML private AnchorPane desempenhoPanelAdm;
@@ -42,22 +42,22 @@ public class TelaLauncher {
     @FXML private AnchorPane ingressoPanelOp;
     @FXML private AnchorPane partidaPanelArb;
 
-    // Grupos de botões por perfil
+    // ── Grupos de botões por perfil ─────────────────────────────────────────
     @FXML private AnchorPane buttonsAdmin;
     @FXML private AnchorPane buttonsOrganizador;
     @FXML private AnchorPane buttonsOperador;
     @FXML private AnchorPane buttonsArbitro;
 
-    // Botões
+    // ── Botões ───────────────────────────────────────────────────────────────
     @FXML private Button btnPerfilInicio;
     @FXML private Button btnPartidasAdm;
     @FXML private Button buttonGestaoUsr;
     @FXML private Button btnDesempenhoAdm;
 
-    // =========================================================================
+    // ════════════════════════════════════════════════════════════════════════
     //  TABELA: Relatório de Partidas (ADM)
-    // =========================================================================
-    @FXML private TableView<Partida>           relatorioPartida;
+    // ════════════════════════════════════════════════════════════════════════
+    @FXML private TableView<Partida>              relatorioPartida;
     @FXML private TableColumn<Partida, String>    colStatus;
     @FXML private TableColumn<Partida, String>    colTime1;
     @FXML private TableColumn<Partida, String>    colTime2;
@@ -68,9 +68,9 @@ public class TelaLauncher {
     @FXML private TableColumn<Partida, Integer>   colFaltas;
     @FXML private TableColumn<Partida, String>    colVencedor;
 
-    // =========================================================================
+    // ════════════════════════════════════════════════════════════════════════
     //  TABELA: Resumo geral (ADM - painel desempenho, tabela superior)
-    // =========================================================================
+    // ════════════════════════════════════════════════════════════════════════
 
     /** DTO simples para a linha de resumo geral */
     public static class ResumoGeral {
@@ -93,9 +93,9 @@ public class TelaLauncher {
     @FXML private TableColumn<ResumoGeral, String>    colInfoPublico;
     @FXML private TableColumn<ResumoGeral, String>    colInfoGanho;
 
-    // =========================================================================
+    // ════════════════════════════════════════════════════════════════════════
     //  TABELA: Desempenho por Seleção (ADM)
-    // =========================================================================
+    // ════════════════════════════════════════════════════════════════════════
 
     /** DTO que agrega as estatísticas calculadas de uma seleção */
     public static class DesempenhoSelecao {
@@ -103,9 +103,11 @@ public class TelaLauncher {
         private final int pontos, jogos, vitorias, empates, derrotas,
                 gols, golsContra, saldoGols, classificacao;
 
-        public DesempenhoSelecao(String selecao, int pontos, int jogos,
+        public DesempenhoSelecao(String selecao,
+                                 int pontos, int jogos,
                                  int vitorias, int empates, int derrotas,
-                                 int gols, int golsContra, int saldoGols, int classificacao) {
+                                 int gols, int golsContra,
+                                 int saldoGols, int classificacao) {
             this.selecao       = selecao;
             this.pontos        = pontos;
             this.jogos         = jogos;
@@ -141,12 +143,15 @@ public class TelaLauncher {
     @FXML private TableColumn<DesempenhoSelecao, Integer>   colDSaldo;
     @FXML private TableColumn<DesempenhoSelecao, Integer>   colDClassificacao;
 
-    // Serviços
+    // ── Serviços ─────────────────────────────────────────────────────────────
     private final OprPartida  oprPartida  = new OprPartida();
     private final OprIngresso oprIngresso = new OprIngresso();
 
     private static Stage janelaGestaoAtiva;
 
+    // ════════════════════════════════════════════════════════════════════════
+    //  initialize
+    // ════════════════════════════════════════════════════════════════════════
     @FXML
     public void initialize() {
         configurarTabelaPartidas();
@@ -188,6 +193,9 @@ public class TelaLauncher {
         }
     }
 
+    // ════════════════════════════════════════════════════════════════════════
+    //  Configuração das colunas – Relatório de Partidas
+    // ════════════════════════════════════════════════════════════════════════
     private void configurarTabelaPartidas() {
         if (relatorioPartida == null) return;
 
@@ -204,7 +212,7 @@ public class TelaLauncher {
             return new SimpleIntegerProperty(pub).asObject();
         });
 
-        // Faltas: não existe no modelo atual -> exibe 0
+        // Faltas: não existe no modelo atual → exibe 0 (extensível futuramente)
         colFaltas  .setCellValueFactory(c -> new SimpleIntegerProperty(0).asObject());
 
         // Vencedor derivado dos gols (apenas para partidas finalizadas)
@@ -223,6 +231,9 @@ public class TelaLauncher {
         });
     }
 
+    // ════════════════════════════════════════════════════════════════════════
+    //  Configuração das colunas – Tabela de Desempenho
+    // ════════════════════════════════════════════════════════════════════════
     private void configurarTabelaDesempenho() {
         if (relatorioDesempenho == null) return;
 
@@ -245,19 +256,24 @@ public class TelaLauncher {
         }
     }
 
-    // CORREÇÃO AQUI: Alterado de .consultarPartidas() para .getListaPartidas()
+    // ════════════════════════════════════════════════════════════════════════
+    //  Carregamento dos dados – Relatório de Partidas
+    // ════════════════════════════════════════════════════════════════════════
     private void carregarRelatorioPartidas() {
         if (relatorioPartida == null) return;
-        List<Partida> lista = oprPartida.getListaPartidas();
+        List<Partida> lista = oprPartida.consultarPartidas();
         relatorioPartida.setItems(FXCollections.observableArrayList(lista));
     }
 
-    // CORREÇÃO AQUI: Alterado de .consultarPartidas() para .getListaPartidas()
+    // ════════════════════════════════════════════════════════════════════════
+    //  Carregamento dos dados – Desempenho por Seleção
+    // ════════════════════════════════════════════════════════════════════════
     private void carregarDesempenho() {
-        List<Partida> partidas = oprPartida.getListaPartidas();
+        List<Partida> partidas = oprPartida.consultarPartidas();
 
         // Acumula estatísticas por seleção
         Map<String, int[]> stats = new LinkedHashMap<>();
+        // índices: [pontos, jogos, vitorias, empates, derrotas, gols, golsContra]
 
         for (Partida p : partidas) {
             if (!"Finalizada".equalsIgnoreCase(p.getStatus())) continue;
@@ -331,6 +347,9 @@ public class TelaLauncher {
         }
     }
 
+    // ════════════════════════════════════════════════════════════════════════
+    //  Navegação – ocultar todos os painéis
+    // ════════════════════════════════════════════════════════════════════════
     private void esconderTodosOsPaineis() {
         if (painelInicial       != null) painelInicial      .setVisible(false);
         if (partidaPanelAdm     != null) partidaPanelAdm    .setVisible(false);
@@ -343,6 +362,9 @@ public class TelaLauncher {
         if (partidaPanelArb     != null) partidaPanelArb    .setVisible(false);
     }
 
+    // ════════════════════════════════════════════════════════════════════════
+    //  Handlers de navegação
+    // ════════════════════════════════════════════════════════════════════════
     @FXML
     public void voltarInicio(ActionEvent event) {
         esconderTodosOsPaineis();
@@ -356,7 +378,7 @@ public class TelaLauncher {
     public void mostrarPainelPartidas(ActionEvent event) {
         esconderTodosOsPaineis();
         if (partidaPanelAdm != null) {
-            carregarRelatorioPartidas();
+            carregarRelatorioPartidas();   // ← carrega dados frescos
             partidaPanelAdm.setVisible(true);
             partidaPanelAdm.toFront();
         }
@@ -366,7 +388,7 @@ public class TelaLauncher {
     public void mostrarPainelDesempenho(ActionEvent event) {
         esconderTodosOsPaineis();
         if (desempenhoPanelAdm != null) {
-            carregarDesempenho();
+            carregarDesempenho();          // ← carrega dados frescos
             desempenhoPanelAdm.setVisible(true);
             desempenhoPanelAdm.toFront();
         }
@@ -396,6 +418,9 @@ public class TelaLauncher {
         }
     }
 
+    // ════════════════════════════════════════════════════════════════════════
+    //  Navegação para telas externas (Organizador / Operador)
+    // ════════════════════════════════════════════════════════════════════════
     @FXML
     public void mostrarPainelPartidasOrg(ActionEvent event) {
         navegarParaTela("/Interface/TelaPartidas.fxml", "Gerenciamento de Partidas", event);
@@ -414,13 +439,16 @@ public class TelaLauncher {
     @FXML
     public void mostrarPainelEstadiosOrg(ActionEvent event) {
         navegarParaTela("/Interface/TelaEstadios.fxml", "Gerenciamento de Estádios", event);
+
     }
 
     @FXML
     public void irParaTelaIngressos(ActionEvent event) {
         navegarParaTela("/Interface/TelaIngressos.fxml", "Gerenciamento de Ingressos", event);
+
     }
 
+    /** Auxiliar: carrega uma tela FXML na mesma janela (maximizada) */
     private void navegarParaTela(String fxmlPath, String titulo, ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -428,35 +456,43 @@ public class TelaLauncher {
             Stage  stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             Scene  scene = new Scene(root, 1920, 1080);
 
-            if (getClass().getResource("/Interface/style.css") != null)
-                scene.getStylesheets().add(getClass().getResource("/Interface/style.css").toExternalForm());
+            if (getClass().getResource("/Interface/style.css") != null) scene.getStylesheets().add(getClass().getResource("/Interface/style.css").toExternalForm());
 
             stage.setScene(scene);
             stage.setMaximized(true);
             stage.setTitle(titulo);
             stage.show();
+
         } catch (IOException e) {
             System.out.println("Erro ao abrir: " + fxmlPath);
             e.printStackTrace();
+
         }
+
     }
 
     @FXML
     public void mostrarPainelIngressosOp(ActionEvent event) {
         esconderTodosOsPaineis();
+
         if (ingressoPanelOp != null) {
             ingressoPanelOp.setVisible(true);
             ingressoPanelOp.toFront();
+
         }
+
     }
 
     @FXML
     public void mostrarPainelPartidasArb(ActionEvent event) {
         esconderTodosOsPaineis();
+
         if (partidaPanelArb != null) {
             partidaPanelArb.setVisible(true);
             partidaPanelArb.toFront();
+
         }
+
     }
 
     @FXML
@@ -464,6 +500,7 @@ public class TelaLauncher {
         if (janelaGestaoAtiva != null && janelaGestaoAtiva.isShowing()) {
             janelaGestaoAtiva.close();
             janelaGestaoAtiva = null;
+
         }
 
         oprSessao.encerrar();
@@ -478,8 +515,12 @@ public class TelaLauncher {
             stage.setMaximized(true);
             stage.setTitle("World Cup 2026 - Login");
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
+
         }
+
     }
+
 }

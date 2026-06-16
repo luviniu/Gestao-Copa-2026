@@ -72,9 +72,9 @@
 
       <HBox layoutX="700.0" layoutY="700.0" prefHeight="50.0" prefWidth="540.0" spacing="15.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleAdicionarEstadio" prefHeight="40.0" prefWidth="170.0" stylesheets="@style.css" text="Adicionar Estádio" />
-            <Button mnemonicParsing="false" onAction="#handleEditarEstadio" prefHeight="40.0" prefWidth="170.0" stylesheets="@style.css" text="Alterar Informações" />
-            <Button mnemonicParsing="false" onAction="#handleRemoverEstadio" prefHeight="40.0" prefWidth="170.0" stylesheets="@style.css" text="Remover" />
+            <Button mnemonicParsing="false" onAction="#handleAdicionarEstadio" prefHeight="40.0" prefWidth="170.0" text="Adicionar Estádio" />
+            <Button mnemonicParsing="false" onAction="#handleEditarEstadio" prefHeight="40.0" prefWidth="170.0" text="Alterar Informações" />
+            <Button mnemonicParsing="false" onAction="#handleRemoverEstadio" prefHeight="40.0" prefWidth="170.0" text="Remover" />
          </children>
       </HBox>
    </children>
