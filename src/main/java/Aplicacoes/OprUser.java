@@ -202,7 +202,7 @@ public class OprUser {
 
     public void salvarUsuarios() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("usuarios.txt"))) {
-            for (Usuario u : usuarios) {
+            for (Usuario u : usuarios){
                 String linha = u.getPerfilUsuario() + ";" + u.getNome() + ";" + u.getCpf() + ";" + u.getEmail() + ";" + u.getSenha();
                 if (u instanceof Arbitro) {
                     Arbitro a = (Arbitro) u;
