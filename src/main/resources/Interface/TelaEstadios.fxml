@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaEstadios">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaEstadios">
    <children>
       <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -75,6 +75,7 @@
             <Button mnemonicParsing="false" onAction="#handleAdicionarEstadio" prefHeight="40.0" prefWidth="170.0" text="Adicionar Estádio" />
             <Button mnemonicParsing="false" onAction="#handleEditarEstadio" prefHeight="40.0" prefWidth="170.0" text="Alterar Informações" />
             <Button mnemonicParsing="false" onAction="#handleRemoverEstadio" prefHeight="40.0" prefWidth="170.0" text="Remover" />
+            <Button mnemonicParsing="false" onAction="#voltarParaLauncher" prefHeight="40.0" prefWidth="170.0" text="Voltar" />
          </children>
       </HBox>
    </children>

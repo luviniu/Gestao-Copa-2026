@@ -37,7 +37,6 @@ public class TelaSelecoes implements Initializable {
         atualizarTabela();
     }
 
-    // Método que recarrega a tabela com a lista completa do backend
     private void atualizarTabela() {
         ObservableList<Selecao> dados = FXCollections.observableArrayList(oprSel.getListaSelecoes());
         tabelaSelecoes.setItems(dados);
@@ -116,6 +115,32 @@ public class TelaSelecoes implements Initializable {
                 }
             }
         });
+    }
+
+    @FXML
+    private void voltarParaLauncher(ActionEvent event) {
+        try {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
+                    getClass().getResource("/Interface/TelaLauncher.fxml")
+            );
+            javafx.scene.Parent root = loader.load();
+            javafx.stage.Stage stage = (javafx.stage.Stage)
+                    ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            javafx.scene.Scene scene = new javafx.scene.Scene(root, 1920, 1080);
+
+            if (getClass().getResource("/Interface/style.css") != null)
+                scene.getStylesheets().add(
+                        getClass().getResource("/Interface/style.css").toExternalForm()
+                );
+
+            stage.setScene(scene);
+            stage.setMaximized(true);
+            stage.setTitle("World Cup 2026 - Launcher");
+            stage.show();
+        } catch (java.io.IOException e) {
+            System.out.println("Erro ao voltar para o Launcher.");
+            e.printStackTrace();
+        }
     }
 
     @FXML

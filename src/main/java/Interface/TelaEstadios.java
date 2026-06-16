@@ -43,6 +43,32 @@ public class TelaEstadios implements Initializable {
         });
     }
 
+    @FXML
+    private void voltarParaLauncher(ActionEvent event) {
+        try {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
+                    getClass().getResource("/Interface/TelaLauncher.fxml")
+            );
+            javafx.scene.Parent root = loader.load();
+            javafx.stage.Stage stage = (javafx.stage.Stage)
+                    ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            javafx.scene.Scene scene = new javafx.scene.Scene(root, 1920, 1080);
+
+            if (getClass().getResource("/Interface/style.css") != null)
+                scene.getStylesheets().add(
+                        getClass().getResource("/Interface/style.css").toExternalForm()
+                );
+
+            stage.setScene(scene);
+            stage.setMaximized(true);
+            stage.setTitle("World Cup 2026 - Launcher");
+            stage.show();
+        } catch (java.io.IOException e) {
+            System.out.println("Erro ao voltar para o Launcher.");
+            e.printStackTrace();
+        }
+    }
+
     // Atualiza a tabela aplicando um filtro dinâmico na lista do OprEst
     private void atualizarTabela(String termoBusca) {
         ObservableList<Estadio> dadosCompletos = FXCollections.observableArrayList(oprEst.getListaEstadio());

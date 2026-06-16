@@ -95,7 +95,7 @@
          </font>
       </Button>
 
-      <Button layoutX="455.0" layoutY="20.0" mnemonicParsing="false" onAction="#voltarTela" text="â† Voltar" textFill="#e7e7ee">
+      <Button layoutX="922.0" layoutY="850.0" mnemonicParsing="false" onAction="#voltarTela" style="-fx-text-fill: black;" text="Voltar" textFill="#e7e7ee">
          <font>
             <Font size="18.0" />
          </font>
