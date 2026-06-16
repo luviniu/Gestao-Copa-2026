@@ -13,8 +13,8 @@ public class OprJog {
 
     public OprJog(OprSel oprSel) {
         this.oprSel = oprSel;
-        // Não precisamos chamar carregar aqui se fizermos o carregamento centralizado
-        // após as seleções existirem na memória.
+        carregarJogadoresDoArquivo();
+
     }
 
     // --- MÉTODOS DE SALVAMENTO E CARREGAMENTO DE ARQUIVO ---

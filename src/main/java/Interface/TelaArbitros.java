@@ -233,6 +233,15 @@ public class TelaArbitros implements Initializable {
                     novaCategoria,
                     "Arbitro",
                     oprSessao.getUsuario()
+
+            );
+            OprUser.getInstancia().editarArbitro(
+                    selecionado.getCpf(),
+                    novaNacionalidade.trim(),
+                    novaExperiencia,
+                    novaCategoria,
+                    oprSessao.getUsuario()
+
             );
 
             atualizarTabela(txtBusca.getText());
@@ -249,14 +258,14 @@ public class TelaArbitros implements Initializable {
         Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
         Arbitro selecionado = tabelaArbitro.getSelectionModel().getSelectedItem();
 
-        if (selecionado != null) {
-            if (OprArbitro.getInstancia().excluirArbitro(selecionado.getCpf(), oprSessao.getUsuario())) {
-                atualizarTabela(txtBusca.getText());
-                tabelaArbitro.getSelectionModel().clearSelection();
-                Toast.exibir(stageActual, "Árbitro removido com sucesso!");
-            }
-        } else {
+        if (selecionado == null) {
             Toast.exibir(stageActual, "Selecione um árbitro da lista para remover.");
+            return;
         }
+
+        OprUser.getInstancia().rebaixarParaFuncionario(selecionado.getCpf(), oprSessao.getUsuario());
+        atualizarTabela(txtBusca.getText());
+        tabelaArbitro.getSelectionModel().clearSelection();
+        Toast.exibir(stageActual, "Árbitro removido com sucesso!");
     }
 }
