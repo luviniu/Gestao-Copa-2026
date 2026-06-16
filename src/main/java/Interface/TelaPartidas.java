@@ -149,7 +149,7 @@ public class TelaPartidas implements Initializable {
         });
 
         // ── ComboBox com filtro para Estádio ──
-        OprEst oprEst = new Aplicacoes.OprEst();
+        OprEst oprEst = Aplicacoes.OprEst.getInstancia();
         ObservableList<String> todosEstadios = FXCollections.observableArrayList(
                 oprEst.getListaEstadio().stream().map(e -> e.getNome()).collect(java.util.stream.Collectors.toList())
         );

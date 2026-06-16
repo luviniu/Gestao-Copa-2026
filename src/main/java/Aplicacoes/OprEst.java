@@ -21,6 +21,15 @@ public class OprEst {
     private List<Estadio> listaEstadio;
     private final String CAMINHO_ARQUIVO = "estadio.txt"; // O arquivo vai ficar na raiz do projeto ( final pra ningum poder mexer)
 
+    private static OprEst instancia;
+
+    public static OprEst getInstancia() {
+        if (instancia == null) {
+            instancia = new OprEst();
+        }
+        return instancia;
+    }
+
     public OprEst() {
         this.listaEstadio = new ArrayList<>();
         carregarDadosDoArquivo(); // Toda vez que o sistema inicia, ele l o TXT

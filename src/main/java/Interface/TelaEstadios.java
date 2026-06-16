@@ -27,7 +27,7 @@ public class TelaEstadios implements Initializable {
     // Campo de busca em tempo real injetado do FXML
     @FXML private TextField txtBusca;
 
-    private OprEst oprEst = new OprEst();
+    private OprEst oprEst = OprEst.getInstancia();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -75,7 +75,9 @@ public class TelaEstadios implements Initializable {
 
         if (termoBusca == null || termoBusca.isBlank()) {
             tabelaEstadios.setItems(dadosCompletos);
+            tabelaEstadios.refresh();
             return;
+
         }
 
         ObservableList<Estadio> dadosFiltrados = FXCollections.observableArrayList();
@@ -84,15 +86,15 @@ public class TelaEstadios implements Initializable {
         for (Estadio e : dadosCompletos) {
             if (e.getNome().toLowerCase().contains(busca) || e.getLocal().toLowerCase().contains(busca)) {
                 dadosFiltrados.add(e);
+
             }
+
         }
         tabelaEstadios.setItems(dadosFiltrados);
         tabelaEstadios.refresh();
+
     }
 
-    // =========================================================================
-    // POP-UP UNIFICADO: ADICIONAR ESTÁDIO
-    // =========================================================================
     @FXML
     public void handleAdicionarEstadio(ActionEvent event) {
         Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
