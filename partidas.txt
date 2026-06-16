@@ -1,1 +1,2 @@
 PARTIDA;Brasil;Argentina;Mano Garrenche;10/06/2027;20:00;Final;2;1;Finalizada
+PARTIDA;Brasil;Argentina;Mané;10/07/26;20:00;Grupo - Jogo 1;0;0;Agendada

@@ -54,9 +54,27 @@ public class TelaJogadores implements Initializable {
 
     private void atualizarTabela() {
         if (selecaoAtual != null) {
+            // 1. Atualiza as linhas da tabela normalmente
             ObservableList<Jogador> dados = FXCollections.observableArrayList(selecaoAtual.getTime());
             tabelaJogadores.setItems(dados);
             tabelaJogadores.refresh();
+
+            // 2. Contagem silenciosa para validação dos requisitos
+            int totalJogadores = selecaoAtual.getTime().size();
+            int ativos = 0;
+
+            for (Jogador j : selecaoAtual.getTime()) {
+                if ("Ativo".equals(j.getStatus())) {
+                    ativos++;
+                }
+            }
+
+            // 3. Apenas muda o texto do título, sem interromper o usuário
+            if (totalJogadores >= 18 && totalJogadores <= 26 && ativos >= 18) {
+                txtTituloElenco.setText("Elenco - " + selecaoAtual.getPais() + " (Apto)");
+            } else {
+                txtTituloElenco.setText("Elenco - " + selecaoAtual.getPais() + " (Incompleto)");
+            }
         }
     }
 
@@ -289,6 +307,30 @@ public class TelaJogadores implements Initializable {
 
     @FXML
     public void irParaSelecoes(ActionEvent event) {
+        // 1. Verificação dos critérios do elenco antes de mudar de tela
+        if (selecaoAtual != null) {
+            int totalJogadores = selecaoAtual.getTime().size();
+            int ativos = 0;
+
+            for (Jogador j : selecaoAtual.getTime()) {
+                if ("Ativo".equals(j.getStatus())) {
+                    ativos++;
+                }
+            }
+
+            // Se NÃO atender aos requisitos, exibe o lembrete amigável
+            if (totalJogadores < 18 || totalJogadores > 26 || ativos < 18) {
+                StringBuilder aviso = new StringBuilder("Nota: Este elenco saiu de sincronia com as regras do campeonato.\n\n");
+                aviso.append("Estado atual:\n");
+                aviso.append("- Total de inscritos: ").append(totalJogadores).append(" (Permitido: 18 a 26)\n");
+                aviso.append("- Jogadores ativos: ").append(ativos).append(" (Mínimo: 18)\n\n");
+                aviso.append("Lembre-se de regularizar o elenco para poder usar esta seleção em partidas.");
+
+                alerta(Alert.AlertType.WARNING, aviso.toString());
+            }
+        }
+
+        // 2. Transição de tela original (mantendo o seu try-catch)
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interface/TelaSelecoes.fxml"));
             Parent root = loader.load();
