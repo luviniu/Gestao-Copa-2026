@@ -14,136 +14,117 @@ public class OprPartida {
     private final String CAMINHO_ARQUIVO = "partidas.txt";
 
     public OprPartida() {
-        this.listaPartidas = new ArrayList<>();
+        listaPartidas = new ArrayList<>();
         carregarDadosDoArquivo();
     }
 
-    public boolean cadastrarPartida(Selecao casa, Selecao visita, String estadio, String data, String horario, String fase) {
-        if (casa == null || visita == null || estadio == null || estadio.isBlank() ||
-                data == null || data.isBlank() || horario == null || horario.isBlank() || fase == null || fase.isBlank()) {
+    public boolean cadastrarPartida(
+            String selecao1,
+            String selecao2,
+            String estadio,
+            String data,
+            String horario,
+            String fase) { if (selecao1 == null || selecao1.isBlank() ||
+            selecao2 == null || selecao2.isBlank() ||
+            estadio == null || estadio.isBlank() ||
+            data == null || data.isBlank() ||
+            horario == null || horario.isBlank() ||
+            fase == null || fase.isBlank()) {
+
+        return false;
+    } if (selecao1.equalsIgnoreCase(selecao2)) {
+        return false;
+    }
+
+        if (selecao1 == null || selecao2 == null) {
             return false;
         }
-
-        // Validação da Regra de Negócio: Impede estouro de limite de jogos da árvore de mata-mata
-        if (atingiuLimiteDeJogosDaFase(fase)) {
-            return false;
-        }
-
-        // Impede que um time jogue contra si mesmo
-        if (casa.getPais().equalsIgnoreCase(visita.getPais())) {
-            return false;
-        }
-
-        // Validação da Regra de Negócio: Ambas as seleções precisam estar elegíveis
-        if (!casa.isElegivel() || !visita.isElegivel()) {
-            return false;
-        }
-
-        // Validação de duplicidade e choque de horário no estádio
         for (Partida p : listaPartidas) {
-            if (p.getTimeCasa().getPais().equalsIgnoreCase(casa.getPais()) &&
-                    p.getTimeVisita().getPais().equalsIgnoreCase(visita.getPais()) &&
-                    p.getData().equalsIgnoreCase(data)) {
-                return false;
-            }
-            if (p.getData().equalsIgnoreCase(data) &&
-                    p.getHora().equalsIgnoreCase(horario) &&
-                    p.getEstadio().getNome().equalsIgnoreCase(estadio)) {
+
+            if (p.getTimeCasa().getPais().equalsIgnoreCase(selecao1)
+                    && p.getTimeVisita().getPais().equalsIgnoreCase(selecao2)
+                    && p.getData().equalsIgnoreCase(data)) {
+
                 return false;
             }
         }
 
         Estadio estadioObj = new Estadio(estadio, "Local", 50000);
-        Partida novaPartida = new Partida(data, horario, fase, "Agendada", estadioObj, casa, visita, null, 0, 0);
+
+        Selecao casa = new Selecao(selecao1, "A", "Tecnico", new ArrayList<>());
+
+        Selecao visita = new Selecao(selecao2, "A", "Tecnico", new ArrayList<>());
+        for (Partida p : listaPartidas) {
+
+            if (p.getData().equalsIgnoreCase(data)
+                    && p.getHora().equalsIgnoreCase(horario)) {
+
+                return false;
+            }
+        }
+
+        Partida novaPartida = new Partida(
+                data,
+                horario,
+                fase,
+                "Agendada",
+                estadioObj,
+                casa,
+                visita,
+                null,
+                0,
+                0
+        );
+
         listaPartidas.add(novaPartida);
+
         salvarDadosNoArquivo();
 
         return true;
     }
 
-    private boolean atingiuLimiteDeJogosDaFase(String fase) {
-        int contador = 0;
+    public boolean editarPartida(
+            String data,
+            String novaData,
+            String novoHorario,
+            String novaFase) {
 
-        // Conta quantas partidas já existem na fase selecionada
         for (Partida p : listaPartidas) {
-            if (p.getFase().equalsIgnoreCase(fase.trim())) {
-                contador++;
-            }
-        }
 
-        // Aplica a regra de limite com base na fase
-        switch (fase.trim()) {
-            case "Final":
-                return contador >= 1;
-            case "Semifinal":
-                return contador >= 2;
-            case "Quartas":
-                return contador >= 4;
-            case "Oitavas":
-                return contador >= 8;
-            case "Dezesseis-avos":
-                return contador >= 16;
-            default:
-                // Fases de grupos não possuem restrição rígida global neste nível
-                return false;
-        }
-    }
+            if (p.getData().equalsIgnoreCase(data)) {
 
-    public boolean editarPartida(String dataOriginal, String horaOriginal, String novaData, String novoHorario, String novaFase) {
-        for (Partida p : listaPartidas) {
-            if (p.getData().equalsIgnoreCase(dataOriginal) && p.getHora().equalsIgnoreCase(horaOriginal)) {
                 p.setData(novaData);
                 p.setHora(novoHorario);
                 p.setFase(novaFase);
+
                 salvarDadosNoArquivo();
+
                 return true;
             }
         }
+
         return false;
     }
 
-    public boolean excluirPartida(String data, String horario) {
+    public boolean excluirPartida(String data) {
+
         for (Partida p : listaPartidas) {
-            if (p.getData().equalsIgnoreCase(data) && p.getHora().equalsIgnoreCase(horario)) {
+
+            if (p.getData().equalsIgnoreCase(data)) {
+
                 listaPartidas.remove(p);
+
                 salvarDadosNoArquivo();
+
                 return true;
             }
         }
+
         return false;
     }
 
-    // Filtro dinâmico para a barra de pesquisa
-    public List<Partida> buscarPartidas(String termo) {
-        if (termo == null || termo.isBlank()) {
-            return listaPartidas;
-        }
-        List<Partida> filtradas = new ArrayList<>();
-        String busca = termo.toLowerCase().trim();
-
-        for (Partida p : listaPartidas) {
-            if (p.getTimeCasa().getPais().toLowerCase().contains(busca) ||
-                    p.getTimeVisita().getPais().toLowerCase().contains(busca) ||
-                    p.getEstadio().getNome().toLowerCase().contains(busca) ||
-                    p.getFase().toLowerCase().contains(busca) ||
-                    p.getStatus().toLowerCase().contains(busca)) {
-                filtradas.add(p);
-            }
-        }
-        return filtradas;
-    }
-
-    public boolean registrarResultado(String data, String horario, int golsCasa, int golsVisita) {
-        for (Partida p : listaPartidas) {
-            if (p.getData().equalsIgnoreCase(data) && p.getHora().equalsIgnoreCase(horario)) {
-                p.setGolCasa(golsCasa);
-                p.setGolVisita(golsVisita);
-                p.setStatus("Finalizada");
-                salvarDadosNoArquivo();
-                return true;
-            }
-        }
-        return false;
+    public List<Partida> consultarPartidas() {
+        return listaPartidas;
     }
 
     public List<Partida> getListaPartidas() {
@@ -151,36 +132,156 @@ public class OprPartida {
     }
 
     public void salvarDadosNoArquivo() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(CAMINHO_ARQUIVO))) {
+
+        try (BufferedWriter writer =
+                     new BufferedWriter(new FileWriter(CAMINHO_ARQUIVO))) {
+
             for (Partida p : listaPartidas) {
-                writer.write("PARTIDA;" + p.getTimeCasa().getPais() + ";" + p.getTimeVisita().getPais() + ";"
-                        + p.getEstadio().getNome() + ";" + p.getData() + ";" + p.getHora() + ";"
-                        + p.getFase() + ";" + p.getGolCasa() + ";" + p.getGolVisita() + ";" + p.getStatus());
+
+                writer.write(
+                        "PARTIDA;"
+                                + p.getTimeCasa().getPais() + ";"
+                                + p.getTimeVisita().getPais() + ";"
+                                + p.getEstadio().getNome() + ";"
+                                + p.getData() + ";"
+                                + p.getHora() + ";"
+                                + p.getFase() + ";"
+                                + p.getGolCasa() + ";"
+                                + p.getGolVisita() + ";"
+                                + p.getStatus()
+                );
+
                 writer.newLine();
             }
+
         } catch (IOException e) {
+
+            System.out.println("Erro ao salvar partidas.");
             e.printStackTrace();
         }
     }
 
     private void carregarDadosDoArquivo() {
+
         File arquivo = new File(CAMINHO_ARQUIVO);
-        if (!arquivo.exists()) return;
-        try (BufferedReader reader = new BufferedReader(new FileReader(CAMINHO_ARQUIVO))) {
+
+        if (!arquivo.exists()) {
+            return;
+        }
+
+        try (BufferedReader reader =
+                     new BufferedReader(new FileReader(CAMINHO_ARQUIVO))) {
+
             String linha;
+
             while ((linha = reader.readLine()) != null) {
+
                 String[] dados = linha.split(";");
+
                 if (dados[0].equals("PARTIDA") && dados.length == 10) {
-                    Estadio est = new Estadio(dados[3], "Local", 50000);
-                    Selecao casa = new Selecao(dados[1], "A", "Tecnico", new ArrayList<>());
-                    Selecao visita = new Selecao(dados[2], "A", "Tecnico", new ArrayList<>());
-                    Partida part = new Partida(dados[4], dados[5], dados[6], dados[9], est, casa, visita,
-                            null, Integer.parseInt(dados[7]), Integer.parseInt(dados[8]));
-                    listaPartidas.add(part);
+
+                    String casa = dados[1];
+                    String visita = dados[2];
+                    String estadio = dados[3];
+                    String data = dados[4];
+                    String hora = dados[5];
+                    String fase = dados[6];
+                    int golsCasa = Integer.parseInt(dados[7]);
+                    int golsVisita = Integer.parseInt(dados[8]);
+                    String status = dados[9];
+
+                    Estadio estadioObj =
+                            new Estadio(estadio, "Local", 50000);
+
+                    Selecao casaObj =
+                            new Selecao(casa, "A", "Tecnico", new ArrayList<>());
+
+                    Selecao visitaObj =
+                            new Selecao(visita, "A", "Tecnico", new ArrayList<>());
+
+                    Partida partida = new Partida(
+                            data,
+                            hora,
+                            fase,
+                            status,
+                            estadioObj,
+                            casaObj,
+                            visitaObj,
+                            null,
+                            golsCasa,
+                            golsVisita
+
+                    );
+
+                    listaPartidas.add(partida);
                 }
             }
+
         } catch (IOException e) {
+
+            System.out.println("Erro ao carregar partidas.");
             e.printStackTrace();
         }
+    }
+    public boolean registrarResultado(
+            String data,
+            int golsCasa,
+            int golsVisita) {
+
+        for (Partida p : listaPartidas) {
+
+            if (p.getData().equalsIgnoreCase(data)) {
+
+                p.setGolCasa(golsCasa);
+                p.setGolVisita(golsVisita);
+                p.setStatus("Finalizada");
+
+                salvarDadosNoArquivo();
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+    public List<Partida> consultarPorSelecao(String selecao) {
+
+        List<Partida> resultado = new ArrayList<>();
+
+        for (Partida p : listaPartidas) {
+
+            if (p.getTimeCasa().getPais().equalsIgnoreCase(selecao)
+                    || p.getTimeVisita().getPais().equalsIgnoreCase(selecao)) {
+
+                resultado.add(p);
+            }
+        }
+
+        return resultado;
+    }
+    public List<Partida> consultarPorFase(String fase) {
+
+        List<Partida> resultado = new ArrayList<>();
+
+        for (Partida p : listaPartidas) {
+
+            if (p.getFase().equalsIgnoreCase(fase)) {
+
+                resultado.add(p);
+            }
+        }
+
+        return resultado;
+    }
+    public Partida consultarPartida(String data) {
+
+        for (Partida p : listaPartidas) {
+
+            if (p.getData().equalsIgnoreCase(data)) {
+                return p;
+            }
+        }
+
+        return null;
     }
 }
