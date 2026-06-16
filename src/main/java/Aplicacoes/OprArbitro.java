@@ -17,32 +17,50 @@ public class OprArbitro {
         return instancia;
 
     }
-    public boolean cadastrarArbitro(String nome, String cpf, String email, String senha,
-                                    String nacionalidade, String experiencia, String categoria) {
-        if (nome == null || nome.trim().isEmpty() || cpf == null || cpf.trim().isEmpty() || email == null || email.trim().isEmpty() || senha == null || senha.trim().isEmpty() || nacionalidade == null || nacionalidade.trim().isEmpty() || experiencia == null || experiencia.trim().isEmpty() || categoria == null || categoria.trim().isEmpty()) {
+    public boolean cadastrarArbitro(String cpf, String nacionalidade, String experiencia, String categoria, Usuario usuarioLogado) {
+        if (cpf == null || cpf.trim().isEmpty()
+                || nacionalidade == null || nacionalidade.trim().isEmpty()
+                || experiencia == null || experiencia.trim().isEmpty()
+                || categoria == null || categoria.trim().isEmpty()) {
             return false;
-
         }
 
-        for (Arbitro a : getListaArbitros()) {
-            if (a.getNome().equalsIgnoreCase(nome.trim())) {
-                System.out.println("Erro: Árbitro já cadastrado.");
-                return false;
+        // Acessa a lista global de usuários para encontrar o cadastro base
+        OprUser oprUser = OprUser.getInstancia();
+        Usuario usuarioExistente = null;
 
+        for (Usuario u : oprUser.getUsuarios()) {
+            if (u.getCpf().equals(cpf.trim())) {
+                usuarioExistente = u;
+                break;
             }
-
         }
-        Arbitro novoArbitro = new Arbitro(nome.trim(), cpf.trim(), email.trim(), senha.trim(), nacionalidade.trim(), experiencia.trim(), categoria.trim());
+
+        // Se o usuário não existe no sistema, não dá para promovê-lo
+        if (usuarioExistente == null) {
+            System.out.println("Erro: Usuário não encontrado.");
+            return false;
+        }
 
         try {
-            return OprUser.getInstancia().registrarUsuario(novoArbitro);
+            // Invoca o editarUser passando os dados atuais dele e injetando as variáveis do árbitro
+            oprUser.editarUser(
+                    usuarioExistente.getCpf(),
+                    usuarioExistente.getNome(),
+                    usuarioExistente.getEmail(),
+                    usuarioExistente.getSenha(),
+                    nacionalidade.trim(),
+                    experiencia.trim(),
+                    categoria.trim(),
+                    "Arbitro",
+                    usuarioLogado
+            );
+            return true;
 
-        } catch (ErrosException e) {
+        } catch (Exception e) {
             System.out.println("Erro ao cadastrar árbitro: " + e.getMessage());
             return false;
-
         }
-
     }
     public boolean excluirArbitro(String cpf, Usuario usuarioLogado) {
         if (cpf == null || cpf.trim().isEmpty()) return false;

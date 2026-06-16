@@ -155,13 +155,11 @@ public class TelaArbitros implements Initializable {
             }
 
             boolean sucessoArbitro = OprArbitro.getInstancia().cadastrarArbitro(
-                    usuarioSelecionado.getNome(),
                     usuarioSelecionado.getCpf(),
-                    usuarioSelecionado.getEmail(),
-                    usuarioSelecionado.getSenha(),
                     nacionalidadeSelecionada.trim(),
                     experiencia.trim(),
-                    categoriaSelecionada
+                    categoriaSelecionada,
+                    oprSessao.getUsuario()
             );
 
             if (sucessoArbitro) {
