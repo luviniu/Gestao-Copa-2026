@@ -2,89 +2,126 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaPartidas">
-
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #f6f8fa;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaPartidas">
    <children>
-      <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.70" pickOnBounds="true" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../assets/stadium2.jpg" />
          </image>
          <effect>
-            <GaussianBlur />
+            <GaussianBlur radius="8.0" />
          </effect>
       </ImageView>
-
-      <Rectangle id="background-capa" height="760.0" layoutX="460.0" layoutY="160.0" smooth="false" stroke="#2f1f1f" strokeType="INSIDE" strokeWidth="0.0" width="1000.0">
-         <effect>
-            <ColorAdjust />
-         </effect>
-         <fill>
-            <LinearGradient endX="1.0" endY="0.5142857142857142" startX="0.8047619047619048">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="0.0313725508749485" green="0.0470588244497776" blue="0.10588235408067703" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.03" green="0.045" blue="0.1" opacity="0.75" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Rectangle>
-
-      <Text fill="#e7e7ee" layoutX="890.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PARTIDAS" textAlignment="CENTER">
-         <font>
-            <Font size="32.0" />
-         </font>
-      </Text>
-
-      <TextField fx:id="txtBusca" layoutX="510.0" layoutY="260.0" prefHeight="35.0" prefWidth="900.0" promptText="🔍 Digite para pesquisar partidas por país, estádio, fase ou status..." />
-
-      <TableView fx:id="tabelaPartidas" layoutX="510.0" layoutY="310.0" prefHeight="480.0" prefWidth="900.0">
-         <columns>
-            <TableColumn fx:id="colCasa" prefWidth="130.0" text="Casa" />
-            <TableColumn fx:id="colVisitante" prefWidth="130.0" text="Visitante" />
-            <TableColumn fx:id="colPlacar" prefWidth="90.0" text="Placar" />
-            <TableColumn fx:id="colEstadio" prefWidth="150.0" text="Estádio" />
-            <TableColumn fx:id="colData" prefWidth="100.0" text="Data" />
-            <TableColumn fx:id="colHorario" prefWidth="80.0" text="Hora" />
-            <TableColumn fx:id="colFase" prefWidth="120.0" text="Fase" />
-            <TableColumn fx:id="colStatus" prefWidth="95.0" text="Status" />
-         </columns>
-      </TableView>
-
-      <HBox layoutX="510.0" layoutY="810.0" prefHeight="50.0" prefWidth="900.0" spacing="20.0" stylesheets="@style.css">
+      <AnchorPane prefHeight="100.0" prefWidth="1920.0" style="-fx-background-color: #ffffff; -fx-border-color: #d0d7de; -fx-border-width: 0 0 1px 0; -fx-effect: dropshadow(three-pass-box, rgba(31,35,40,0.04), 10, 0, 0, 2);">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleBotaoCadastrar" prefHeight="35.0" prefWidth="160.0" stylesheets="@style.css" text="Agendar Partida" />
-            <Button mnemonicParsing="false" onAction="#handleBotaoEditar" prefHeight="35.0" prefWidth="140.0" stylesheets="@style.css" text="Editar Horário" />
-            <Button mnemonicParsing="false" onAction="#handleBotaoRegistrarResultado" prefHeight="35.0" prefWidth="180.0" stylesheets="@style.css" text="Registrar Placar" />
-            <Button mnemonicParsing="false" onAction="#handleBotaoExcluir" prefHeight="35.0" prefWidth="120.0" stylesheets="@style.css" text="Excluir" />
-            <Button mnemonicParsing="false" onAction="#listarPartidas" prefHeight="35.0" prefWidth="120.0" stylesheets="@style.css" text="Atualizar Lista" />
-            <Button mnemonicParsing="false" onAction="#voltarParaLauncher" prefHeight="35.0" prefWidth="120.0" stylesheets="@style.css" text="Voltar" />
+            <Label layoutX="60.0" layoutY="22.0" style="-fx-text-fill: #24292f; -fx-font-size: 22px; -fx-font-weight: 800; -fx-font-family: 'gg sans';" text="SISTEMA CENTRAL DE RESULTADOS - MATCH CONTROL" />
+            <Label layoutX="60.0" layoutY="55.0" style="-fx-text-fill: #57606a; -fx-font-size: 14px; -fx-font-family: 'gg sans';" text="Gerenciamento de confrontos, súmulas de arbitragem e atualização instantânea de placares." />
+         </children>
+      </AnchorPane>
+
+      <HBox layoutX="60.0" layoutY="140.0" prefHeight="880.0" prefWidth="1800.0" spacing="30.0">
+         <children>
+
+            <VBox prefWidth="1240.0" spacing="25.0" style="-fx-padding: 35px;" styleClass="main-card-pane">
+               <children>
+
+                  <VBox spacing="10.0">
+                     <children>
+                        <Label style="-fx-font-weight: 800; -fx-font-size: 24px; -fx-font-family: 'gg sans'; -fx-text-fill: #24292f;" text="Calendário Oficial de Confrontos" />
+                        <TextField fx:id="txtBusca" prefHeight="45.0" prefWidth="1170.0" promptText="🔍 Pesquise partidas por país, estádio, fase ou status do confronto..." style="-fx-background-color: #ffffff; -fx-border-color: #d0d7de; -fx-border-radius: 6px; -fx-background-radius: 6px; -fx-padding: 0 15px; -fx-font-size: 14px; -fx-font-family: 'gg sans';" />
+                     </children>
+                  </VBox>
+
+                  <TableView fx:id="tabelaPartidas" prefHeight="510.0" prefWidth="1170.0" style="-fx-background-radius: 8px;">
+                     <columns>
+                        <TableColumn fx:id="colCasa" prefWidth="180.0" text="Equipe Mandante (Casa)" />
+                        <TableColumn fx:id="colVisitante" prefWidth="180.0" text="Equipe Visitante" />
+                        <TableColumn fx:id="colPlacar" prefWidth="100.0" style="-fx-alignment: CENTER; -fx-font-weight: bold;" text="Placar" />
+                        <TableColumn fx:id="colEstadio" prefWidth="250.0" text="Estádio / Arena" />
+                        <TableColumn fx:id="colData" prefWidth="120.0" style="-fx-alignment: CENTER;" text="Data" />
+                        <TableColumn fx:id="colHorario" prefWidth="100.0" style="-fx-alignment: CENTER;" text="Horário" />
+                        <TableColumn fx:id="colFase" prefWidth="120.0" style="-fx-alignment: CENTER;" text="Fase" />
+                        <TableColumn fx:id="colStatus" prefWidth="118.0" style="-fx-alignment: CENTER;" text="Status" />
+                     </columns>
+                  </TableView>
+
+                  <HBox alignment="CENTER_LEFT" spacing="15.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#listarPartidas" prefHeight="45.0" prefWidth="180.0" styleClass="btn-secondary-custom" text="🔄 Atualizar Lista">
+                           <cursor><Cursor fx:constant="HAND" /></cursor>
+                        </Button>
+                        <HBox HBox.hgrow="ALWAYS" /> <Button mnemonicParsing="false" onAction="#voltarParaLauncher" prefHeight="45.0" prefWidth="160.0" styleClass="btn-secondary-dark" text="Voltar ao Início">
+                        <cursor><Cursor fx:constant="HAND" /></cursor>
+                     </Button>
+                     </children>
+                  </HBox>
+
+               </children>
+            </VBox>
+
+            <VBox prefWidth="530.0" spacing="25.0">
+               <children>
+
+                  <VBox spacing="15.0" style="-fx-padding: 25px;" styleClass="main-card-pane">
+                     <children>
+                        <Label style="-fx-text-fill: #24292f; -fx-font-size: 16px; -fx-font-weight: bold; -fx-text-transform: uppercase;" text="Protocolo Regulamentar" />
+
+                        <VBox style="-fx-background-color: #f6f8fa; -fx-padding: 15px; -fx-background-radius: 6px; -fx-border-color: #d0d7de;">
+                           <children>
+                              <Label style="-fx-text-fill: #57606a; -fx-font-size: 12px; -fx-font-weight: bold;" text="TEMPO DE JOGO ÚTIL" />
+                              <Label style="-fx-text-fill: #24292f; -fx-font-size: 18px; -fx-font-weight: 800;" text="90 min + Prorrogação" />
+                           </children>
+                        </VBox>
+
+                        <VBox style="-fx-background-color: #fff8c5; -fx-padding: 15px; -fx-background-radius: 6px; -fx-border-color: rgba(212,167,44,0.4);">
+                           <children>
+                              <Label style="-fx-text-fill: #9a6700; -fx-font-size: 12px; -fx-font-weight: bold;" text="ELEGIBILIDADE DE ATLETAS" />
+                              <Label style="-fx-text-fill: #735c0f; -fx-font-size: 13px; -fx-font-weight: 500;" text="Antes de iniciar a partida, certifique-se de que todos os atletas escalados estão com o status &quot;Ativo&quot; no Módulo de Delegações. Jogadores com status de lesão ou suspensão não computarão dados no relatório." wrapText="true" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+
+                  <VBox spacing="15.0" style="-fx-padding: 25px;" styleClass="main-card-pane" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label style="-fx-text-fill: #24292f; -fx-font-size: 16px; -fx-font-weight: bold;" text="Painel de Atualização" />
+                        <Label style="-fx-text-fill: #57606a; -fx-font-size: 13px;" text="Selecione um confronto agendado ou em andamento na tabela ao lado para aplicar modificações." wrapText="true" />
+
+                        <VBox spacing="12.0" style="-fx-padding: 10px 0 0 0;">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#handleBotaoRegistrarResultado" prefHeight="50.0" prefWidth="500.0" styleClass="btn-primary-custom" text="Registrar Placar / Encerrar Jogo">
+                                 <cursor><Cursor fx:constant="HAND" /></cursor>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#handleBotaoCadastrar" prefHeight="45.0" prefWidth="500.0" styleClass="btn-secondary-custom" text="Agendar Nova Partida">
+                                 <cursor><Cursor fx:constant="HAND" /></cursor>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#handleBotaoEditar" prefHeight="45.0" prefWidth="500.0" styleClass="btn-secondary-custom" text="Editar Horário ou Local">
+                                 <cursor><Cursor fx:constant="HAND" /></cursor>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#handleBotaoExcluir" prefHeight="45.0" prefWidth="500.0" styleClass="btn-outline-danger" text="Cancelar / Excluir Partida">
+                                 <cursor><Cursor fx:constant="HAND" /></cursor>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+
+               </children>
+            </VBox>
+
          </children>
       </HBox>
+
    </children>
-   <cursor>
-      <Cursor fx:constant="DEFAULT" />
-   </cursor>
 </AnchorPane>

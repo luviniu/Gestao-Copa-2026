@@ -1,6 +1,6 @@
 package Aplicacoes;
 
-//import Objetos.Partida;
+import Objetos.Partida;
 import Objetos.Estadio;
 
 import java.io.*;
@@ -19,7 +19,7 @@ Estádios e Arbitragem
 * */
 public class OprEst {
     private List<Estadio> listaEstadio;
-    private final String CAMINHO_ARQUIVO = "estadio.txt"; // O arquivo vai ficar na raiz do projeto ( final pra ningum poder mexer)
+    private final String CAMINHO_ARQUIVO = "estadio.txt";
 
     private static OprEst instancia;
 
@@ -32,13 +32,11 @@ public class OprEst {
 
     public OprEst() {
         this.listaEstadio = new ArrayList<>();
-        carregarDadosDoArquivo(); // Toda vez que o sistema inicia, ele l o TXT
+        carregarDadosDoArquivo();
     }
 
-    // Cadastrar Estadio
     public boolean cadastrarEstadio(String nome, String local, int vagas) {
 
-        // Validao: Campos nao podem ser vazios e vagas devem ser maior que zero
         if (nome == null || nome.trim().isEmpty() || local  == null || local.trim().isEmpty() || vagas <= 0){
             return false;
         }
@@ -51,38 +49,30 @@ public class OprEst {
             }
         }
 
-        // Se passou nas validaes, cria o objeto e adiciona na lista (trim pra tirar os espaos nas entradas)
         Estadio novoEstadio = new Estadio(nome.trim(), local.trim(), vagas);
         listaEstadio.add(novoEstadio);
 
-        // Salva a lista atualizada no arquivo TXT de forma persistente
         salvarDadosNoArquivo();
         return true;
     }
 
     public boolean editarEstadio(String nomeAtual, String novoNome, String localParaEditar, int vagasParaEditar) {
-        // Validacao
         if (nomeAtual == null || novoNome == null || localParaEditar == null || localParaEditar.trim().isEmpty() || vagasParaEditar <= 0){
             return false;
         }
 
-        // Procurar o estadio na lista em memoria
         for (Estadio s : listaEstadio) {
-            // Se encontrarmos o pas (ignorando maisculas/minsculas)
             if (s.getNome().equalsIgnoreCase(nomeAtual.trim())) {
 
-                // 3. Aplica as alteracoes usando os setters da sua classe Estadio
                 s.setNome(novoNome);
                 s.setLocal(localParaEditar);
                 s.setVagas(vagasParaEditar);
 
-                // 4. Atualiza o arquivo TXT com os novos dados salvos
                 salvarDadosNoArquivo();
-                return true; // Edicao feita com sucesso!
+                return true;
             }
         }
 
-        // Se percorreu a lista toda e no achou o pas
         System.out.println("Erro de Negocio: Estadio nao encontrada para edicao.");
         return false;
     }
@@ -96,7 +86,7 @@ public class OprEst {
         for (Estadio s : listaEstadio) {
             if (s.getNome().equalsIgnoreCase(nomeParaExcluir.trim())) {
                 listaEstadio.remove(s);
-                salvarDadosNoArquivo(); // Atualiza o TXT limpando a seleção excluída
+                salvarDadosNoArquivo();
                 return true;
             }
         }
@@ -106,10 +96,10 @@ public class OprEst {
     public Estadio buscarEstadioPorNome(String nome) {
         for (Estadio e : listaEstadio) {
             if (e.getNome().equalsIgnoreCase(nome.trim())) {
-                return e; // Retorna o objeto Estadio encontrado
+                return e;
             }
         }
-        return null; // Retorna null se não encontrar
+        return null;
     }
 
     // REGRA DE NEGÓCIO: Um estádio não pode sediar duas partidas no mesmo horário
@@ -126,14 +116,12 @@ public class OprEst {
         return true; // Passou na regra, o estádio está livre!
     }*/
 
-    // Getter para se precisar listar todos os estádios cadastrados
     public List<Estadio> getListaEstadio() {
         return this.listaEstadio;
     }
     public void salvarDadosNoArquivo() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(CAMINHO_ARQUIVO))) {
 
-            // Ele percorre a lista linha por linha
             for (Estadio s : listaEstadio) {
                 // Salvando os dados identificados pela tag ESTADIO
                 writer.write("ESTADIO;" + s.getNome() + ";" + s.getLocal() + ";" + s.getVagas());
@@ -150,7 +138,7 @@ public class OprEst {
     private void carregarDadosDoArquivo() {
         File arquivo = new File(CAMINHO_ARQUIVO);
         if (!arquivo.exists()) {
-            return; // Se o arquivo no existe ainda, no faz nada
+            return;
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(CAMINHO_ARQUIVO))) {
@@ -160,7 +148,6 @@ public class OprEst {
             while ((linha = reader.readLine()) != null) {
                 String[] dados = linha.split(";");
 
-                // Se for linha de Seleção
                 if (dados[0].equals("ESTADIO") && dados.length == 4) {
                     String nome = dados[1];
                     String local = dados[2];

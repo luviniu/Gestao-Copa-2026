@@ -24,7 +24,6 @@ public class TelaEstadios implements Initializable {
     @FXML private TableColumn<Estadio, String> colunaLocal;
     @FXML private TableColumn<Estadio, Integer> colunaCapacidade;
 
-    // Campo de busca em tempo real injetado do FXML
     @FXML private TextField txtBusca;
 
     private OprEst oprEst = OprEst.getInstancia();
@@ -154,9 +153,6 @@ public class TelaEstadios implements Initializable {
         }
     }
 
-    // =========================================================================
-    // POP-UP UNIFICADO: EDITAR ESTÁDIO
-    // =========================================================================
     @FXML
     public void handleEditarEstadio(ActionEvent event) {
         Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
@@ -217,9 +213,6 @@ public class TelaEstadios implements Initializable {
         }
     }
 
-    // =========================================================================
-    // EXCLUIR ESTÁDIO
-    // =========================================================================
     @FXML
     public void handleRemoverEstadio(ActionEvent event) {
         Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();

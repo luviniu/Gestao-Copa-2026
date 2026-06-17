@@ -25,7 +25,6 @@ public class OprArbitro {
             return false;
         }
 
-        // Acessa a lista global de usuários para encontrar o cadastro base
         OprUser oprUser = OprUser.getInstancia();
         Usuario usuarioExistente = null;
 
@@ -36,14 +35,12 @@ public class OprArbitro {
             }
         }
 
-        // Se o usuário não existe no sistema, não dá para promovê-lo
         if (usuarioExistente == null) {
             System.out.println("Erro: Usuário não encontrado.");
             return false;
         }
 
         try {
-            // Invoca o editarUser passando os dados atuais dele e injetando as variáveis do árbitro
             oprUser.editarUser(
                     usuarioExistente.getCpf(),
                     usuarioExistente.getNome(),

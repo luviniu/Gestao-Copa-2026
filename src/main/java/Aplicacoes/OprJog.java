@@ -17,7 +17,6 @@ public class OprJog {
 
     }
 
-    // --- MÉTODOS DE SALVAMENTO E CARREGAMENTO DE ARQUIVO ---
 
     public void salvarJogadoresNoArquivo() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(CAMINHO_ARQUIVO))) {
@@ -43,7 +42,6 @@ public class OprJog {
         File arquivo = new File(CAMINHO_ARQUIVO);
         if (!arquivo.exists()) return;
 
-        // Limpa os elencos atuais para evitar duplicados ao recarregar
         for (Selecao s : oprSel.getListaSelecoes()) {
             s.getTime().clear();
         }
@@ -60,7 +58,6 @@ public class OprJog {
                     String nomeSelecao = dados[4];
                     String status = dados[5];
 
-                    // Busca a seleção na memória para reconstruir o vínculo de objetos
                     Selecao s = oprSel.buscarSelecaoPorNome(nomeSelecao);
                     if (s != null) {
                         Jogador jogador = new Jogador(nome, numero, posicao, idade, s, status);
@@ -73,7 +70,6 @@ public class OprJog {
         }
     }
 
-    // --- OPERAÇÕES DE NEGÓCIO ATUALIZADAS ---
 
     public boolean cadastrarJogador(String nome, String posicao, int numero, int idade, String nomeSelecao, String status) {
         if (nome == null || nome.trim().isEmpty() || posicao == null || posicao.trim().isEmpty()) {
@@ -83,7 +79,6 @@ public class OprJog {
         Selecao s = oprSel.buscarSelecaoPorNome(nomeSelecao);
         if (s == null) return false;
 
-        // Validação: Evitar número duplicado na mesma seleção
         for (Jogador j : s.getTime()) {
             if (j.getNumero() == numero) {
                 return false;
@@ -108,7 +103,7 @@ public class OprJog {
                 j.setIdade(novaIdade);
                 j.setStatus(novoStatus);
 
-                salvarJogadoresNoArquivo(); // Atualiza o arquivo específico
+                salvarJogadoresNoArquivo();
                 return true;
             }
         }
@@ -122,7 +117,7 @@ public class OprJog {
         for (Jogador j : s.getTime()) {
             if (j.getNome().equalsIgnoreCase(nomeJogador.trim())) {
                 s.delTime(j);
-                salvarJogadoresNoArquivo(); // Atualiza o arquivo específico
+                salvarJogadoresNoArquivo();
                 return true;
             }
         }

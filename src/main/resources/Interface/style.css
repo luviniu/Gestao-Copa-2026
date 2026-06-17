@@ -1,15 +1,22 @@
-.text-field, .password-field {
-    -fx-text-fill: white;
-    -fx-background-radius: 10;
-    -fx-border-radius: 10;
-    -fx-padding: 8;
-    -fx-font-size: 14px;
-    -fx-background-color: #161a2b;
-    -fx-border-color:  #4a4467;
+.root {
+    -fx-font-family: 'gg sans', sans-serif;
 }
-.text-field:focused, .password-field:focused {
-    -fx-border-width: 3;
 
+.text-field, .password-field {
+    -fx-text-fill: #24292f;
+    -fx-prompt-text-fill: #8c95a0;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d0d7de;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-padding: 8px;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #0969da;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(9, 105, 218, 0.15), 4, 0, 0, 0);
 }
 
 #button-login {
@@ -99,4 +106,157 @@
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-text-fill: #333333;
+}
+
+/* Fontes */
+@font-face {
+    font-family: 'gg sans';
+    src: url('Fonts/gg_sans_Regular.ttf');
+}
+
+@font-face {
+    font-family: 'gg sans';
+    font-weight: bold;
+    src: url('Fonts/gg_sans_Bold.ttf');
+}
+
+/* Extras */
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #57606a;
+    -fx-font-family: 'gg sans', sans-serif;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 12px 24px;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+}
+
+.nav-button:hover {
+    -fx-background-color: #f3f4f6;
+    -fx-text-fill: #24292f;
+}
+
+.nav-button:focused {
+    -fx-background-color: #0969da; /* Azul FIFA/GitHub de destaque */
+    -fx-text-fill: #ffffff;
+}
+
+/* Card central elegante */
+.main-card-pane {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12px;
+    -fx-border-color: #d0d7de;
+    -fx-border-radius: 12px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(31, 35, 40, 0.05), 15, 0, 0, 6);
+    -fx-padding: 40px;
+}
+
+/* Botão de encerrar sessão vermelho corporativo */
+.btn-danger-custom {
+    -fx-background-color: #cf222e;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: 'gg sans', sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 6px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+}
+
+.btn-danger-custom:hover {
+    -fx-background-color: #a40e26;
+}
+
+/* Botão Principal de Convocação (Azul Sucesso) */
+.btn-primary-custom {
+    -fx-background-color: #0969da;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: 'gg sans', sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+    -fx-border-width: 0px;
+}
+.btn-primary-custom:hover {
+    -fx-background-color: #054da7;
+}
+
+/* Botões Utilitários (Cinza corporativo clássico) */
+.btn-secondary-custom {
+    -fx-background-color: #f6f8fa;
+    -fx-text-fill: #24292f;
+    -fx-border-color: #d0d7de;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-font-family: 'gg sans', sans-serif;
+    -fx-font-weight: 600;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+.btn-secondary-custom:hover {
+    -fx-background-color: #eaeef2;
+}
+
+/* Botão Escuro de Voltar */
+.btn-secondary-dark {
+    -fx-background-color: #24292f;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: 'gg sans', sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+.btn-secondary-dark:hover {
+    -fx-background-color: #1f2328;
+}
+
+/* Botão de exclusão sutil (Fundo transparente que fica vermelho no hover) */
+.btn-outline-danger {
+    -fx-background-color: transparent;
+    -fx-text-fill: #cf222e;
+    -fx-border-color: #d0d7de;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-font-family: 'gg sans', sans-serif;
+    -fx-font-weight: 600;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+.btn-outline-danger:hover {
+    -fx-background-color: #ffebe9;
+    -fx-border-color: #cf222e;
+}
+
+.login-card-pane {
+    /* Branco com 75% de opacidade para aparecer o fundo */
+    -fx-background-color: rgba(255, 255, 255, 0.75);
+    -fx-background-radius: 16px;
+
+    /* Borda sutil reflexiva para dar profundidade ao vidro */
+    -fx-border-color: rgba(255, 255, 255, 0.4);
+    -fx-border-radius: 16px;
+    -fx-border-width: 1.5px;
+
+    /* Sombra suave para descolar o container do fundo */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.15), 25, 0, 0, 10);
+}
+
+/* Campos de entrada customizados para o card de login */
+.login-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d0d7de;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 0 12px;
+    -fx-font-family: 'gg sans';
+    -fx-text-fill: #24292f;
+}
+
+.login-field:focused {
+    -fx-border-color: #0969da;
+    -fx-effect: dropshadow(three-pass-box, rgba(9, 105, 218, 0.15), 4, 0, 0, 0);
 }

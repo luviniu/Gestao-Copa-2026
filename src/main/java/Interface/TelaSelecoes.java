@@ -4,6 +4,7 @@ import Aplicacoes.OprSel;
 import Objetos.Selecao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +27,12 @@ public class TelaSelecoes implements Initializable {
     @FXML private TableColumn<Selecao, String> colunaTecnico;
     @FXML private TableColumn<Selecao, String> colunaGrupo;
 
+    @FXML private TextField txtBuscaRapida;
+    @FXML private ComboBox<String> comboFiltroGrupo;
+
     private OprSel oprSel = OprSel.getInstancia();
+    private ObservableList<Selecao> dadosMaster = FXCollections.observableArrayList();
+    private FilteredList<Selecao> dadosFiltrados;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -34,110 +40,78 @@ public class TelaSelecoes implements Initializable {
         colunaTecnico.setCellValueFactory(new PropertyValueFactory<>("tecnico"));
         colunaGrupo.setCellValueFactory(new PropertyValueFactory<>("grupo"));
 
+        if (comboFiltroGrupo != null) {
+            comboFiltroGrupo.getItems().addAll("Todos", "Grupo A", "Grupo B", "Grupo C", "Grupo D", "Grupo E", "Grupo F", "Grupo G", "Grupo H");
+            comboFiltroGrupo.setValue("Todos");
+        }
+
+        configurarFiltroDinamico();
         atualizarTabela();
+    }
+
+    private void configurarFiltroDinamico() {
+        dadosFiltrados = new FilteredList<>(dadosMaster, p -> true);
+
+        txtBuscaRapida.textProperty().addListener((observable, oldValue, newValue) -> {
+            aplicarFiltrosCombinados();
+        });
+
+        comboFiltroGrupo.valueProperty().addListener((observable, oldValue, newValue) -> {
+            aplicarFiltrosCombinados();
+        });
+
+        tabelaSelecoes.setItems(dadosFiltrados);
+    }
+
+    private void aplicarFiltrosCombinados() {
+        dadosFiltrados.setPredicate(selecao -> {
+            String termoTexto = txtBuscaRapida.getText() == null ? "" : txtBuscaRapida.getText().toLowerCase().trim();
+            String grupoSelecionado = comboFiltroGrupo.getValue() == null ? "Todos" : comboFiltroGrupo.getValue();
+
+            boolean correspondeTexto = termoTexto.isEmpty() ||
+                    selecao.getPais().toLowerCase().contains(termoTexto) ||
+                    (selecao.getTecnico() != null && selecao.getTecnico().toLowerCase().contains(termoTexto));
+
+            boolean correspondeGrupo = "Todos".equals(grupoSelecionado) || selecao.getGrupo().equals(grupoSelecionado);
+
+            return correspondeTexto && correspondeGrupo;
+        });
     }
 
     private void atualizarTabela() {
-        ObservableList<Selecao> dados = FXCollections.observableArrayList(oprSel.getListaSelecoes());
-        tabelaSelecoes.setItems(dados);
+        dadosMaster.setAll(oprSel.getListaSelecoes());
+        aplicarFiltrosCombinados(); // Garante que mantém o filtro ativo se a lista recarregar
         tabelaSelecoes.refresh();
     }
 
-    // AÇÃO DO NOVO BOTÃO: Reseta os filtros e mostra tudo de novo
     @FXML
     public void handleResetarTabela(ActionEvent event) {
+        txtBuscaRapida.clear();
+        comboFiltroGrupo.setValue("Todos");
         atualizarTabela();
     }
 
-    // CORREÇÃO: Adicionado o campo "Técnico" como parâmetro de busca
     @FXML
     public void handleBuscarSelecao(ActionEvent event) {
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setTitle("Buscar / Filtrar Seleções");
-        dialog.setHeaderText("Filtre as seleções por País, Grupo ou Técnico\n(Deixe em branco/Todos para ignorar o filtro)");
-
-        // Componentes do formulário de busca
-        TextField campoBuscaNome = new TextField();
-        campoBuscaNome.setPromptText("Ex: Brasil");
-
-        TextField campoBuscaTecnico = new TextField();
-        campoBuscaTecnico.setPromptText("Ex: Ancelotti");
-
-        ComboBox<String> comboBuscaGrupo = new ComboBox<>();
-        comboBuscaGrupo.getItems().addAll("Todos", "Grupo A", "Grupo B", "Grupo C", "Grupo D", "Grupo E", "Grupo F", "Grupo G", "Grupo H");
-        comboBuscaGrupo.setValue("Todos");
-
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.add(new Label("Nome do País:"), 0, 0);
-        grid.add(campoBuscaNome, 1, 0);
-        grid.add(new Label("Técnico:"), 0, 1);
-        grid.add(campoBuscaTecnico, 1, 1);
-        grid.add(new Label("Grupo:"), 0, 2);
-        grid.add(comboBuscaGrupo, 1, 2);
-
-        dialog.getDialogPane().setContent(grid);
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-
-        dialog.showAndWait().ifPresent(tipo -> {
-            if (tipo == ButtonType.OK) {
-                String termoNome = campoBuscaNome.getText().toLowerCase().trim();
-                String termoTecnico = campoBuscaTecnico.getText().toLowerCase().trim();
-                String termoGrupo = comboBuscaGrupo.getValue();
-
-                ObservableList<Selecao> todas = FXCollections.observableArrayList(oprSel.getListaSelecoes());
-
-                // Se nenhum filtro foi preenchido, apenas restaura a listagem completa
-                if (termoNome.isEmpty() && termoTecnico.isEmpty() && "Todos".equals(termoGrupo)) {
-                    tabelaSelecoes.setItems(todas);
-                    return;
-                }
-
-                ObservableList<Selecao> filtradas = FXCollections.observableArrayList();
-
-                for (Selecao s : todas) {
-                    boolean passaNome = termoNome.isEmpty() || s.getPais().toLowerCase().contains(termoNome);
-                    boolean passaTecnico = termoTecnico.isEmpty() || (s.getTecnico() != null && s.getTecnico().toLowerCase().contains(termoTecnico));
-                    boolean passaGrupo = "Todos".equals(termoGrupo) || s.getGrupo().equals(termoGrupo);
-
-                    // Só adiciona se passar em todas as condições ativas (E lógico)
-                    if (passaNome && passaTecnico && passaGrupo) {
-                        filtradas.add(s);
-                    }
-                }
-
-                tabelaSelecoes.setItems(filtradas);
-                tabelaSelecoes.refresh();
-
-                if (filtradas.isEmpty()) {
-                    alerta(Alert.AlertType.INFORMATION, "Nenhuma seleção corresponde aos filtros aplicados.");
-                }
-            }
-        });
+        handleResetarTabela(event);
     }
 
     @FXML
     private void voltarParaLauncher(ActionEvent event) {
         try {
-            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
-                    getClass().getResource("/Interface/TelaLauncher.fxml")
-            );
-            javafx.scene.Parent root = loader.load();
-            javafx.stage.Stage stage = (javafx.stage.Stage)
-                    ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            javafx.scene.Scene scene = new javafx.scene.Scene(root, 1920, 1080);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interface/TelaLauncher.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root, 1920, 1080);
 
             if (getClass().getResource("/Interface/style.css") != null)
-                scene.getStylesheets().add(
-                        getClass().getResource("/Interface/style.css").toExternalForm()
-                );
+                scene.getStylesheets().add(getClass().getResource("/Interface/style.css").toExternalForm());
 
             stage.setScene(scene);
             stage.setMaximized(true);
             stage.setTitle("World Cup 2026 - Launcher");
             stage.show();
-        } catch (java.io.IOException e) {
+        } catch (IOException e) {
             System.out.println("Erro ao voltar para o Launcher.");
             e.printStackTrace();
         }

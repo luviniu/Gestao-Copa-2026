@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -9,62 +10,84 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaGestaoUser">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #f6f8fa; -fx-padding: 25px;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaGestaoUser">
    <children>
-      <HBox prefHeight="152.0" prefWidth="800.0">
+
+      <VBox spacing="5.0" style="-fx-padding: 0 0 15px 0;">
          <children>
-            <Separator orientation="VERTICAL" prefHeight="152.0" prefWidth="0.0" />
-            <VBox prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="60.0" />
-                  <ToggleButton fx:id="toggleNome" mnemonicParsing="false" prefHeight="24.0" prefWidth="116.0" text="NOME" />
-                  <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="60.0" />
-                  <ToggleButton fx:id="toggleCpf" mnemonicParsing="false" prefHeight="24.0" prefWidth="231.0" text="CPF" />
-                  <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="60.0" />
-                  <ToggleButton fx:id="toggleCargo" mnemonicParsing="false" prefHeight="24.0" prefWidth="119.0" text="CARGO" />
-                  <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="60.0" />
-               </children>
-            </VBox>
-            <Separator prefHeight="3.0" prefWidth="2.0" />
-            <VBox prefHeight="152.0" prefWidth="700.0">
-               <children>
-                  <Separator orientation="VERTICAL" prefHeight="2.0" prefWidth="0.0" />
-                  <TextField fx:id="nomeSearchAdm" />
-                  <Separator orientation="VERTICAL" prefHeight="3.0" prefWidth="0.0" />
-                  <TextField fx:id="cpfSearchAdm" />
-                  <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0" />
-                  <TextField fx:id="cargoSearchAdm" />
-                  <Separator orientation="VERTICAL" prefHeight="152.0" prefWidth="0.0" />
-               </children>
-            </VBox>
-            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <Label style="-fx-text-fill: #24292f; -fx-font-size: 18px; -fx-font-weight: 800; -fx-font-family: 'gg sans';" text="Controle de Acessos &amp; Usuários" />
+            <Label style="-fx-text-fill: #57606a; -fx-font-size: 12px; -fx-font-family: 'gg sans';" text="Gerenciamento de credenciais, níveis de cargo e identificação de operadores do sistema." />
          </children>
-      </HBox>
-      <HBox prefHeight="474.0" prefWidth="800.0">
+      </VBox>
+
+      <VBox spacing="12.0" styleClass="main-card-pane" style="-fx-padding: 15px; -fx-margin: 0 0 15px 0;">
          <children>
-            <Separator orientation="VERTICAL" prefHeight="200.0" />
-            <TableView fx:id="listaUsuarios" editable="false" prefHeight="454.0" prefWidth="879.0">
+            <Label style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #57606a; -fx-text-transform: uppercase;" text="Parâmetros de Filtragem Ativos" />
+
+            <HBox spacing="15.0" alignment="CENTER">
+               <children>
+
+                  <HBox spacing="0.0" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS" style="-fx-background-color: #ffffff; -fx-border-color: #d0d7de; -fx-border-radius: 6px;">
+                     <children>
+                        <ToggleButton fx:id="toggleNome" mnemonicParsing="false" prefHeight="35.0" prefWidth="75.0" style="-fx-background-radius: 5px 0 0 5px; -fx-border-width: 0 1px 0 0; -fx-border-color: #d0d7de; -fx-font-size: 11px; -fx-font-weight: bold;" text="NOME" />
+                        <TextField fx:id="nomeSearchAdm" prefHeight="35.0" promptText="Buscar por nome..." HBox.hgrow="ALWAYS" style="-fx-background-color: transparent; -fx-padding: 0 10px;" />
+                     </children>
+                  </HBox>
+
+                  <HBox spacing="0.0" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS" style="-fx-background-color: #ffffff; -fx-border-color: #d0d7de; -fx-border-radius: 6px;">
+                     <children>
+                        <ToggleButton fx:id="toggleCpf" mnemonicParsing="false" prefHeight="35.0" prefWidth="65.0" style="-fx-background-radius: 5px 0 0 5px; -fx-border-width: 0 1px 0 0; -fx-border-color: #d0d7de; -fx-font-size: 11px; -fx-font-weight: bold;" text="CPF" />
+                        <TextField fx:id="cpfSearchAdm" prefHeight="35.0" promptText="000.000.000-00" HBox.hgrow="ALWAYS" style="-fx-background-color: transparent; -fx-padding: 0 10px;" />
+                     </children>
+                  </HBox>
+
+                  <HBox spacing="0.0" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS" style="-fx-background-color: #ffffff; -fx-border-color: #d0d7de; -fx-border-radius: 6px;">
+                     <children>
+                        <ToggleButton fx:id="toggleCargo" mnemonicParsing="false" prefHeight="35.0" prefWidth="75.0" style="-fx-background-radius: 5px 0 0 5px; -fx-border-width: 0 1px 0 0; -fx-border-color: #d0d7de; -fx-font-size: 11px; -fx-font-weight: bold;" text="CARGO" />
+                        <TextField fx:id="cargoSearchAdm" prefHeight="35.0" promptText="Ex: Administrador" HBox.hgrow="ALWAYS" style="-fx-background-color: transparent; -fx-padding: 0 10px;" />
+                     </children>
+                  </HBox>
+
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+
+      <VBox VBox.vgrow="ALWAYS" style="-fx-padding: 5px 0 15px 0;">
+         <children>
+            <TableView fx:id="listaUsuarios" editable="false" prefHeight="320.0" prefWidth="750.0" style="-fx-background-radius: 8px;">
                <columns>
-                  <TableColumn fx:id="colNome" prefWidth="267.0" resizable="false" reorderable="false" text="NOME" />
-                  <TableColumn fx:id="colCargo" minWidth="0.0" prefWidth="250.0" resizable="false" reorderable="false" text="CARGO" />
-                  <TableColumn fx:id="colCpf" prefWidth="270.0" resizable="false" reorderable="false" text="CPF" />
+                  <TableColumn fx:id="colNome" prefWidth="280.0" resizable="false" reorderable="false" text="Nome do Operador" />
+                  <TableColumn fx:id="colCargo" prefWidth="220.0" resizable="false" reorderable="false" text="Cargo / Nível de Acesso" />
+                  <TableColumn fx:id="colCpf" prefWidth="248.0" resizable="false" reorderable="false" text="CPF Cadastrado" />
                </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
-            <Separator orientation="VERTICAL" prefHeight="200.0" />
          </children>
-      </HBox>
-      <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0" />
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      </VBox>
+
+      <HBox spacing="12.0" alignment="CENTER_LEFT" style="-fx-border-color: #d0d7de; -fx-border-width: 1px 0 0 0; -fx-padding: 15px 0 0 0;">
          <children>
-            <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0" />
-            <Button mnemonicParsing="false" onAction="#acaoCadastrar" text="Cadastrar" />
-            <Button mnemonicParsing="false" onAction="#acaoEditar" text="Editar" />
-            <Button mnemonicParsing="false" onAction="#acaoExcluir" text="Excluir" />
-            <Button mnemonicParsing="false" onAction="#acaoBuscar" text="Buscar" />
-            <Button mnemonicParsing="false" onAction="#acaoVoltar" text="Voltar" />
-            <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0" />
+            <Button mnemonicParsing="false" onAction="#acaoCadastrar" prefHeight="38.0" prefWidth="120.0" styleClass="btn-primary-custom" text="➕ Cadastrar">
+               <cursor><Cursor fx:constant="HAND" /></cursor>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#acaoEditar" prefHeight="38.0" prefWidth="100.0" styleClass="btn-secondary-custom" text="📝 Editar">
+               <cursor><Cursor fx:constant="HAND" /></cursor>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#acaoExcluir" prefHeight="38.0" prefWidth="100.0" styleClass="btn-outline-danger" text="🗑️ Excluir">
+               <cursor><Cursor fx:constant="HAND" /></cursor>
+            </Button>
+
+            <HBox HBox.hgrow="ALWAYS" /> <Button mnemonicParsing="false" onAction="#acaoBuscar" prefHeight="38.0" prefWidth="120.0" styleClass="btn-secondary-custom" style="-fx-border-color: #0969da; -fx-text-fill: #0969da; -fx-font-weight: bold;" text="🔍 Executar Busca">
+            <cursor><Cursor fx:constant="HAND" /></cursor>
+         </Button>
+            <Button mnemonicParsing="false" onAction="#acaoVoltar" prefHeight="38.0" prefWidth="90.0" styleClass="btn-secondary-dark" text="Voltar">
+               <cursor><Cursor fx:constant="HAND" /></cursor>
+            </Button>
          </children>
       </HBox>
-      <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0" />
+
    </children>
 </VBox>

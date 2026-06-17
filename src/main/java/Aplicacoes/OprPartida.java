@@ -24,22 +24,18 @@ public class OprPartida {
             return false;
         }
 
-        // Validação da Regra de Negócio: Impede estouro de limite de jogos da árvore de mata-mata
         if (atingiuLimiteDeJogosDaFase(fase)) {
             return false;
         }
 
-        // Impede que um time jogue contra si mesmo
         if (casa.getPais().equalsIgnoreCase(visita.getPais())) {
             return false;
         }
 
-        // Validação da Regra de Negócio: Ambas as seleções precisam estar elegíveis
         if (!casa.isElegivel() || !visita.isElegivel()) {
             return false;
         }
 
-        // Validação de duplicidade e choque de horário no estádio
         for (Partida p : listaPartidas) {
             if (p.getTimeCasa().getPais().equalsIgnoreCase(casa.getPais()) &&
                     p.getTimeVisita().getPais().equalsIgnoreCase(visita.getPais()) &&
@@ -64,14 +60,12 @@ public class OprPartida {
     private boolean atingiuLimiteDeJogosDaFase(String fase) {
         int contador = 0;
 
-        // Conta quantas partidas já existem na fase selecionada
         for (Partida p : listaPartidas) {
             if (p.getFase().equalsIgnoreCase(fase.trim())) {
                 contador++;
             }
         }
 
-        // Aplica a regra de limite com base na fase
         switch (fase.trim()) {
             case "Final":
                 return contador >= 1;
@@ -84,7 +78,6 @@ public class OprPartida {
             case "Dezesseis-avos":
                 return contador >= 16;
             default:
-                // Fases de grupos não possuem restrição rígida global neste nível
                 return false;
         }
     }
@@ -113,7 +106,6 @@ public class OprPartida {
         return false;
     }
 
-    // Filtro dinâmico para a barra de pesquisa
     public List<Partida> buscarPartidas(String termo) {
         if (termo == null || termo.isBlank()) {
             return listaPartidas;

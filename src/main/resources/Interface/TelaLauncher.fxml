@@ -6,219 +6,191 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaLauncher">
+<StackPane stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaLauncher">
    <children>
-      <ScrollPane fitToHeight="false" fitToWidth="false" hbarPolicy="AS_NEEDED" vbarPolicy="AS_NEEDED">
+      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
          <content>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0">
+            <AnchorPane minHeight="1080.0" minWidth="1920.0" style="-fx-background-color: #f6f8fa;">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5ebee" height="1080.0" smooth="false" stroke="#e05e6e" strokeLineCap="BUTT" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" width="1920.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#aac8f1" height="1080.0" smooth="false" stroke="#e05e6e" strokeLineCap="BUTT" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" width="490.0" />
-                  <ImageView fitHeight="161.0" fitWidth="428.0" layoutX="27.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                     <image><Image url="@../assets/FIFA-World-Cup-Logo-2026.png" /></image>
-                  </ImageView>
 
-                  <Button id="iconbuttom" fx:id="btnPerfilInicio" contentDisplay="GRAPHIC_ONLY" layoutX="56.0" layoutY="969.0" mnemonicParsing="false" onAction="#voltarInicio" prefHeight="100.0" prefWidth="93.0" stylesheets="@style.css">
-                     <graphic>
-                        <ImageView fx:id="iconAdmin" fitHeight="100.0" fitWidth="100.0">
-                           <image><Image url="@../assets/icon.png" /></image>
-                           <clip><Circle centerX="50" centerY="50" radius="32" /></clip>
+                  <AnchorPane prefHeight="1080.0" prefWidth="440.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(three-pass-box, rgba(31,35,40,0.08), 15, 0, 4, 0); -fx-border-color: #d0d7de; -fx-border-width: 0 1px 0 0;">
+                     <children>
+
+                        <ImageView fitHeight="110.0" fitWidth="340.0" layoutX="50.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+                           <image><Image url="@../assets/FIFA-World-Cup-Logo-2026.png" /></image>
                         </ImageView>
-                     </graphic>
-                  </Button>
 
-                  <Label id="nametext" fx:id="labelNomeSidebar" layoutX="131.0" layoutY="968.0" prefHeight="44.0" prefWidth="159.0" style="-fx-text-fill: #2c1035;" text="Nome">
-                     <font><Font size="17.0" /></font>
-                  </Label>
-                  <Label id="cargotext" fx:id="labelCargoSidebar" layoutX="311.0" layoutY="968.0" prefHeight="44.0" prefWidth="159.0" style="-fx-text-alignment: #2c1035;" text="cargo">
-                     <font><Font size="17.0" /></font>
-                  </Label>
+                        <Label layoutX="50.0" layoutY="165.0" style="-fx-text-fill: #57606a; -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-transform: uppercase; -fx-letter-spacing: 1px;" text="Painel de Controle" />
 
-                  <AnchorPane fx:id="buttonsAdmin" prefHeight="929.0" prefWidth="493.0">
-                     <children>
-                        <Button id="tasksbutton" fx:id="buttonGestaoUsr" alignment="BASELINE_LEFT" layoutX="27.0" layoutY="253.0" mnemonicParsing="false" onAction="#abrirGestaoUsuarios" prefHeight="59.0" prefWidth="428.0" stylesheets="@style.css" text="Gestão de Usuários">
-                           <font><Font name="SansSerif Regular" size="23.0" /></font>
-                        </Button>
-                        <Button id="tasksbutton" fx:id="btnPartidasAdm" alignment="BASELINE_LEFT" layoutX="27.0" layoutY="313.0" mnemonicParsing="false" onAction="#mostrarPainelPartidas" prefHeight="59.0" prefWidth="428.0" stylesheets="@style.css" text="Relatorio das partidas">
-                           <font><Font name="SansSerif Regular" size="23.0" /></font>
-                        </Button>
-                        <Button id="tasksbutton" fx:id="btnDesempenhoAdm" alignment="BASELINE_LEFT" layoutX="27.0" layoutY="373.0" mnemonicParsing="false" onAction="#mostrarPainelDesempenho" prefHeight="59.0" prefWidth="428.0" stylesheets="@style.css" text="Desempenho">
-                           <font><Font name="SansSerif Regular" size="23.0" /></font>
-                        </Button>
+                        <AnchorPane fx:id="buttonsAdmin" layoutY="190.0" prefWidth="440.0">
+                           <children>
+                              <Button fx:id="buttonGestaoUsr" alignment="BASELINE_LEFT" layoutX="25.0" layoutY="10.0" mnemonicParsing="false" onAction="#abrirGestaoUsuarios" prefHeight="54.0" prefWidth="390.0" styleClass="nav-button" text="Gestão de Usuários" />
+                              <Button fx:id="btnPartidasAdm" alignment="BASELINE_LEFT" layoutX="25.0" layoutY="75.0" mnemonicParsing="false" onAction="#mostrarPainelPartidas" prefHeight="54.0" prefWidth="390.0" styleClass="nav-button" text="Relatório das Partidas" />
+                              <Button fx:id="btnDesempenhoAdm" alignment="BASELINE_LEFT" layoutX="25.0" layoutY="140.0" mnemonicParsing="false" onAction="#mostrarPainelDesempenho" prefHeight="54.0" prefWidth="390.0" styleClass="nav-button" text="Estatísticas e Desempenho" />
+                           </children>
+                        </AnchorPane>
+
+                        <AnchorPane fx:id="buttonsOrganizador" layoutY="190.0" prefWidth="440.0" visible="false">
+                           <children>
+                              <Button fx:id="btnPartidasOrg" alignment="BASELINE_LEFT" layoutX="25.0" layoutY="10.0" mnemonicParsing="false" onAction="#mostrarPainelPartidasOrg" prefHeight="54.0" prefWidth="390.0" styleClass="nav-button" text="Organizar Partidas" />
+                              <Button fx:id="btnArbitrosOrg" alignment="BASELINE_LEFT" layoutX="25.0" layoutY="75.0" mnemonicParsing="false" onAction="#mostrarPainelArbitrosOrg" prefHeight="54.0" prefWidth="390.0" styleClass="nav-button" text="Alocar Árbitros" />
+                              <Button fx:id="btnSelecaoOrg" alignment="BASELINE_LEFT" layoutX="25.0" layoutY="140.0" mnemonicParsing="false" onAction="#mostrarPainelSelecaoOrg" prefHeight="54.0" prefWidth="390.0" styleClass="nav-button" text="Gerenciar Seleções" />
+                              <Button fx:id="btnEstadiosOrg" alignment="BASELINE_LEFT" layoutX="25.0" layoutY="205.0" mnemonicParsing="false" onAction="#mostrarPainelEstadiosOrg" prefHeight="54.0" prefWidth="390.0" styleClass="nav-button" text="Configurar Estádios" />
+                           </children>
+                        </AnchorPane>
+
+                        <AnchorPane fx:id="buttonsOperador" layoutY="190.0" prefWidth="440.0" visible="false">
+                           <children>
+                              <Button fx:id="buttonVenderIngressos" alignment="BASELINE_LEFT" layoutX="25.0" layoutY="10.0" mnemonicParsing="false" onAction="#irParaTelaIngressos" prefHeight="54.0" prefWidth="390.0" styleClass="nav-button" text="Vender Ingressos" />
+                              <Button fx:id="btnIngressosOp1" alignment="BASELINE_LEFT" layoutX="25.0" layoutY="75.0" mnemonicParsing="false" onAction="#mostrarPainelIngressosOp" prefHeight="54.0" prefWidth="390.0" styleClass="nav-button" text="Fluxo de Bilheteria" />
+                           </children>
+                        </AnchorPane>
+
+                        <AnchorPane fx:id="buttonsArbitro" layoutY="190.0" prefWidth="440.0" visible="false">
+                           <children>
+                              <Button fx:id="btnPartidasArb" alignment="BASELINE_LEFT" layoutX="25.0" layoutY="10.0" mnemonicParsing="false" onAction="#mostrarPainelPartidasArb" prefHeight="54.0" prefWidth="390.0" styleClass="nav-button" text="Minhas Escalações" />
+                           </children>
+                        </AnchorPane>
+
+                        <AnchorPane layoutX="25.0" layoutY="945.0" prefHeight="95.0" prefWidth="390.0" style="-fx-background-color: #f6f8fa; -fx-background-radius: 12px; -fx-border-color: #d0d7de; -fx-border-radius: 12px;">
+                           <children>
+                              <Button fx:id="btnPerfilInicio" contentDisplay="GRAPHIC_ONLY" layoutX="15.0" layoutY="18.0" mnemonicParsing="false" onAction="#voltarInicio" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: transparent; -fx-cursor: hand;">
+                                 <graphic>
+                                    <ImageView fx:id="iconAdmin" fitHeight="60.0" fitWidth="60.0">
+                                       <image><Image url="@../assets/icon.png" /></image>
+                                       <clip><Circle centerX="30" centerY="30" radius="28" /></clip>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Label fx:id="labelNomeSidebar" layoutX="92.0" layoutY="24.0" prefWidth="280.0" style="-fx-text-fill: #24292f; -fx-font-weight: bold; -fx-font-size: 16px;" text="Nome" />
+                              <Label fx:id="labelCargoSidebar" layoutX="92.0" layoutY="48.0" prefWidth="280.0" style="-fx-text-fill: #57606a; -fx-font-size: 13px; -fx-text-transform: uppercase; -fx-font-weight: bold;" text="cargo" />
+                           </children>
+                        </AnchorPane>
+
                      </children>
                   </AnchorPane>
 
-                  <AnchorPane fx:id="buttonsOrganizador" prefHeight="929.0" prefWidth="493.0" visible="false">
+                  <AnchorPane layoutX="440.0" prefHeight="100.0" prefWidth="1480.0" style="-fx-background-color: #ffffff; -fx-border-color: #d0d7de; -fx-border-width: 0 0 1px 0;">
                      <children>
-                        <Button id="tasksbutton" fx:id="btnPartidasOrg" alignment="BASELINE_LEFT" layoutX="27.0" layoutY="253.0" mnemonicParsing="false" onAction="#mostrarPainelPartidasOrg" prefHeight="59.0" prefWidth="428.0" stylesheets="@style.css" text="Organizar Partidas">
-                           <font><Font name="SansSerif Regular" size="23.0" /></font>
-                        </Button>
-                        <Button id="tasksbutton" fx:id="btnArbitrosOrg" alignment="BASELINE_LEFT" layoutX="27.0" layoutY="313.0" mnemonicParsing="false" onAction="#mostrarPainelArbitrosOrg" prefHeight="59.0" prefWidth="428.0" stylesheets="@style.css" text="Organizar Arbitros">
-                           <font><Font name="SansSerif Regular" size="23.0" /></font>
-                        </Button>
-                        <Button id="tasksbutton" fx:id="btnSelecaoOrg" alignment="BASELINE_LEFT" layoutX="27.0" layoutY="373.0" mnemonicParsing="false" onAction="#mostrarPainelSelecaoOrg" prefHeight="59.0" prefWidth="428.0" stylesheets="@style.css" text="Organizar Seleçao">
-                           <font><Font name="SansSerif Regular" size="23.0" /></font>
-                        </Button>
-                        <Button id="tasksbutton" fx:id="btnEstadiosOrg" alignment="BASELINE_LEFT" layoutX="27.0" layoutY="433.0" mnemonicParsing="false" onAction="#mostrarPainelEstadiosOrg" prefHeight="59.0" prefWidth="428.0" stylesheets="@style.css" text="Organizar Estadios">
-                           <font><Font name="SansSerif Regular" size="23.0" /></font>
-                        </Button>
+                        <Label layoutX="50.0" layoutY="22.0" style="-fx-text-fill: #24292f; -fx-font-size: 22px; -fx-font-weight: 800;" text="SISTEMA INTERNO DE LOGÍSTICA COPA 2026" />
+                        <Label layoutX="50.0" layoutY="55.0" style="-fx-text-fill: #57606a; -fx-font-size: 14px;" text="Ambiente seguro de monitoramento e auditoria da FIFA World Cup." />
                      </children>
                   </AnchorPane>
 
-                  <AnchorPane fx:id="buttonsOperador" prefHeight="929.0" prefWidth="493.0" visible="false">
+                  <AnchorPane fx:id="painelInicial" layoutX="440.0" layoutY="100.0" prefHeight="980.0" prefWidth="1480.0" visible="true">
                      <children>
-                        <Button id="tasksbutton" fx:id="buttonVenderIngressos" alignment="BASELINE_LEFT" layoutX="27.0" layoutY="253.0" mnemonicParsing="false" onAction="#irParaTelaIngressos" prefHeight="59.0" prefWidth="428.0" stylesheets="@style.css" text="VENDER INGRESSOS">
-                           <font><Font name="SansSerif Regular" size="23.0" /></font>
-                        </Button>
-                        <Button id="tasksbutton" fx:id="btnIngressosOp1" alignment="BASELINE_LEFT" layoutX="27.0" layoutY="312.0" mnemonicParsing="false" onAction="#mostrarPainelIngressosOp" prefHeight="59.0" prefWidth="428.0" stylesheets="@style.css" text="INGRESSOS">
-                           <font>
-                              <Font name="SansSerif Regular" size="23.0" />
-                           </font>
-                        </Button>
+                        <VBox alignment="CENTER" layoutX="340.0" layoutY="115.0" prefHeight="700.0" prefWidth="800.0" spacing="30.0" styleClass="main-card-pane">
+                           <children>
+                              <VBox alignment="CENTER" spacing="5.0">
+                                 <children>
+                                    <Label style="-fx-text-fill: #24292f; -fx-font-weight: 800; -fx-font-size: 40px;" text="Bem-vindo ao Dashboard" />
+                                    <Label style="-fx-text-fill: #57606a; -fx-font-size: 15px;" text="Acesse suas ferramentas de trabalho usando o menu lateral." />
+                                 </children>
+                              </VBox>
+
+                              <ImageView fx:id="iconAdmin1" fitHeight="200.0" fitWidth="200.0">
+                                 <image><Image url="@../assets/icon.png" /></image>
+                                 <clip><Circle centerX="100" centerY="100" radius="95" /></clip>
+                              </ImageView>
+
+                              <VBox alignment="CENTER" spacing="8.0" style="-fx-background-color: #f6f8fa; -fx-padding: 20px; -fx-background-radius: 8px; -fx-border-color: #d0d7de; -fx-border-width: 1px;" maxWidth="500.0">
+                                 <children>
+                                    <Label fx:id="labelNomeCentro" alignment="CENTER" style="-fx-text-fill: #24292f; -fx-font-size: 22px; -fx-font-weight: bold;" text="Nome do Usuário" />
+                                    <Label fx:id="labelCargoCentro" alignment="CENTER" style="-fx-text-fill: #0969da; -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-transform: uppercase;" text="CARGO" />
+                                    <Label fx:id="labelCpfCentro" alignment="CENTER" style="-fx-text-fill: #57606a; -fx-font-size: 14px;" text="CPF: 000.000.000-00" />
+                                 </children>
+                              </VBox>
+
+                              <Button fx:id="logoutbutton" mnemonicParsing="false" onAction="#realizarLogout" prefHeight="48.0" prefWidth="180.0" styleClass="btn-danger-custom" text="Encerrar Sessão" />
+                           </children>
+                        </VBox>
                      </children>
                   </AnchorPane>
 
-                  <AnchorPane fx:id="buttonsArbitro" prefHeight="929.0" prefWidth="493.0" visible="false">
+                  <AnchorPane fx:id="partidaPanelAdm" layoutX="440.0" layoutY="100.0" prefHeight="980.0" prefWidth="1480.0" visible="false">
                      <children>
-                        <Button id="tasksbutton" fx:id="btnPartidasArb" alignment="BASELINE_LEFT" layoutX="27.0" layoutY="253.0" mnemonicParsing="false" onAction="#mostrarPainelPartidasArb" prefHeight="59.0" prefWidth="428.0" stylesheets="@style.css" text="Visualizar Partidas Designadas">
-                           <font><Font name="SansSerif Regular" size="23.0" /></font>
-                        </Button>
-                     </children>
-                  </AnchorPane>
-
-                  <AnchorPane fx:id="painelInicial" layoutX="488.0" prefHeight="1080.0" prefWidth="1430.0" visible="false">
-                     <children>
-                        <ImageView fx:id="iconAdmin1" fitHeight="480.0" fitWidth="480.0" layoutX="475.0" layoutY="100.0">
-                           <image><Image url="@../assets/icon.png" /></image>
-                           <clip><Circle centerX="250" centerY="280" radius="180" /></clip>
-                        </ImageView>
-                        <Label alignment="CENTER" layoutX="401.0" layoutY="46.0" prefHeight="121.0" prefWidth="646.0" text="Seja Bem Vindo!">
-                           <font><Font size="67.0" /></font>
-                        </Label>
-                        <Label id="nametext" fx:id="labelNomeCentro" alignment="CENTER" layoutX="208.0" layoutY="603.0" prefHeight="60.0" prefWidth="1032.0" style="-fx-text-fill: #2c1035;" text="Nome">
-                           <font><Font size="28.0" /></font>
-                        </Label>
-                        <Label id="cargotext" fx:id="labelCargoCentro" alignment="CENTER" layoutX="475.0" layoutY="663.0" prefHeight="60.0" prefWidth="498.0" style="-fx-text-alignment: #2c1035;" text="Cargo">
-                           <font><Font size="28.0" /></font>
-                        </Label>
-                        <Label id="cargotext" fx:id="labelCpfCentro" alignment="CENTER" layoutX="475.0" layoutY="723.0" prefHeight="60.0" prefWidth="498.0" style="-fx-text-alignment: #2c1035;" text="CPF">
-                           <font><Font size="28.0" /></font>
-                        </Label>
-                        <Button id="logoutbutton" fx:id="logoutbutton" layoutX="605.0" layoutY="842.0" mnemonicParsing="false" onAction="#realizarLogout" prefHeight="152.0" prefWidth="239.0" stylesheets="@style.css" text="LOGOUT">
-                           <font><Font name="Adwaita Sans" size="30.0" /></font>
-                        </Button>
-                     </children>
-                  </AnchorPane>
-
-                  <!-- ═══════════════════════════════════════════════════════
-                       PAINEL: Relatório de Partidas (ADM)
-                       fx:id adicionados em todas as TableColumn
-                  ════════════════════════════════════════════════════════ -->
-                  <AnchorPane fx:id="partidaPanelAdm" layoutX="490.0" prefHeight="1080.0" prefWidth="1430.0" visible="false">
-                     <children>
-                        <TableView fx:id="relatorioPartida" layoutX="15.0" layoutY="15.0" prefHeight="1050.0" prefWidth="1400.0">
+                        <Label layoutX="50.0" layoutY="30.0" style="-fx-text-fill: #24292f; -fx-font-size: 26px; -fx-font-weight: bold;" text="Relatório Consolidado de Partidas" />
+                        <TableView fx:id="relatorioPartida" layoutX="50.0" layoutY="80.0" prefHeight="850.0" prefWidth="1380.0">
                            <columns>
-                              <TableColumn fx:id="colStatus"   prefWidth="155.0" text="STATUS" />
-                              <TableColumn fx:id="colTime1"    prefWidth="155.0" text="TIME 1" />
-                              <TableColumn fx:id="colTime2"    prefWidth="155.0" text="TIME 2" />
-                              <TableColumn fx:id="colEstadio"  prefWidth="155.0" text="ESTADIO" />
-                              <TableColumn fx:id="colGolsT1"   prefWidth="155.0" text="GOLS TIME 1" />
-                              <TableColumn fx:id="colGolsT2"   prefWidth="155.0" text="GOLS TIME 2" />
-                              <TableColumn fx:id="colPublico"  prefWidth="155.0" text="PUBLICO" />
-                              <TableColumn fx:id="colFaltas"   prefWidth="155.0" text="FALTAS" />
-                              <TableColumn fx:id="colVencedor" prefWidth="159.0" text="VENCEDOR" />
+                              <TableColumn fx:id="colStatus" prefWidth="140.0" text="STATUS" />
+                              <TableColumn fx:id="colTime1" prefWidth="150.0" text="TIME 1" />
+                              <TableColumn fx:id="colTime2" prefWidth="150.0" text="TIME 2" />
+                              <TableColumn fx:id="colEstadio" prefWidth="200.0" text="ESTÁDIO" />
+                              <TableColumn fx:id="colGolsT1" prefWidth="120.0" text="GOLS T1" />
+                              <TableColumn fx:id="colGolsT2" prefWidth="120.0" text="GOLS T2" />
+                              <TableColumn fx:id="colPublico" prefWidth="140.0" text="PÚBLICO" />
+                              <TableColumn fx:id="colFaltas" prefWidth="110.0" text="FALTAS" />
+                              <TableColumn fx:id="colVencedor" prefWidth="248.0" text="VENCEDOR" />
                            </columns>
                         </TableView>
                      </children>
                   </AnchorPane>
 
-                  <!-- ═══════════════════════════════════════════════════════
-                       PAINEL: Desempenho por Seleção (ADM)
-                       fx:id adicionados em todas as TableColumn
-                  ════════════════════════════════════════════════════════ -->
-                  <AnchorPane fx:id="desempenhoPanelAdm" layoutX="500.0" layoutY="10.0" prefHeight="1080.0" prefWidth="1430.0" visible="false">
+                  <AnchorPane fx:id="desempenhoPanelAdm" layoutX="440.0" layoutY="100.0" prefHeight="980.0" prefWidth="1480.0" visible="false">
                      <children>
-                        <TableView fx:id="relatorioDesempenho" layoutX="15.0" layoutY="186.0" prefHeight="879.0" prefWidth="1400.0">
+                        <Label layoutX="50.0" layoutY="30.0" style="-fx-text-fill: #24292f; -fx-font-size: 26px; -fx-font-weight: bold;" text="Balanço Financeiro e Estatísticas Gerais" />
+                        <TableView fx:id="infos" layoutX="50.0" layoutY="80.0" prefHeight="115.0" prefWidth="1380.0">
                            <columns>
-                              <TableColumn fx:id="colDSelecao"       prefWidth="140.0" text="SELEÇAO" />
-                              <TableColumn fx:id="colDPontos"        prefWidth="140.0" text="PONTOS" />
-                              <TableColumn fx:id="colDJogos"         prefWidth="140.0" text="JOGOS" />
-                              <TableColumn fx:id="colDVitorias"      prefWidth="140.0" text="VITORIAS" />
-                              <TableColumn fx:id="colDEmpates"       prefWidth="140.0" text="EMPATES" />
-                              <TableColumn fx:id="colDDerrotas"      prefWidth="140.0" text="DERROTAS" />
-                              <TableColumn fx:id="colDGols"          prefWidth="140.0" text="GOLS" />
-                              <TableColumn fx:id="colDGolsContra"    prefWidth="140.0" text="GOLS CONTRA" />
-                              <TableColumn fx:id="colDSaldo"         prefWidth="140.0" text="SALDO DE GOLS" />
-                              <TableColumn fx:id="colDClassificacao" prefWidth="140.0" text="CLASSIFICAÇAO" />
+                              <TableColumn fx:id="colInfoPartidas" prefWidth="458.0" text="Total de Partidas Computadas" />
+                              <TableColumn fx:id="colInfoPublico" prefWidth="460.0" text="Público Acumulado nos Estádios" />
+                              <TableColumn fx:id="colInfoGanho" prefWidth="460.0" text="Receita Bruta Total (R$)" />
                            </columns>
                         </TableView>
-                        <TableView fx:id="infos" layoutX="14.0" layoutY="14.0" prefHeight="163.0" prefWidth="1400.0">
+                        <Label layoutX="50.0" layoutY="225.0" style="-fx-text-fill: #24292f; -fx-font-size: 20px; -fx-font-weight: bold;" text="Desempenho Técnico por Seleção" />
+                        <TableView fx:id="relatorioDesempenho" layoutX="50.0" layoutY="265.0" prefHeight="665.0" prefWidth="1380.0">
                            <columns>
-                              <TableColumn fx:id="colInfoPartidas" prefWidth="466.6" text="Total de Partidas" />
-                              <TableColumn fx:id="colInfoPublico"  prefWidth="466.6" text="Publico Total" />
-                              <TableColumn fx:id="colInfoGanho"    prefWidth="465.0" text="Ganho total R$" />
-                           </columns>
-                        </TableView>
-                     </children>
-                  </AnchorPane>
-
-                  <AnchorPane fx:id="partidaPanelOrg" layoutX="490.0" prefHeight="1080.0" prefWidth="1430.0" visible="false">
-                     <children>
-                        <Label layoutX="40.0" layoutY="30.0" style="-fx-text-fill: #2c1035;" text="Painel Geral: Gestão de Partidas (Organizador)">
-                           <font><Font size="32.0" /></font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-
-                  <AnchorPane fx:id="arbitroPanelOrg" layoutX="490.0" prefHeight="1080.0" prefWidth="1430.0" visible="false">
-                     <children>
-                        <Label layoutX="40.0" layoutY="30.0" style="-fx-text-fill: #2c1035;" text="Painel Geral: Gestão de Árbitros (Organizador)">
-                           <font><Font size="32.0" /></font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-
-                  <AnchorPane fx:id="selecaoPanelOrg" layoutX="490.0" prefHeight="1080.0" prefWidth="1430.0" visible="false">
-                     <children>
-                        <Label layoutX="40.0" layoutY="30.0" style="-fx-text-fill: #2c1035;" text="Painel Geral: Gestão de Seleções e Jogadores (Organizador)">
-                           <font><Font size="32.0" /></font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-
-                  <AnchorPane fx:id="estadioPanelOrg" layoutX="490.0" prefHeight="1080.0" prefWidth="1430.0" visible="false">
-                     <children>
-                        <Label layoutX="40.0" layoutY="30.0" style="-fx-text-fill: #2c1035;" text="Painel Geral: Gestão de Estádios (Organizador)">
-                           <font><Font size="32.0" /></font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-
-                  <AnchorPane fx:id="ingressoPanelOp" layoutX="490.0" prefHeight="1080.0" prefWidth="1430.0" visible="false">
-                     <children>
-                        <TableView fx:id="tabelaIngressosOp" layoutX="15.0" layoutY="15.0" prefHeight="1050.0" prefWidth="1400.0">
-                           <columns>
-                              <TableColumn fx:id="colOpJogo"       prefWidth="350.0" text="JOGO" />
-                              <TableColumn fx:id="colOpVendidos"   prefWidth="350.0" text="INGRESSOS VENDIDOS" />
-                              <TableColumn fx:id="colOpCapacidade" prefWidth="350.0" text="CAPACIDADE MAXIMA" />
-                              <TableColumn fx:id="colOpArrecadacao" prefWidth="348.0" text="ARRECADACAO TOTAL" />
+                              <TableColumn fx:id="colDSelecao" prefWidth="170.0" text="SELEÇÃO" />
+                              <TableColumn fx:id="colDPontos" prefWidth="100.0" text="PONTOS" />
+                              <TableColumn fx:id="colDJogos" prefWidth="100.0" text="JOGOS" />
+                              <TableColumn fx:id="colDVitorias" prefWidth="100.0" text="VITÓRIAS" />
+                              <TableColumn fx:id="colDEmpates" prefWidth="100.0" text="EMPATES" />
+                              <TableColumn fx:id="colDDerrotas" prefWidth="100.0" text="DERROTAS" />
+                              <TableColumn fx:id="colDGols" prefWidth="100.0" text="GOLS PRO" />
+                              <TableColumn fx:id="colDGolsContra" prefWidth="130.0" text="GOLS CONTRA" />
+                              <TableColumn fx:id="colDSaldo" prefWidth="130.0" text="SALDO DE GOLS" />
+                              <TableColumn fx:id="colDClassificacao" prefWidth="348.0" text="SITUAÇÃO DE CLASSIFICAÇÃO" />
                            </columns>
                         </TableView>
                      </children>
                   </AnchorPane>
 
-                  <AnchorPane fx:id="partidaPanelArb" layoutX="490.0" prefHeight="1080.0" prefWidth="1430.0" visible="false">
+                  <AnchorPane fx:id="partidaPanelOrg" layoutX="440.0" layoutY="100.0" prefHeight="980.0" prefWidth="1480.0" visible="false">
+                     <children><Label layoutX="50.0" layoutY="40.0" style="-fx-text-fill: #24292f; -fx-font-size: 26px; -fx-font-weight: bold;" text="Painel do Organizador: Agendamento de Partidas" /></children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="arbitroPanelOrg" layoutX="440.0" layoutY="100.0" prefHeight="980.0" prefWidth="1480.0" visible="false">
+                     <children><Label layoutX="50.0" layoutY="40.0" style="-fx-text-fill: #24292f; -fx-font-size: 26px; -fx-font-weight: bold;" text="Painel do Organizador: Escalação de Equipes de Arbitragem" /></children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="selecaoPanelOrg" layoutX="440.0" layoutY="100.0" prefHeight="980.0" prefWidth="1480.0" visible="false">
+                     <children><Label layoutX="50.0" layoutY="40.0" style="-fx-text-fill: #24292f; -fx-font-size: 26px; -fx-font-weight: bold;" text="Painel do Organizador: Inscrição de Delegações e Seleções" /></children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="estadioPanelOrg" layoutX="440.0" layoutY="100.0" prefHeight="980.0" prefWidth="1480.0" visible="false">
+                     <children><Label layoutX="50.0" layoutY="40.0" style="-fx-text-fill: #24292f; -fx-font-size: 26px; -fx-font-weight: bold;" text="Painel do Organizador: Gestão e Capacidade dos Estádios" /></children>
+                  </AnchorPane>
+
+                  <AnchorPane fx:id="ingressoPanelOp" layoutX="440.0" layoutY="100.0" prefHeight="980.0" prefWidth="1480.0" visible="false">
                      <children>
-                        <Label layoutX="40.0" layoutY="30.0" style="-fx-text-fill: #2c1035;" text="Minhas Partidas Designadas (Apenas Visualização)">
-                           <font><Font size="32.0" /></font>
-                        </Label>
-                        <TableView layoutX="40.0" layoutY="100.0" prefHeight="800.0" prefWidth="1300.0">
+                        <Label layoutX="50.0" layoutY="30.0" style="-fx-text-fill: #24292f; -fx-font-size: 26px; -fx-font-weight: bold;" text="Controle de Venda de Ingressos por Jogo" />
+                        <TableView fx:id="tabelaIngressosOp" layoutX="50.0" layoutY="80.0" prefHeight="850.0" prefWidth="1380.0">
                            <columns>
-                              <TableColumn prefWidth="200.0" text="Data/Hora" />
-                              <TableColumn prefWidth="300.0" text="Seleção 1" />
-                              <TableColumn prefWidth="300.0" text="Seleção 2" />
-                              <TableColumn prefWidth="300.0" text="Estádio" />
-                              <TableColumn prefWidth="198.0" text="Função de Arbitragem" />
+                              <TableColumn fx:id="colOpJogo" prefWidth="345.0" text="CONFRONTO" />
+                              <TableColumn fx:id="colOpVendidos" prefWidth="345.0" text="BILHETES VENDIDOS" />
+                              <TableColumn fx:id="colOpCapacidade" prefWidth="345.0" text="LOTAÇÃO MÁXIMA" />
+                              <TableColumn fx:id="colOpArrecadacao" prefWidth="343.0" text="RECEITA ACUMULADA" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+
+                  <AnchorPane fx:id="partidaPanelArb" layoutX="440.0" layoutY="100.0" prefHeight="980.0" prefWidth="1480.0" visible="false">
+                     <children>
+                        <Label layoutX="50.0" layoutY="30.0" style="-fx-text-fill: #24292f; -fx-font-size: 26px; -fx-font-weight: bold;" text="Minhas Partidas Designadas pela Comissão" />
+                        <TableView layoutX="50.0" layoutY="80.0" prefHeight="850.0" prefWidth="1380.0">
+                           <columns>
+                              <TableColumn prefWidth="200.0" text="DATA / HORA" />
+                              <TableColumn prefWidth="300.0" text="SELEÇÃO 1" />
+                              <TableColumn prefWidth="300.0" text="SELEÇÃO 2" />
+                              <TableColumn prefWidth="300.0" text="ESTÁDIO" />
+                              <TableColumn prefWidth="278.0" text="ATRIBUIÇÃO EM CAMPO" />
                            </columns>
                         </TableView>
                      </children>

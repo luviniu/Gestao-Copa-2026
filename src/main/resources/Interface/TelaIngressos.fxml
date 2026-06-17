@@ -3,106 +3,142 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1074.0" prefWidth="1922.0" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaIngressos">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #f6f8fa;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaIngressos">
    <children>
-      <ImageView fitHeight="1085.0" fitWidth="1926.0" pickOnBounds="true" preserveRatio="false">
+      <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.70" pickOnBounds="true" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../assets/stadium2.jpg" />
          </image>
          <effect>
-            <GaussianBlur />
+            <GaussianBlur radius="8.0" />
          </effect>
       </ImageView>
-      <Rectangle id="background-capa" height="1099.0" layoutX="453.0" layoutY="-12.0" smooth="false" stroke="#2f1f1f" strokeType="INSIDE" strokeWidth="0.0" width="1016.0">
-         <effect>
-            <ColorAdjust />
-         </effect>
-         <fill>
-            <LinearGradient endX="1.0" endY="0.5142857142857142" startX="0.8047619047619048">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="0.0313725508749485" green="0.0470588244497776" blue="0.10588235408067703" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.029999999329447746" green="0.04516666755080223" blue="0.10000000149011612" opacity="0.5632184147834778" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </fill></Rectangle>
-      <Text fill="#e7e7ee" layoutX="823.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INGRESSOS" textAlignment="JUSTIFY" wrappingWidth="296.79999999999995">
-         <font>
-            <Font name="System Bold" size="45.0" />
-         </font>
-      </Text>
+      <AnchorPane prefHeight="100.0" prefWidth="1920.0" style="-fx-background-color: #ffffff; -fx-border-color: #d0d7de; -fx-border-width: 0 0 1px 0; -fx-effect: dropshadow(three-pass-box, rgba(31,35,40,0.04), 10, 0, 0, 2);">
+         <children>
+            <Label layoutX="60.0" layoutY="22.0" style="-fx-text-fill: #24292f; -fx-font-size: 22px; -fx-font-weight: 800; -fx-font-family: 'gg sans';" text="SISTEMA CENTRAL DE EMISSÃO DE INGRESSOS - TICKETING HUB" />
+            <Label layoutX="60.0" layoutY="55.0" style="-fx-text-fill: #57606a; -fx-font-size: 14px; -fx-font-family: 'gg sans';" text="Controle de vendas de bilheteria, estorno de assentos corporativos, conferência de lotação das arenas e relatórios financeiros." />
+         </children>
+      </AnchorPane>
 
-      <TextField fx:id="txtBuscaPartida" layoutX="540.0" layoutY="286.0" prefHeight="35.0" prefWidth="214.0" promptText="BrasilxArgentina" />
+      <HBox layoutX="60.0" layoutY="140.0" prefHeight="880.0" prefWidth="1800.0" spacing="30.0">
+         <children>
 
-      <TableView fx:id="tabelaInfoPartida" fixedCellSize="30.0" layoutX="455.0" layoutY="358.0" prefHeight="270.0" prefWidth="1016.0">
-         <columns>
-            <TableColumn fx:id="colInfoJogo" prefWidth="204.0" resizable="false" text="PARTIDA" />
-            <TableColumn fx:id="colInfoHorario" prefWidth="146.0" text="HORARIO" />
-            <TableColumn fx:id="colInfoData" prefWidth="92.0" text="DATA" />
-            <TableColumn fx:id="colInfoLocal" prefWidth="163.0" text="Local" />
-            <TableColumn fx:id="colInfoCapacidade" prefWidth="204.0" text="CAPACIDADE MAXIMA" />
-            <TableColumn fx:id="colInfoVendidos" prefWidth="206.0" text="INGRESSOS VENDIDOS" />
-         </columns>
-      </TableView>
+            <VBox prefWidth="1240.0" spacing="25.0" style="-fx-padding: 35px;" styleClass="main-card-pane">
+               <children>
 
-      <Text fill="WHITE" layoutX="883.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CATEGORIA">
-         <font><Font size="30.0" /></font>
-      </Text>
-      <Text fill="WHITE" layoutX="1177.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="QUANTIDADE">
-         <font><Font size="30.0" /></font>
-      </Text>
+                  <Label style="-fx-font-weight: 800; -fx-font-size: 24px; -fx-font-family: 'gg sans'; -fx-text-fill: #24292f;" text="Disponibilidade de Assentos por Partida" />
 
-      <ComboBox fx:id="comboCategoria" layoutX="864.0" layoutY="291.0" prefHeight="26.0" prefWidth="214.0" />
-      <TextField fx:id="txtQuantidade" layoutX="1171.0" layoutY="291.0" prefHeight="28.0" prefWidth="214.0" />
+                  <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: #f6f8fa; -fx-padding: 15px; -fx-background-radius: 6px; -fx-border-color: #d0d7de;">
+                     <children>
+                        <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #57606a;" text="BUSCAR CONFRONTO" />
+                              <TextField fx:id="txtBuscaPartida" prefHeight="40.0" promptText="Ex: Brasil x Argentina" style="-fx-background-color: #ffffff; -fx-border-color: #d0d7de; -fx-border-radius: 4px;" />
+                           </children>
+                        </VBox>
 
-      <Button fx:id="btnVender" layoutX="769.0" layoutY="701.0" mnemonicParsing="false" onAction="#venderIngresso" text="VENDER" textFill="#1a00ff">
-         <font><Font size="28.0" /></font>
-      </Button>
+                        <VBox prefWidth="250.0" spacing="5.0">
+                           <children>
+                              <Label style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #57606a;" text="CATEGORIA DE ASSENTO" />
+                              <ComboBox fx:id="comboCategoria" prefHeight="40.0" prefWidth="250.0" style="-fx-background-color: #ffffff; -fx-border-color: #d0d7de; -fx-border-radius: 4px;" />
+                           </children>
+                        </VBox>
 
-      <Button layoutX="846.0" layoutY="798.0" mnemonicParsing="false" onAction="#abrirRelatorio" text="Relatorio financeiro" textFill="#3500ff">
-         <font><Font size="21.0" /></font>
-      </Button>
-      <Text fill="WHITE" layoutX="581.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PARTIDA">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Text>
-      <Button fx:id="btnVender1" layoutX="981.0" layoutY="701.0" mnemonicParsing="false" onAction="#devolverIngresso" text="DEVOLVER" textFill="#1a00ff">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Button>
+                        <VBox prefWidth="150.0" spacing="5.0">
+                           <children>
+                              <Label style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #57606a;" text="QUANTIDADE" />
+                              <TextField fx:id="txtQuantidade" prefHeight="40.0" promptText="1" style="-fx-background-color: #ffffff; -fx-border-color: #d0d7de; -fx-border-radius: 4px;" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
 
-      <Button layoutX="922.0" layoutY="850.0" mnemonicParsing="false" onAction="#voltarTela" style="-fx-text-fill: black;" text="Voltar" textFill="#e7e7ee">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
+                  <TableView fx:id="tabelaInfoPartida" fixedCellSize="35.0" prefHeight="430.0" prefWidth="1170.0" style="-fx-background-radius: 8px;">
+                     <columns>
+                        <TableColumn fx:id="colInfoJogo" prefWidth="220.0" text="Confronto" />
+                        <TableColumn fx:id="colInfoHorario" prefWidth="110.0" style="-fx-alignment: CENTER;" text="Horário" />
+                        <TableColumn fx:id="colInfoData" prefWidth="120.0" style="-fx-alignment: CENTER;" text="Data" />
+                        <TableColumn fx:id="colInfoLocal" prefWidth="250.0" text="Estádio / Arena" />
+                        <TableColumn fx:id="colInfoCapacidade" prefWidth="230.0" style="-fx-alignment: CENTER;" text="Capacidade Máxima" />
+                        <TableColumn fx:id="colInfoVendidos" prefWidth="238.0" style="-fx-alignment: CENTER; -fx-font-weight: bold;" text="Ingressos Emitidos" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+
+                  <HBox alignment="CENTER_RIGHT">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#voltarTela" prefHeight="45.0" prefWidth="160.0" styleClass="btn-secondary-dark" text="Voltar ao Início">
+                           <cursor><Cursor fx:constant="HAND" /></cursor>
+                        </Button>
+                     </children>
+                  </HBox>
+
+               </children>
+            </VBox>
+
+            <VBox prefWidth="530.0" spacing="25.0">
+               <children>
+
+                  <VBox spacing="15.0" style="-fx-padding: 25px;" styleClass="main-card-pane">
+                     <children>
+                        <Label style="-fx-text-fill: #24292f; -fx-font-size: 16px; -fx-font-weight: bold; -fx-text-transform: uppercase;" text="Setorização de Bilheteria" />
+
+                        <VBox style="-fx-background-color: #f6f8fa; -fx-padding: 15px; -fx-background-radius: 6px; -fx-border-color: #d0d7de;">
+                           <children>
+                              <Label style="-fx-text-fill: #57606a; -fx-font-size: 11px; -fx-font-weight: bold;" text="FAIXA DE CATEGORIAS" />
+                              <Label style="-fx-text-fill: #24292f; -fx-font-size: 16px; -fx-font-weight: 800;" text="Categoria 1 (VIP) à Categoria 4" />
+                           </children>
+                        </VBox>
+
+                        <VBox style="-fx-background-color: #ddf4ff; -fx-padding: 15px; -fx-background-radius: 6px; -fx-border-color: rgba(9,105,218,0.2);">
+                           <children>
+                              <Label style="-fx-text-fill: #0969da; -fx-font-size: 11px; -fx-font-weight: bold;" text="REGRA DE CANCELAMENTO" />
+                              <Label style="-fx-text-fill: #054da7; -fx-font-size: 13px; -fx-font-weight: 500;" text="Devoluções e estornos de bilhetes são permitidos até 48 horas antes do apito inicial, retornando o assento ao lote disponível." wrapText="true" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+
+                  <VBox spacing="15.0" style="-fx-padding: 25px;" styleClass="main-card-pane" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label style="-fx-text-fill: #24292f; -fx-font-size: 16px; -fx-font-weight: bold;" text="Painel do Operador" />
+                        <Label style="-fx-text-fill: #57606a; -fx-font-size: 13px;" text="Selecione um confronto na tabela ao lado, defina a categoria do assento e a quantidade desejada antes de emitir." wrapText="true" />
+
+                        <VBox spacing="12.0" style="-fx-padding: 10px 0 0 0;">
+                           <children>
+                              <Button fx:id="btnVender" mnemonicParsing="false" onAction="#venderIngresso" prefHeight="50.0" prefWidth="500.0" styleClass="btn-primary-custom" text="Emitir / Vender Ingresso ➔">
+                                 <cursor><Cursor fx:constant="HAND" /></cursor>
+                              </Button>
+                              <Button fx:id="btnVender1" mnemonicParsing="false" onAction="#devolverIngresso" prefHeight="45.0" prefWidth="500.0" styleClass="btn-outline-danger" text="Estornar / Devolver Bilhete">
+                                 <cursor><Cursor fx:constant="HAND" /></cursor>
+                              </Button>
+
+                              <HBox prefHeight="20.0" /> <Button mnemonicParsing="false" onAction="#abrirRelatorio" prefHeight="45.0" prefWidth="500.0" style="-fx-border-color: #0969da; -fx-text-fill: #0969da;" styleClass="btn-secondary-custom" text="📊 Abrir Relatório Financeiro">
+                              <cursor><Cursor fx:constant="HAND" /></cursor>
+                           </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+
+               </children>
+            </VBox>
+
+         </children>
+      </HBox>
 
    </children>
-   <cursor>
-      <Cursor fx:constant="DEFAULT" />
-   </cursor>
 </AnchorPane>

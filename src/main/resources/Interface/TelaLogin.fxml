@@ -2,184 +2,148 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaLogin">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.TelaLogin">
    <children>
-      <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
+
+      <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="false">
          <image>
             <Image url="@../assets/stadium2.jpg" />
          </image>
          <effect>
-            <GaussianBlur />
+            <GaussianBlur radius="15.0" />
          </effect>
       </ImageView>
-      <AnchorPane fx:id="telaCadastro" prefHeight="1080.0" prefWidth="1920.0" visible="false">
+
+      <StackPane fx:id="telaCadastro" prefHeight="1080.0" prefWidth="1920.0" visible="false">
          <children>
-            <Rectangle id="background-capa" height="735.0" layoutX="728.0" layoutY="173.0" smooth="false" stroke="#2f1f1f" strokeType="INSIDE" strokeWidth="0.0" width="464.0">
-               <effect>
-                  <ColorAdjust />
-               </effect>
-               <fill>
-                  <LinearGradient endX="1.0" endY="0.5142857142857142" startX="0.8047619047619048">
-                     <stops>
-                        <Stop>
-                           <color>
-                              <Color red="0.0313725508749485" green="0.0470588244497776" blue="0.10588235408067703" />
-                           </color>
-                        </Stop>
-                        <Stop offset="1.0">
-                           <color>
-                              <Color red="0.029999999329447746" green="0.04516666755080223" blue="0.10000000149011612" opacity="0.5632184147834778" />
-                           </color>
-                        </Stop>
-                     </stops>
-                  </LinearGradient>
-               </fill>
-            </Rectangle>
-            <TextField fx:id="cadNome" layoutX="804.0" layoutY="310.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor>
-            </TextField>
-            <Text fill="#e7e7ee" layoutX="891.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadrastro" textAlignment="JUSTIFY">
-               <font>
-                  <Font size="28.0" />
-               </font>
-            </Text>
-            <TextField fx:id="cadEmail" layoutX="804.0" layoutY="400.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor>
-            </TextField>
-            <Text fill="#e7e7ee" layoutX="803.0" layoutY="395.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail " />
-            <TextField fx:id="cadCpf" layoutX="804.0" layoutY="490.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor>
-            </TextField>
-            <Text fill="#e7e7ee" layoutX="805.0" layoutY="487.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CPF" />
-            <PasswordField fx:id="cadSenha" layoutX="804.0" layoutY="580.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor>
-            </PasswordField>
-            <Text fill="#e7e7ee" layoutX="805.0" layoutY="574.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Senha" />
-            <Text fill="#e7e7ee" layoutX="803.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome Completo" />
-            <PasswordField fx:id="cadConfirmarSenha" layoutX="803.0" layoutY="670.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor>
-            </PasswordField>
-            <Text fill="#e7e7ee" layoutX="805.0" layoutY="665.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirmar Senha" />
-            <Button id="button-login" layoutX="803.0" layoutY="741.0" mnemonicParsing="false" onAction="#executarCadastro" prefHeight="70.0" prefWidth="314.0" stylesheets="@style.css" text="Cadastrar">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button id="loginregistro" layoutX="902.0" layoutY="823.0" mnemonicParsing="false" onAction="#abrirLogin" style="-fx-background-color: transparent;" stylesheets="@style.css" text="Tem cadastro?">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button id="button-login" layoutX="1272.0" layoutY="761.0" mnemonicParsing="false" onAction="#irParaSelecoes" prefHeight="30.0" prefWidth="190.0" stylesheets="@style.css" text="Ir pra Tela Seleções">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button id="button-login" layoutX="1272.0" layoutY="727.0" mnemonicParsing="false" onAction="#irParaPartidas" prefHeight="30.0" prefWidth="190.0" stylesheets="@style.css" text="Ir pra Tela Partidas">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button id="button-login" layoutX="1272.0" layoutY="693.0" mnemonicParsing="false" onAction="#irParaArbitros" prefHeight="30.0" prefWidth="190.0" stylesheets="@style.css" text="Ir pra Tela Árbitros">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button id="button-login" layoutX="1272.0" layoutY="659.0" mnemonicParsing="false" onAction="#irParaIngressos" prefHeight="30.0" prefWidth="190.0" stylesheets="@style.css" text="Ir pra Tela Ingressos">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button id="button-login" layoutX="1272.0" layoutY="796.0" mnemonicParsing="false" onAction="#irParaEstadios" prefHeight="30.0" prefWidth="190.0" stylesheets="@style.css" text="Ir pra Tela Estadios">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
+
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="760.0" prefWidth="500.0" spacing="22.0" styleClass="login-card-pane">
+               <children>
+
+                  <Label style="-fx-text-fill: #24292f; -fx-font-size: 26px; -fx-font-weight: 800; -fx-font-family: 'gg sans';" text="Cadastro de Operador" />
+
+                  <VBox maxWidth="360.0" spacing="12.0">
+                     <children>
+                        <VBox spacing="4.0">
+                           <children>
+                              <Label style="-fx-text-fill: #24292f; -fx-font-size: 12px; -fx-font-weight: bold;" text="Nome Completo" />
+                              <TextField fx:id="cadNome" prefHeight="40.0" styleClass="login-field" />
+                           </children>
+                        </VBox>
+                        <VBox spacing="4.0">
+                           <children>
+                              <Label style="-fx-text-fill: #24292f; -fx-font-size: 12px; -fx-font-weight: bold;" text="E-mail" />
+                              <TextField fx:id="cadEmail" prefHeight="40.0" styleClass="login-field" />
+                           </children>
+                        </VBox>
+                        <VBox spacing="4.0">
+                           <children>
+                              <Label style="-fx-text-fill: #24292f; -fx-font-size: 12px; -fx-font-weight: bold;" text="CPF" />
+                              <TextField fx:id="cadCpf" prefHeight="40.0" styleClass="login-field" />
+                           </children>
+                        </VBox>
+                        <VBox spacing="4.0">
+                           <children>
+                              <Label style="-fx-text-fill: #24292f; -fx-font-size: 12px; -fx-font-weight: bold;" text="Senha" />
+                              <PasswordField fx:id="cadSenha" prefHeight="40.0" styleClass="login-field" />
+                           </children>
+                        </VBox>
+                        <VBox spacing="4.0">
+                           <children>
+                              <Label style="-fx-text-fill: #24292f; -fx-font-size: 12px; -fx-font-weight: bold;" text="Confirmar Senha" />
+                              <PasswordField fx:id="cadConfirmarSenha" prefHeight="40.0" styleClass="login-field" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+
+                  <VBox alignment="CENTER" maxWidth="360.0" spacing="10.0" style="-fx-padding: 10px 0 0 0;">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#executarCadastro" prefHeight="45.0" prefWidth="360.0" styleClass="btn-primary-custom" text="Concluir Registro">
+                           <cursor><Cursor fx:constant="HAND" /></cursor>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#abrirLogin" style="-fx-background-color: transparent; -fx-text-fill: #0969da; -fx-font-weight: bold;" text="Já possui cadastro? Faça Login">
+                           <cursor><Cursor fx:constant="HAND" /></cursor>
+                        </Button>
+                     </children>
+                  </VBox>
+
+               </children>
+            </VBox>
+
          </children>
-      </AnchorPane>
-      <AnchorPane fx:id="telaLogin" prefHeight="1080.0" prefWidth="1920.0">
+      </StackPane>
+
+      <StackPane fx:id="telaLogin" prefHeight="1080.0" prefWidth="1920.0">
          <children>
-            <Rectangle id="background-capa" height="400.0" layoutX="610.0" layoutY="340.0" smooth="false" stroke="#2f1f1f" strokeType="INSIDE" strokeWidth="0.0" width="700.0">
-               <effect>
-                  <ColorAdjust />
-               </effect>
-               <fill>
-                  <LinearGradient endX="1.0" endY="0.5142857142857142" startX="0.8047619047619048">
-                     <stops>
-                        <Stop>
-                           <color>
-                              <Color red="0.0313725508749485" green="0.0470588244497776" blue="0.10588235408067703" />
-                           </color>
-                        </Stop>
-                        <Stop offset="1.0">
-                           <color>
-                              <Color red="0.029999999329447746" green="0.04516666755080223" blue="0.10000000149011612" opacity="0.5632184147834778" />
-                           </color>
-                        </Stop>
-                     </stops>
-                  </LinearGradient>
-               </fill>
-            </Rectangle>
-            <ImageView fitHeight="306.0" fitWidth="315.0" layoutX="1048.0" layoutY="387.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/Logo_copa_2026.png" />
-               </image>
-            </ImageView>
-            <TextField fx:id="identificaLogin" layoutX="662.0" layoutY="462.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor>
-            </TextField>
-            <PasswordField fx:id="identificaSenha" layoutX="662.0" layoutY="548.0" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor>
-            </PasswordField>
-            <Button id="button-login" layoutX="662.0" layoutY="630.0" mnemonicParsing="false" onAction="#irLauncher" prefHeight="41.0" prefWidth="314.0" stylesheets="@style.css" text="Entrar">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Text fill="#e7e7ee" layoutX="775.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGIN" textAlignment="JUSTIFY">
-               <font>
-                  <Font size="28.0" />
-               </font>
-            </Text>
-            <Text fill="#e7e7ee" layoutX="662.0" layoutY="459.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail ou CPF :" />
-            <Text fill="#e7e7ee" layoutX="662.0" layoutY="545.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Senha :" />
-            <Button id="loginregistro" layoutX="662.0" layoutY="671.0" mnemonicParsing="false" onAction="#abrirCadastro" style="-fx-background-color: transparent;" stylesheets="@style.css" text="Sem login?">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
+
+            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="480.0" prefWidth="850.0" styleClass="login-card-pane" style="-fx-padding: 0;">
+               <children>
+
+                  <VBox alignment="CENTER" prefWidth="460.0" spacing="25.0" style="-fx-padding: 40px;">
+                     <children>
+                        <VBox spacing="4.0">
+                           <children>
+                              <Label style="-fx-text-fill: #24292f; -fx-font-size: 24px; -fx-font-weight: 800; -fx-font-family: 'gg sans';" text="Autenticação" />
+                              <Label style="-fx-text-fill: #57606a; -fx-font-size: 13px;" text="Painel do operador de bilheteria" />
+                           </children>
+                        </VBox>
+
+                        <VBox spacing="15.0">
+                           <children>
+                              <VBox spacing="5.0">
+                                 <children>
+                                    <Label style="-fx-text-fill: #24292f; -fx-font-size: 12px; -fx-font-weight: bold;" text="E-mail ou CPF" />
+                                    <TextField fx:id="identificaLogin" prefHeight="42.0" styleClass="login-field" />
+                                 </children>
+                              </VBox>
+                              <VBox spacing="5.0">
+                                 <children>
+                                    <Label style="-fx-text-fill: #24292f; -fx-font-size: 12px; -fx-font-weight: bold;" text="Senha Corporativa" />
+                                    <PasswordField fx:id="identificaSenha" prefHeight="42.0" styleClass="login-field" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+
+                        <VBox alignment="CENTER" spacing="8.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#irLauncher" prefHeight="45.0" prefWidth="380.0" styleClass="btn-primary-custom" text="Entrar no Sistema ➔">
+                                 <cursor><Cursor fx:constant="HAND" /></cursor>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#abrirCadastro" style="-fx-background-color: transparent; -fx-text-fill: #0969da; -fx-font-weight: bold;" text="Solicitar novo acesso (Sem login)">
+                                 <cursor><Cursor fx:constant="HAND" /></cursor>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+
+                  <VBox alignment="CENTER" prefWidth="390.0" style="-fx-background-color: rgba(246,248,250,0.5); -fx-background-radius: 0 16px 16px 0; -fx-border-color: #d0d7de; -fx-border-width: 0 0 0 1px;">
+                     <children>
+                        <ImageView fitHeight="280.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/Logo_copa_2026.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+
+               </children>
+            </HBox>
          </children>
-      </AnchorPane>
+      </StackPane>
+
    </children>
-   <cursor>
-      <Cursor fx:constant="DEFAULT" />
-   </cursor>
 </AnchorPane>

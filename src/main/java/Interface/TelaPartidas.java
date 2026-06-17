@@ -111,7 +111,6 @@ public class TelaPartidas implements Initializable {
         grid.setVgap(10);
         grid.setPadding(new Insets(20, 150, 10, 10));
 
-        // ── ComboBox com filtro para Seleção Casa ──
         ComboBox<String> cmbCasa = new ComboBox<>();
         cmbCasa.setEditable(true);
         cmbCasa.setPromptText("Ex: Brasil");
@@ -132,7 +131,6 @@ public class TelaPartidas implements Initializable {
             if (!filtradas.isEmpty()) cmbCasa.show();
         });
 
-        // ── ComboBox com filtro para Seleção Visitante ──
         ComboBox<String> cmbVisitante = new ComboBox<>();
         cmbVisitante.setEditable(true);
         cmbVisitante.setPromptText("Ex: Argentina");
@@ -148,7 +146,6 @@ public class TelaPartidas implements Initializable {
             if (!filtradas.isEmpty()) cmbVisitante.show();
         });
 
-        // ── ComboBox com filtro para Estádio ──
         OprEst oprEst = Aplicacoes.OprEst.getInstancia();
         ObservableList<String> todosEstadios = FXCollections.observableArrayList(
                 oprEst.getListaEstadio().stream().map(e -> e.getNome()).collect(java.util.stream.Collectors.toList())
@@ -232,7 +229,6 @@ public class TelaPartidas implements Initializable {
         grid.setVgap(10);
         grid.setPadding(new Insets(20, 150, 10, 10));
 
-        // Carrega os dados atuais da partida selecionada para o usuário alterar
         TextField txtData = new TextField(partidaSelecionada.getData());
         TextField txtHora = new TextField(partidaSelecionada.getHora());
         ComboBox<String> cmbFase = new ComboBox<>();

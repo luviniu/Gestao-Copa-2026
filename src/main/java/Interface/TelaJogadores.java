@@ -6,6 +6,7 @@ import Objetos.Jogador;
 import Objetos.Selecao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +28,9 @@ public class TelaJogadores implements Initializable {
     private Selecao selecaoAtual;
     private OprJog oprJog = new OprJog(OprSel.getInstancia());
 
+    private ObservableList<Jogador> masterData = FXCollections.observableArrayList();
+    private FilteredList<Jogador> filteredData;
+
     @FXML private TableView<Jogador> tabelaJogadores;
     @FXML private TableColumn<Jogador, String> colunaJogador;
     @FXML private TableColumn<Jogador, String> colunaPosicao;
@@ -36,6 +40,11 @@ public class TelaJogadores implements Initializable {
 
     @FXML private Text txtTituloElenco;
 
+    // Componentes da nova barra de busca fluida
+    @FXML private TextField txtBuscaRapida;
+    @FXML private ComboBox<String> comboFiltroPosicao;
+    @FXML private ComboBox<String> comboFiltroStatus;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Vincula as colunas da tabela com as propriedades da classe Jogador
@@ -44,22 +53,38 @@ public class TelaJogadores implements Initializable {
         colunaIdade.setCellValueFactory(new PropertyValueFactory<>("idade"));
         colunaStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         colunaNumero.setCellValueFactory(new PropertyValueFactory<>("numero"));
+
+        comboFiltroPosicao.getItems().addAll("Todas", "Goleiro", "Zagueiro", "Meio-campista", "Atacante");
+        comboFiltroPosicao.setValue("Todas");
+
+        comboFiltroStatus.getItems().addAll("Todos", "Ativo", "Lesionado", "Suspenso");
+        comboFiltroStatus.setValue("Todos");
+
+        filteredData = new FilteredList<>(masterData, p -> true);
+
+        txtBuscaRapida.textProperty().addListener((observable, oldValue, newValue) -> aplicarFiltrosCombinados());
+        comboFiltroPosicao.valueProperty().addListener((observable, oldValue, newValue) -> aplicarFiltrosCombinados());
+        comboFiltroStatus.valueProperty().addListener((observable, oldValue, newValue) -> aplicarFiltrosCombinados());
+
+        tabelaJogadores.setItems(filteredData);
     }
 
     public void setSelecaoAtual(Selecao selecao) {
         this.selecaoAtual = selecao;
-        txtTituloElenco.setText("Elenco - " + selecaoAtual.getPais());
-        atualizarTabela();
+        if (selecaoAtual != null) {
+            txtTituloElenco.setText("Elenco - " + selecaoAtual.getPais());
+            atualizarTabela();
+        }
     }
 
     private void atualizarTabela() {
         if (selecaoAtual != null) {
-            // 1. Atualiza as linhas da tabela normalmente
-            ObservableList<Jogador> dados = FXCollections.observableArrayList(selecaoAtual.getTime());
-            tabelaJogadores.setItems(dados);
+            masterData.clear();
+            masterData.addAll(selecaoAtual.getTime());
+
+            aplicarFiltrosCombinados();
             tabelaJogadores.refresh();
 
-            // 2. Contagem silenciosa para validação dos requisitos
             int totalJogadores = selecaoAtual.getTime().size();
             int ativos = 0;
 
@@ -69,7 +94,6 @@ public class TelaJogadores implements Initializable {
                 }
             }
 
-            // 3. Apenas muda o texto do título, sem interromper o usuário
             if (totalJogadores >= 18 && totalJogadores <= 26 && ativos >= 18) {
                 txtTituloElenco.setText("Elenco - " + selecaoAtual.getPais() + " (Apto)");
             } else {
@@ -78,79 +102,31 @@ public class TelaJogadores implements Initializable {
         }
     }
 
-    // AÇÃO: Reseta os filtros aplicados e restaura a lista original do elenco
-    @FXML
-    public void handleResetarTabela(ActionEvent event) {
-        atualizarTabela();
-    }
+    private void aplicarFiltrosCombinados() {
+        String termoNome = txtBuscaRapida.getText() == null ? "" : txtBuscaRapida.getText().toLowerCase().trim();
+        String posicaoSelecionada = comboFiltroPosicao.getValue();
+        String statusSelecionado = comboFiltroStatus.getValue();
 
-    // IMPLEMENTAÇÃO: Janela Flutuante de Busca/Filtro com múltiplos parâmetros
-    @FXML
-    public void handleBuscarJogador(ActionEvent event) {
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setTitle("Buscar / Filtrar Jogadores");
-        dialog.setHeaderText("Filtre o elenco por Nome, Posição ou Status\n(Deixe em branco/Todos para ignorar o filtro)");
+        filteredData.setPredicate(jogador -> {
+            boolean correspondeTexto = termoNome.isEmpty() || jogador.getNome().toLowerCase().contains(termoNome);
 
-        TextField campoBuscaNome = new TextField();
-        campoBuscaNome.setPromptText("Ex: Neymar");
+            boolean correspondePosicao = "Todas".equals(posicaoSelecionada) || jogador.getPosicao().equals(posicaoSelecionada);
 
-        ComboBox<String> comboBuscaPosicao = new ComboBox<>();
-        comboBuscaPosicao.getItems().addAll("Todos", "Goleiro", "Zagueiro", "Meio-campista", "Atacante");
-        comboBuscaPosicao.setValue("Todos");
+            boolean correspondeStatus = "Todos".equals(statusSelecionado) || jogador.getStatus().equals(statusSelecionado);
 
-        ComboBox<String> comboBuscaStatus = new ComboBox<>();
-        comboBuscaStatus.getItems().addAll("Todos", "Ativo", "Lesionado", "Suspenso");
-        comboBuscaStatus.setValue("Todos");
-
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.add(new Label("Nome do Atleta:"), 0, 0);
-        grid.add(campoBuscaNome, 1, 0);
-        grid.add(new Label("Posição:"), 0, 1);
-        grid.add(comboBuscaPosicao, 1, 1);
-        grid.add(new Label("Status:"), 0, 2);
-        grid.add(comboBuscaStatus, 1, 2);
-
-        dialog.getDialogPane().setContent(grid);
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-
-        dialog.showAndWait().ifPresent(tipo -> {
-            if (tipo == ButtonType.OK) {
-                String termoNome = campoBuscaNome.getText().toLowerCase().trim();
-                String termoPosicao = comboBuscaPosicao.getValue();
-                String termoStatus = comboBuscaStatus.getValue();
-
-                ObservableList<Jogador> todos = FXCollections.observableArrayList(selecaoAtual.getTime());
-
-                if (termoNome.isEmpty() && "Todos".equals(termoPosicao) && "Todos".equals(termoStatus)) {
-                    tabelaJogadores.setItems(todos);
-                    return;
-                }
-
-                ObservableList<Jogador> filtrados = FXCollections.observableArrayList();
-
-                for (Jogador j : todos) {
-                    boolean passaNome = termoNome.isEmpty() || j.getNome().toLowerCase().contains(termoNome);
-                    boolean passaPosicao = "Todos".equals(termoPosicao) || j.getPosicao().equals(termoPosicao);
-                    boolean passaStatus = "Todos".equals(termoStatus) || j.getStatus().equals(termoStatus);
-
-                    if (passaNome && passaPosicao && passaStatus) {
-                        filtrados.add(j);
-                    }
-                }
-
-                tabelaJogadores.setItems(filtrados);
-                tabelaJogadores.refresh();
-
-                if (filtrados.isEmpty()) {
-                    alerta(Alert.AlertType.INFORMATION, "Nenhum jogador corresponde aos critérios de busca.");
-                }
-            }
+            return correspondeTexto && correspondePosicao && correspondeStatus;
         });
     }
 
-    // IMPLEMENTAÇÃO: Dialog de cadastro isolado e limpo
+    // AÇÃO: Limpa todas as barras e restaura o estado visual completo
+    @FXML
+    public void handleResetarTabela(ActionEvent event) {
+        txtBuscaRapida.clear();
+        comboFiltroPosicao.setValue("Todas");
+        comboFiltroStatus.setValue("Todos");
+        atualizarTabela();
+    }
+
     @FXML
     public void handleBotaoNovoJogador(ActionEvent event) {
         Dialog<ButtonType> dialog = new Dialog<>();
@@ -211,7 +187,6 @@ public class TelaJogadores implements Initializable {
         });
     }
 
-    // IMPLEMENTAÇÃO: Dialog de edição injetando dados do objeto selecionado
     @FXML
     public void handleEditarJogador(ActionEvent event) {
         Jogador selecionado = tabelaJogadores.getSelectionModel().getSelectedItem();
@@ -297,7 +272,7 @@ public class TelaJogadores implements Initializable {
             if (tipo == ButtonType.OK) {
                 if (oprJog.excluirJogador(selecaoAtual.getPais(), selecionado.getNome())) {
                     atualizarTabela();
-                    alerta(Alert.AlertType.INFORMATION, "Jogador removido com sucesso!");
+                    alerta(Alert.AlertType.INFORMATION, "Jogador removedo com sucesso!");
                 } else {
                     alerta(Alert.AlertType.ERROR, "Erro ao remover o jogador.");
                 }
@@ -307,7 +282,6 @@ public class TelaJogadores implements Initializable {
 
     @FXML
     public void irParaSelecoes(ActionEvent event) {
-        // 1. Verificação dos critérios do elenco antes de mudar de tela
         if (selecaoAtual != null) {
             int totalJogadores = selecaoAtual.getTime().size();
             int ativos = 0;
@@ -318,7 +292,6 @@ public class TelaJogadores implements Initializable {
                 }
             }
 
-            // Se NÃO atender aos requisitos, exibe o lembrete amigável
             if (totalJogadores < 18 || totalJogadores > 26 || ativos < 18) {
                 StringBuilder aviso = new StringBuilder("Nota: Este elenco saiu de sincronia com as regras do campeonato.\n\n");
                 aviso.append("Estado atual:\n");
@@ -330,13 +303,12 @@ public class TelaJogadores implements Initializable {
             }
         }
 
-        // 2. Transição de tela original (mantendo o seu try-catch)
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interface/TelaSelecoes.fxml"));
             Parent root = loader.load();
 
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root, 1024, 768);
+            Scene scene = new Scene(root, 1920, 1080); // Redimensionado para o padrão do projeto
             scene.getStylesheets().add(getClass().getResource("/Interface/style.css").toExternalForm());
 
             stage.setScene(scene);

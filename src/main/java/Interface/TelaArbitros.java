@@ -31,7 +31,6 @@ public class TelaArbitros implements Initializable {
     @FXML private TableColumn<Arbitro, String> colunaExperiencia;
     @FXML private TableColumn<Arbitro, String> colunaCategoria;
 
-    // Campo de busca em tempo real igual ao de estádios
     @FXML private TextField txtBusca;
 
     @Override
@@ -43,13 +42,11 @@ public class TelaArbitros implements Initializable {
 
         atualizarTabela("");
 
-        // O MÉTODO DA BARRA DE BUSCA EM TEMPO REAL
         txtBusca.textProperty().addListener((observable, oldValue, newValue) -> {
             atualizarTabela(newValue);
         });
     }
 
-    // Atualiza a tabela aplicando o filtro dinâmico
     private void atualizarTabela(String termoBusca) {
         ObservableList<Arbitro> dadosCompletos = FXCollections.observableArrayList(OprArbitro.getInstancia().getListaArbitros());
 
@@ -72,7 +69,6 @@ public class TelaArbitros implements Initializable {
         tabelaArbitro.refresh();
     }
 
-    // Carrega a lista de usuários elegíveis para o ComboBox do Pop-up
     private ObservableList<Usuario> obterUsuariosDisponiveis() {
         List<Usuario> listaDoSistema = OprUser.getInstancia().getUsuarios();
         ObservableList<Usuario> usuariosDisponiveis = FXCollections.observableArrayList();
@@ -86,7 +82,6 @@ public class TelaArbitros implements Initializable {
         return usuariosDisponiveis;
     }
 
-    // Carrega a lista de nacionalidades (países das seleções) para o ComboBox do Pop-up
     private ObservableList<String> obterNacionalidadesDisponiveis() {
         List<Selecao> listaDoSistema = OprSel.getInstancia().getListaSelecoes();
         ObservableList<String> nacionalidades = FXCollections.observableArrayList();
@@ -114,7 +109,6 @@ public class TelaArbitros implements Initializable {
         grid.setVgap(10);
         grid.setPadding(new Insets(20, 150, 10, 10));
 
-        // Componentes do Form de Adicionar instalados internamente no Dialog
         ComboBox<Usuario> comboUsuario = new ComboBox<>(obterUsuariosDisponiveis());
         comboUsuario.setPromptText("Selecione o Usuário");
 
@@ -188,7 +182,6 @@ public class TelaArbitros implements Initializable {
         grid.setVgap(10);
         grid.setPadding(new Insets(20, 150, 10, 10));
 
-        // Componentes do formulário pré-preenchidos ou configurados com os dados atuais
         ComboBox<String> comboNacionalidade = new ComboBox<>(obterNacionalidadesDisponiveis());
         comboNacionalidade.setValue(selecionado.getNacionalidade());
 
@@ -212,7 +205,6 @@ public class TelaArbitros implements Initializable {
             String novaExperiencia = txtExperiencia.getText();
             String novaCategoria = comboCategoria.getValue();
 
-            // Fallback caso fiquem em branco
             if (novaNacionalidade == null || novaNacionalidade.trim().isEmpty()) novaNacionalidade = selecionado.getNacionalidade();
             if (novaExperiencia == null || novaExperiencia.trim().isEmpty()) novaExperiencia = selecionado.getExperiencia();
             if (novaCategoria == null || novaCategoria.trim().isEmpty()) novaCategoria = selecionado.getCategoria();
