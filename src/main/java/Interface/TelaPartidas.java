@@ -1,5 +1,6 @@
 package Interface;
 
+import Aplicacoes.OprEst;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -25,6 +26,8 @@ import Objetos.Selecao;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Optional;
+import javafx.collections.ObservableList;
+import Aplicacoes.OprJog;
 
 public class TelaPartidas implements Initializable {
 
@@ -52,6 +55,9 @@ public class TelaPartidas implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         oprPartida = new OprPartida();
         oprSel = OprSel.getInstancia();
+
+        OprJog oprJog = new OprJog(oprSel);
+        oprJog.carregarJogadoresDoArquivo();
 
         configurarTabela();
         atualizarTabela("");
@@ -92,9 +98,7 @@ public class TelaPartidas implements Initializable {
         alert.showAndWait();
     }
 
-    // =========================================================================
-    // POP-UP ÚNICO: CADASTRAR/AGENDAR PARTIDA
-    // =========================================================================
+
     @FXML
     public void handleBotaoCadastrar(ActionEvent event) {
         Dialog<ButtonType> dialog = new Dialog<>();
@@ -102,52 +106,93 @@ public class TelaPartidas implements Initializable {
         dialog.setHeaderText("Preencha todos os dados do confronto:");
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
-        // Criando a estrutura de Grid (Formulário)
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(20, 150, 10, 10));
 
-        TextField txtCasa = new TextField();
-        txtCasa.setPromptText("Ex: Brasil");
-        TextField txtVisitante = new TextField();
-        txtVisitante.setPromptText("Ex: Argentina");
-        TextField txtEstadio = new TextField();
-        txtEstadio.setPromptText("Ex: Maracanã");
-        TextField txtData = new TextField("16/06/2026");
-        TextField txtHora = new TextField("20:00");
+        // ── ComboBox com filtro para Seleção Casa ──
+        ComboBox<String> cmbCasa = new ComboBox<>();
+        cmbCasa.setEditable(true);
+        cmbCasa.setPromptText("Ex: Brasil");
+        ObservableList<String> todasSelecoes = FXCollections.observableArrayList(
+                oprSel.getListaSelecoes().stream()
+                        .map(s -> s.getPais())
+                        .collect(java.util.stream.Collectors.toList())
+        );
+        cmbCasa.setItems(todasSelecoes);
+        cmbCasa.getEditor().textProperty().addListener((obs, oldVal, newVal) -> {
+            String filtro = newVal == null ? "" : newVal.toLowerCase();
+            ObservableList<String> filtradas = FXCollections.observableArrayList(
+                    todasSelecoes.stream()
+                            .filter(p -> p.toLowerCase().contains(filtro))
+                            .collect(java.util.stream.Collectors.toList())
+            );
+            cmbCasa.setItems(filtradas);
+            if (!filtradas.isEmpty()) cmbCasa.show();
+        });
+
+        // ── ComboBox com filtro para Seleção Visitante ──
+        ComboBox<String> cmbVisitante = new ComboBox<>();
+        cmbVisitante.setEditable(true);
+        cmbVisitante.setPromptText("Ex: Argentina");
+        cmbVisitante.setItems(FXCollections.observableArrayList(todasSelecoes));
+        cmbVisitante.getEditor().textProperty().addListener((obs, oldVal, newVal) -> {
+            String filtro = newVal == null ? "" : newVal.toLowerCase();
+            ObservableList<String> filtradas = FXCollections.observableArrayList(
+                    todasSelecoes.stream()
+                            .filter(p -> p.toLowerCase().contains(filtro))
+                            .collect(java.util.stream.Collectors.toList())
+            );
+            cmbVisitante.setItems(filtradas);
+            if (!filtradas.isEmpty()) cmbVisitante.show();
+        });
+
+        // ── ComboBox com filtro para Estádio ──
+        OprEst oprEst = Aplicacoes.OprEst.getInstancia();
+        ObservableList<String> todosEstadios = FXCollections.observableArrayList(
+                oprEst.getListaEstadio().stream().map(e -> e.getNome()).collect(java.util.stream.Collectors.toList())
+        );
+        ComboBox<String> cmbEstadio = new ComboBox<>();
+        cmbEstadio.setEditable(true);
+        cmbEstadio.setPromptText("Ex: Maracanã");
+        cmbEstadio.setItems(todosEstadios);
+        cmbEstadio.getEditor().textProperty().addListener((obs, oldVal, newVal) -> {
+            String filtro = newVal == null ? "" : newVal.toLowerCase();
+            ObservableList<String> filtradas = FXCollections.observableArrayList(
+                    todosEstadios.stream().filter(e -> e.toLowerCase().contains(filtro)).collect(java.util.stream.Collectors.toList()));
+            cmbEstadio.setItems(filtradas);
+            if (!filtradas.isEmpty()) cmbEstadio.show();
+        });
+
+        TextField txtData    = new TextField("16/06/2026");
+        TextField txtHora    = new TextField("20:00");
 
         ComboBox<String> cmbFase = new ComboBox<>();
         cmbFase.getItems().addAll(fasesCampeonato);
         cmbFase.setValue(fasesCampeonato[0]);
 
-        // Posicionando no Grid (Coluna, Linha)
-        grid.add(new Label("Seleção Casa:"), 0, 0);
-        grid.add(txtCasa, 1, 0);
-        grid.add(new Label("Seleção Visitante:"), 0, 1);
-        grid.add(txtVisitante, 1, 1);
-        grid.add(new Label("Estádio:"), 0, 2);
-        grid.add(txtEstadio, 1, 2);
-        grid.add(new Label("Data:"), 0, 3);
-        grid.add(txtData, 1, 3);
-        grid.add(new Label("Horário:"), 0, 4);
-        grid.add(txtHora, 1, 4);
-        grid.add(new Label("Fase:"), 0, 5);
-        grid.add(cmbFase, 1, 5);
+        grid.add(new Label("Seleção Casa:"),0, 0); grid.add(cmbCasa,1,0);
+        grid.add(new Label("Seleção Visitante:"), 0, 1); grid.add(cmbVisitante,1,1);
+        grid.add(new Label("Estádio:"),0, 2); grid.add(cmbEstadio,1,2);
+        grid.add(new Label("Data:"),0, 3); grid.add(txtData,1,3);
+        grid.add(new Label("Horário:"),0, 4); grid.add(txtHora,1,4);
+        grid.add(new Label("Fase:"),0, 5); grid.add(cmbFase,1,5);
 
         dialog.getDialogPane().setContent(grid);
 
         Optional<ButtonType> resultado = dialog.showAndWait();
         if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
-            // Validação de campos vazios
-            if (txtCasa.getText().isBlank() || txtVisitante.getText().isBlank() ||
-                    txtEstadio.getText().isBlank() || txtData.getText().isBlank() || txtHora.getText().isBlank()) {
+            String nomeCasa     = cmbCasa.getEditor().getText().trim();
+            String nomeVisita   = cmbVisitante.getEditor().getText().trim();
+
+            if (nomeCasa.isBlank() || nomeVisita.isBlank() || cmbEstadio.getEditor().getText().trim().isBlank() || txtData.getText().isBlank() || txtHora.getText().isBlank()) {
                 exibirAlerta(Alert.AlertType.WARNING, "Todos os campos devem ser preenchidos!");
                 return;
             }
 
-            Selecao casaObj = oprSel.buscarSelecaoPorNome(txtCasa.getText());
-            Selecao visitaObj = oprSel.buscarSelecaoPorNome(txtVisitante.getText());
+            Selecao casaObj   = oprSel.buscarSelecaoPorNome(nomeCasa);
+            Selecao visitaObj = oprSel.buscarSelecaoPorNome(nomeVisita);
 
             if (casaObj == null || visitaObj == null) {
                 exibirAlerta(Alert.AlertType.ERROR, "Uma ou ambas as seleções digitadas não existem no cadastro!");
@@ -159,7 +204,7 @@ public class TelaPartidas implements Initializable {
                 return;
             }
 
-            boolean sucesso = oprPartida.cadastrarPartida(casaObj, visitaObj, txtEstadio.getText(), txtData.getText(), txtHora.getText(), cmbFase.getValue());
+            boolean sucesso = oprPartida.cadastrarPartida(casaObj, visitaObj,cmbEstadio.getEditor().getText().trim(), txtData.getText(), txtHora.getText(), cmbFase.getValue());
             if (sucesso) {
                 exibirAlerta(Alert.AlertType.INFORMATION, "Partida cadastrada com sucesso!");
                 atualizarTabela("");
@@ -169,9 +214,7 @@ public class TelaPartidas implements Initializable {
         }
     }
 
-    // =========================================================================
-    // POP-UP ÚNICO: EDITAR HORÁRIO/DATA/FASE
-    // =========================================================================
+
     @FXML
     public void handleBotaoEditar(ActionEvent event) {
         if (partidaSelecionada == null) {
@@ -228,9 +271,7 @@ public class TelaPartidas implements Initializable {
         }
     }
 
-    // =========================================================================
-    // POP-UP ÚNICO: REGISTRAR RESULTADO
-    // =========================================================================
+
     @FXML
     public void handleBotaoRegistrarResultado(ActionEvent event) {
         if (partidaSelecionada == null) {
@@ -282,9 +323,33 @@ public class TelaPartidas implements Initializable {
         }
     }
 
-    // =========================================================================
-    // EXCLUIR PARTIDA E MÉTODOS DE SUPORTE
-    // =========================================================================
+    @FXML
+    private void voltarParaLauncher(ActionEvent event) {
+        try {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
+                    getClass().getResource("/Interface/TelaLauncher.fxml")
+            );
+            javafx.scene.Parent root = loader.load();
+            javafx.stage.Stage stage = (javafx.stage.Stage)
+                    ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            javafx.scene.Scene scene = new javafx.scene.Scene(root, 1920, 1080);
+
+            if (getClass().getResource("/Interface/style.css") != null)
+                scene.getStylesheets().add(
+                        getClass().getResource("/Interface/style.css").toExternalForm()
+                );
+
+            stage.setScene(scene);
+            stage.setMaximized(true);
+            stage.setTitle("World Cup 2026 - Launcher");
+            stage.show();
+        } catch (java.io.IOException e) {
+            System.out.println("Erro ao voltar para o Launcher.");
+            e.printStackTrace();
+        }
+    }
+
+
     @FXML
     public void handleBotaoExcluir(ActionEvent event) {
         if (partidaSelecionada == null) {

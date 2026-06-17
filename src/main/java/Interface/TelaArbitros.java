@@ -1,6 +1,9 @@
 package Interface;
 
+import java.net.URL;
 import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
 import Aplicacoes.OprSel;
 import Aplicacoes.OprUser;
@@ -11,24 +14,16 @@ import Objetos.Selecao;
 import Objetos.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class TelaArbitros implements Initializable {
-    @FXML private ComboBox<String> comboCategoria;
-    @FXML private ComboBox<Usuario> comboUsuario;
-    @FXML private ComboBox<String> comboNacionalidade;
-    @FXML private TextField txtNacionalidade;
-    @FXML private TextField txtExperiencia;
 
     @FXML private TableView<Arbitro> tabelaArbitro;
     @FXML private TableColumn<Arbitro, String> colunaNome;
@@ -36,28 +31,49 @@ public class TelaArbitros implements Initializable {
     @FXML private TableColumn<Arbitro, String> colunaExperiencia;
     @FXML private TableColumn<Arbitro, String> colunaCategoria;
 
+    // Campo de busca em tempo real igual ao de estádios
+    @FXML private TextField txtBusca;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ObservableList<String> categoria = FXCollections.observableArrayList("Juiz", "Bandeirinha", "Auxiliar");
-        comboCategoria.setItems(categoria);
-
         colunaNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colunaNacionalidade.setCellValueFactory(new PropertyValueFactory<>("nacionalidade"));
         colunaExperiencia.setCellValueFactory(new PropertyValueFactory<>("experiencia"));
         colunaCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
 
-        atualizarTabela();
-        carregarComboUsuarios();
-        carregarComboNacionalidade();
+        atualizarTabela("");
+
+        // O MÉTODO DA BARRA DE BUSCA EM TEMPO REAL
+        txtBusca.textProperty().addListener((observable, oldValue, newValue) -> {
+            atualizarTabela(newValue);
+        });
     }
 
-    private void atualizarTabela() {
-        ObservableList<Arbitro> dados = FXCollections.observableArrayList(OprArbitro.getInstancia().getListaArbitros());
-        tabelaArbitro.setItems(dados);
+    // Atualiza a tabela aplicando o filtro dinâmico
+    private void atualizarTabela(String termoBusca) {
+        ObservableList<Arbitro> dadosCompletos = FXCollections.observableArrayList(OprArbitro.getInstancia().getListaArbitros());
 
+        if (termoBusca == null || termoBusca.isBlank()) {
+            tabelaArbitro.setItems(dadosCompletos);
+            return;
+        }
+
+        ObservableList<Arbitro> dadosFiltrados = FXCollections.observableArrayList();
+        String busca = termoBusca.toLowerCase().trim();
+
+        for (Arbitro a : dadosCompletos) {
+            if (a.getNome().toLowerCase().contains(busca) ||
+                    a.getCategoria().toLowerCase().contains(busca) ||
+                    a.getNacionalidade().toLowerCase().contains(busca)) {
+                dadosFiltrados.add(a);
+            }
+        }
+        tabelaArbitro.setItems(dadosFiltrados);
+        tabelaArbitro.refresh();
     }
 
-    private void carregarComboUsuarios() {
+    // Carrega a lista de usuários elegíveis para o ComboBox do Pop-up
+    private ObservableList<Usuario> obterUsuariosDisponiveis() {
         List<Usuario> listaDoSistema = OprUser.getInstancia().getUsuarios();
         ObservableList<Usuario> usuariosDisponiveis = FXCollections.observableArrayList();
 
@@ -67,85 +83,89 @@ public class TelaArbitros implements Initializable {
                 usuariosDisponiveis.add(u);
             }
         }
-        comboUsuario.setItems(usuariosDisponiveis);
+        return usuariosDisponiveis;
     }
 
-    private void carregarComboNacionalidade() {
+    // Carrega a lista de nacionalidades (países das seleções) para o ComboBox do Pop-up
+    private ObservableList<String> obterNacionalidadesDisponiveis() {
         List<Selecao> listaDoSistema = OprSel.getInstancia().getListaSelecoes();
-        ObservableList<String> nacionalidadeDisponiveis = FXCollections.observableArrayList();
+        ObservableList<String> nacionalidades = FXCollections.observableArrayList();
 
         for (Selecao s : listaDoSistema) {
-            String perfil = s.getPais();
-            if (perfil != null) {
-                nacionalidadeDisponiveis.add(perfil);
+            String pais = s.getPais();
+            if (pais != null) {
+                nacionalidades.add(pais);
             }
         }
-        comboNacionalidade.setItems(nacionalidadeDisponiveis);
+        return nacionalidades;
     }
-
 
     @FXML
     public void handleAdicionarArbitro(ActionEvent event) {
         Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
-        Usuario usuarioSelecionado = comboUsuario.getSelectionModel().getSelectedItem();
-        String categoriaSelecionada = comboCategoria.getSelectionModel().getSelectedItem();
-        String nacionalidade = comboNacionalidade.getSelectionModel().getSelectedItem();
-        String experiencia = txtExperiencia.getText();
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Cadastrar Novo Árbitro");
+        dialog.setHeaderText("Insira as informações do novo árbitro:");
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
-        if (usuarioSelecionado == null || categoriaSelecionada == null || nacionalidade.trim().isEmpty() || experiencia.trim().isEmpty()) {
-            Toast.exibir(stageActual, "Preencha todos os campos da tela!");
-            return;
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
 
-        }
+        // Componentes do Form de Adicionar instalados internamente no Dialog
+        ComboBox<Usuario> comboUsuario = new ComboBox<>(obterUsuariosDisponiveis());
+        comboUsuario.setPromptText("Selecione o Usuário");
 
-        boolean sucessoArbitro = OprArbitro.getInstancia().cadastrarArbitro(
-                usuarioSelecionado.getNome(),
-                usuarioSelecionado.getCpf(),
-                usuarioSelecionado.getEmail(),
-                usuarioSelecionado.getSenha(),
-                nacionalidade.trim(),
-                experiencia.trim(),
-                categoriaSelecionada
+        ComboBox<String> comboNacionalidade = new ComboBox<>(obterNacionalidadesDisponiveis());
+        comboNacionalidade.setPromptText("Selecione o País");
 
-        );
+        TextField txtExperiencia = new TextField();
+        txtExperiencia.setPromptText("Ex: 5 anos");
 
-        if (sucessoArbitro) {
-            atualizarTabela();
-            carregarComboUsuarios();
+        ComboBox<String> comboCategoria = new ComboBox<>(FXCollections.observableArrayList("Juiz", "Bandeirinha", "Auxiliar"));
+        comboCategoria.setPromptText("Selecione a Categoria");
 
-            comboUsuario.getSelectionModel().clearSelection();
-            comboCategoria.getSelectionModel().clearSelection();
-            comboNacionalidade.getSelectionModel().clearSelection();
-            txtExperiencia.clear();
+        grid.add(new Label("Usuário Base:"), 0, 0);
+        grid.add(comboUsuario, 1, 0);
+        grid.add(new Label("Nacionalidade:"), 0, 1);
+        grid.add(comboNacionalidade, 1, 1);
+        grid.add(new Label("Experiência:"), 0, 2);
+        grid.add(txtExperiencia, 1, 2);
+        grid.add(new Label("Categoria:"), 0, 3);
+        grid.add(comboCategoria, 1, 3);
 
-            Toast.exibir(stageActual, "Árbitro cadastrado com sucesso!");
+        dialog.getDialogPane().setContent(grid);
 
-        } else {
-            Toast.exibir(stageActual, "Erro ao cadastrar árbitro.");
+        Optional<ButtonType> resultado = dialog.showAndWait();
+        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+            Usuario usuarioSelecionado = comboUsuario.getSelectionModel().getSelectedItem();
+            String nacionalidadeSelecionada = comboNacionalidade.getSelectionModel().getSelectedItem();
+            String experiencia = txtExperiencia.getText();
+            String categoriaSelecionada = comboCategoria.getSelectionModel().getSelectedItem();
 
-        }
-
-    }
-
-    @FXML
-    public void handleRemoverArbitro(ActionEvent event) {
-        Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-        Arbitro selecionado = tabelaArbitro.getSelectionModel().getSelectedItem();
-
-        if (selecionado != null) {
-            if (OprArbitro.getInstancia().excluirArbitro(selecionado.getCpf(), oprSessao.getUsuario())) {
-                atualizarTabela();
-                carregarComboUsuarios();
-                Toast.exibir(stageActual, "Árbitro removido com sucesso!");
-
+            if (usuarioSelecionado == null || categoriaSelecionada == null ||
+                    nacionalidadeSelecionada == null || experiencia.isBlank()) {
+                Toast.exibir(stageActual, "Todos os campos devem ser preenchidos!");
+                return;
             }
 
-        } else {
-            Toast.exibir(stageActual, "Selecione um árbitro da lista para remover.");
+            boolean sucessoArbitro = OprArbitro.getInstancia().cadastrarArbitro(
+                    usuarioSelecionado.getCpf(),
+                    nacionalidadeSelecionada.trim(),
+                    experiencia.trim(),
+                    categoriaSelecionada,
+                    oprSessao.getUsuario()
+            );
 
+            if (sucessoArbitro) {
+                atualizarTabela(txtBusca.getText());
+                Toast.exibir(stageActual, "Árbitro cadastrado com sucesso!");
+            } else {
+                Toast.exibir(stageActual, "Erro ao cadastrar árbitro.");
+            }
         }
-
     }
 
     @FXML
@@ -153,23 +173,49 @@ public class TelaArbitros implements Initializable {
         Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
         Arbitro selecionado = tabelaArbitro.getSelectionModel().getSelectedItem();
 
-        if (selecionado != null) {
-            String novaNacionalidade = comboNacionalidade.getSelectionModel().getSelectedItem();
+        if (selecionado == null) {
+            Toast.exibir(stageActual, "Selecione um árbitro da tabela para alterar!");
+            return;
+        }
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Alterar Informações do Árbitro");
+        dialog.setHeaderText("Modifique os dados abaixo para o árbitro: " + selecionado.getNome());
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        // Componentes do formulário pré-preenchidos ou configurados com os dados atuais
+        ComboBox<String> comboNacionalidade = new ComboBox<>(obterNacionalidadesDisponiveis());
+        comboNacionalidade.setValue(selecionado.getNacionalidade());
+
+        TextField txtExperiencia = new TextField(selecionado.getExperiencia());
+
+        ComboBox<String> comboCategoria = new ComboBox<>(FXCollections.observableArrayList("Juiz", "Bandeirinha", "Auxiliar"));
+        comboCategoria.setValue(selecionado.getCategoria());
+
+        grid.add(new Label("Nova Nacionalidade:"), 0, 0);
+        grid.add(comboNacionalidade, 1, 0);
+        grid.add(new Label("Nova Experiência:"), 0, 1);
+        grid.add(txtExperiencia, 1, 1);
+        grid.add(new Label("Nova Categoria:"), 0, 2);
+        grid.add(comboCategoria, 1, 2);
+
+        dialog.getDialogPane().setContent(grid);
+
+        Optional<ButtonType> resultado = dialog.showAndWait();
+        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+            String novaNacionalidade = comboNacionalidade.getValue();
             String novaExperiencia = txtExperiencia.getText();
-            String novaCategoria = comboCategoria.getSelectionModel().getSelectedItem();
+            String novaCategoria = comboCategoria.getValue();
 
-            if (novaNacionalidade == null || novaNacionalidade.trim().isEmpty()) {
-                novaNacionalidade = selecionado.getNacionalidade();
-
-            }
-            if (novaExperiencia == null || novaExperiencia.trim().isEmpty()) {
-                novaExperiencia = selecionado.getExperiencia();
-
-            }
-            if (novaCategoria == null || novaCategoria.trim().isEmpty()) {
-                novaCategoria = selecionado.getCategoria();
-
-            }
+            // Fallback caso fiquem em branco
+            if (novaNacionalidade == null || novaNacionalidade.trim().isEmpty()) novaNacionalidade = selecionado.getNacionalidade();
+            if (novaExperiencia == null || novaExperiencia.trim().isEmpty()) novaExperiencia = selecionado.getExperiencia();
+            if (novaCategoria == null || novaCategoria.trim().isEmpty()) novaCategoria = selecionado.getCategoria();
 
             OprUser.getInstancia().editarUser(
                     selecionado.getCpf(),
@@ -183,21 +229,60 @@ public class TelaArbitros implements Initializable {
                     oprSessao.getUsuario()
 
             );
+            OprUser.getInstancia().editarArbitro(
+                    selecionado.getCpf(),
+                    novaNacionalidade.trim(),
+                    novaExperiencia,
+                    novaCategoria,
+                    oprSessao.getUsuario()
 
-            atualizarTabela();
-            tabelaArbitro.refresh();
+            );
 
-            comboNacionalidade.getSelectionModel().clearSelection();
-            txtExperiencia.clear();
-            comboCategoria.getSelectionModel().clearSelection();
-
+            atualizarTabela(txtBusca.getText());
+            tabelaArbitro.getSelectionModel().clearSelection();
             Toast.exibir(stageActual, "Árbitro alterado com sucesso!");
-
-        } else {
-            Toast.exibir(stageActual, "Selecione um árbitro da tabela.");
-
         }
-
     }
 
+    @FXML
+    private void voltarParaLauncher(ActionEvent event) {
+        try {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
+                    getClass().getResource("/Interface/TelaLauncher.fxml")
+            );
+            javafx.scene.Parent root = loader.load();
+            javafx.stage.Stage stage = (javafx.stage.Stage)
+                    ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            javafx.scene.Scene scene = new javafx.scene.Scene(root, 1920, 1080);
+
+            if (getClass().getResource("/Interface/style.css") != null)
+                scene.getStylesheets().add(
+                        getClass().getResource("/Interface/style.css").toExternalForm()
+                );
+
+            stage.setScene(scene);
+            stage.setMaximized(true);
+            stage.setTitle("World Cup 2026 - Launcher");
+            stage.show();
+        } catch (java.io.IOException e) {
+            System.out.println("Erro ao voltar para o Launcher.");
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void handleRemoverArbitro(ActionEvent event) {
+        Stage stageActual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        Arbitro selecionado = tabelaArbitro.getSelectionModel().getSelectedItem();
+
+        if (selecionado == null) {
+            Toast.exibir(stageActual, "Selecione um árbitro da lista para remover.");
+            return;
+        }
+
+        OprUser.getInstancia().rebaixarParaFuncionario(selecionado.getCpf(), oprSessao.getUsuario());
+        atualizarTabela(txtBusca.getText());
+        tabelaArbitro.getSelectionModel().clearSelection();
+        Toast.exibir(stageActual, "Árbitro removido com sucesso!");
+    }
 }

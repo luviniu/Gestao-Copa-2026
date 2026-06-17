@@ -104,7 +104,7 @@ public class OprUser {
     }
 
     public void editarUser(String cpf, String novoNome, String novoEmail, String novoSenha, String nacionalidade, String experiencia, String categoria, String novoPerfil, Usuario usuarioLogado){
-        if(!usuarioLogado.getPerfilUsuario().equals("Administrador")){
+        if(!usuarioLogado.getPerfilUsuario().equals("Administrador")&&!usuarioLogado.getPerfilUsuario().equals("Organizador")){
             return;
 
         }
@@ -133,16 +133,34 @@ public class OprUser {
                     Usuario usuarioMod;
 
                     if(novoPerfil.equals("Administrador")){
+                        if(!usuarioLogado.getPerfilUsuario().equals("Administrador")){
+                            return;
+
+                        }
                         usuarioMod=new Administrador(novoNome, usuario.getCpf(), novoEmail, novoSenha);
 
                     }else if(novoPerfil.equals("Operador")){
+                        if(!usuarioLogado.getPerfilUsuario().equals("Administrador")){
+                            return;
+
+                        }
                         usuarioMod=new Operador(novoNome, usuario.getCpf(), novoEmail, novoSenha);
 
                     }else if(novoPerfil.equals("Organizador")){
+                        if(!usuarioLogado.getPerfilUsuario().equals("Administrador")){
+                            return;
+
+                        }
                         usuarioMod=new Organizador(novoNome, usuario.getCpf(), novoEmail, novoSenha);
 
-                    }else{
-                        usuarioMod=new Arbitro(novoNome, usuario.getCpf(), novoEmail, novoSenha, nacionalidade, experiencia, categoria);
+                    }else {
+                        if(!usuarioLogado.getPerfilUsuario().equals("Administrador")&&!usuarioLogado.getPerfilUsuario().equals("Organizador")){
+                            return;
+
+                        }else{
+                            usuarioMod=new Arbitro(novoNome, usuario.getCpf(), novoEmail, novoSenha, nacionalidade, experiencia, categoria);
+
+                        }
 
                     }
                     usuarios.set(i,usuarioMod);
@@ -157,8 +175,47 @@ public class OprUser {
 
     }
 
+    public void editarArbitro(String cpf, String nacionalidade, String experiencia, String categoria, Usuario usuarioLogado) {
+        if (!usuarioLogado.getPerfilUsuario().equals("Administrador") && !usuarioLogado.getPerfilUsuario().equals("Organizador")) {
+            return;
+
+        }
+        for (int i = 0; i < usuarios.size(); i++) {
+            Usuario u = usuarios.get(i);
+            if (u.getCpf().equals(cpf.trim()) && u instanceof Arbitro) {
+                Usuario atualizado = new Arbitro(u.getNome(), u.getCpf(),u.getEmail(),u.getSenha(),nacionalidade, experiencia, categoria);
+                usuarios.set(i, atualizado);
+                salvarUsuarios();
+                return;
+
+            }
+
+        }
+
+    }
+
+    public void rebaixarParaFuncionario(String cpf, Usuario usuarioLogado) {
+        if (!usuarioLogado.getPerfilUsuario().equals("Administrador") && !usuarioLogado.getPerfilUsuario().equals("Organizador")) {
+            return;
+
+        }
+        for (int i = 0; i < usuarios.size(); i++) {
+            Usuario u = usuarios.get(i);
+
+            if (u.getCpf().equals(cpf.trim()) && u instanceof Arbitro) {
+                Usuario funcionario = new Funcionario(u.getNome(), u.getCpf(), u.getEmail(), u.getSenha());
+                usuarios.set(i, funcionario);
+                salvarUsuarios();
+                return;
+
+            }
+
+        }
+
+    }
+
     public void excluirUser(String cpf, Usuario usuarioLogado){
-        if(!usuarioLogado.getPerfilUsuario().equals("Administrador")){
+        if(!usuarioLogado.getPerfilUsuario().equals("Administrador")&&!usuarioLogado.getPerfilUsuario().equals("Organizador")){
             return;
 
         }
