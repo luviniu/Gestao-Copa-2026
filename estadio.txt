@@ -1,1 +1,17 @@
-ESTADIO;Mané Garrincha;Brasília;72788
+ESTADIO;Mane Garrincha;Brasilia;72788
+ESTADIO;MetLife Stadium;Nova York;82500
+ESTADIO;Azteca;Cidade do Mexico;87523
+ESTADIO;BC Place;Vancouver;54500
+ESTADIO;AT and T Stadium;Dallas;80000
+ESTADIO;Arrowhead Stadium;Kansas City;76416
+ESTADIO;Mercedes Benz Stadium;Atlanta;71000
+ESTADIO;SoFi Stadium;Los Angeles;70240
+ESTADIO;Lincoln Financial Field;Filadelfia;69796
+ESTADIO;Lumen Field;Seattle;69000
+ESTADIO;Levi s Stadium;San Francisco;68500
+ESTADIO;Gillette Stadium;Boston;65878
+ESTADIO;Hard Rock Stadium;Miami;64767
+ESTADIO;NRG Stadium;Houston;72220
+ESTADIO;BBVA Stadium;Monterrey;53500
+ESTADIO;Akron Stadium;Guadalajara;48071
+ESTADIO;BMO Field;Toronto;45000

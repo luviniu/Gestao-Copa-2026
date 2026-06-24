@@ -1,0 +1,127 @@
+Neymar Jr;34;Atacante;10;Brasil;Ativo
+Vinicius Jr;25;Atacante;7;Brasil;Ativo
+Rodrygo;25;Meio-campista;11;Brasil;Ativo
+Alisson;33;Goleiro;1;Brasil;Ativo
+Ederson;32;Goleiro;23;Brasil;Ativo
+Marquinhos;32;Defensor;4;Brasil;Ativo
+Eder Militao;28;Defensor;3;Brasil;Ativo
+Gabriel Magalhaes;28;Defensor;14;Brasil;Ativo
+Danilo;34;Defensor;2;Brasil;Ativo
+Guilherme Arana;29;Defensor;16;Brasil;Ativo
+Bruno Guimaraes;28;Meio-campista;5;Brasil;Ativo
+Lucas Paqueta;28;Meio-campista;8;Brasil;Ativo
+Joao Gomes;25;Meio-campista;15;Brasil;Ativo
+Andreas Pereira;30;Meio-campista;19;Brasil;Ativo
+Raphinha;29;Atacante;11;Brasil;Ativo
+Endrick;19;Atacante;9;Brasil;Ativo
+Gabriel Martinelli;25;Atacante;22;Brasil;Ativo
+Savinho;22;Atacante;20;Brasil;Ativo
+Lionel Messi;39;Atacante;10;Argentina;Ativo
+Julian Alvarez;26;Atacante;9;Argentina;Ativo
+Rodrigo de Paul;32;Meio-campista;7;Argentina;Ativo
+Emi Martinez;33;Goleiro;23;Argentina;Ativo
+Geronimo Rulli;34;Goleiro;1;Argentina;Ativo
+Cristian Romero;28;Defensor;13;Argentina;Ativo
+Nicolas Otamendi;38;Defensor;19;Argentina;Ativo
+Lisandro Martinez;28;Defensor;25;Argentina;Ativo
+Nahuel Molina;28;Defensor;26;Argentina;Ativo
+Nicolas Tagliafico;33;Defensor;3;Argentina;Ativo
+Enzo Fernandez;25;Meio-campista;24;Argentina;Ativo
+Alexis Mac Allister;27;Meio-campista;20;Argentina;Ativo
+Leandro Paredes;32;Meio-campista;5;Argentina;Ativo
+Giovani Lo Celso;30;Meio-campista;16;Argentina;Ativo
+Lautaro Martinez;28;Atacante;22;Argentina;Ativo
+Angel Di Maria;38;Atacante;11;Argentina;Ativo
+Alejandro Garnacho;21;Atacante;17;Argentina;Ativo
+Nicolas Gonzalez;28;Atacante;15;Argentina;Ativo
+Kylian Mbappe;27;Atacante;10;Franca;Ativo
+Antoine Griezmann;35;Meio-campista;7;Franca;Ativo
+Aurelien Tchouameni;26;Meio-campista;8;Franca;Ativo
+Mike Maignan;30;Goleiro;1;Franca;Ativo
+Brice Samba;32;Goleiro;16;Franca;Ativo
+William Saliba;25;Defensor;4;Franca;Ativo
+Dayot Upamecano;27;Defensor;15;Franca;Ativo
+Ibrahima Konate;27;Defensor;24;Franca;Ativo
+Theo Hernandez;28;Defensor;22;Franca;Ativo
+Jules Kounde;27;Defensor;5;Franca;Ativo
+N Golo Kante;35;Meio-campista;13;Franca;Ativo
+Eduardo Camavinga;23;Meio-campista;6;Franca;Ativo
+Adrien Rabiot;31;Meio-campista;14;Franca;Ativo
+Warren Zaire-Emery;20;Meio-campista;18;Franca;Ativo
+Ousmane Dembele;29;Atacante;11;Franca;Ativo
+Marcus Thuram;28;Atacante;15;Franca;Ativo
+Randal Kolo Muani;27;Atacante;12;Franca;Ativo
+Bradley Barcola;23;Atacante;20;Franca;Ativo
+Jamal Musiala;23;Meio-campista;10;Alemanha;Ativo
+Florian Wirtz;23;Meio-campista;17;Alemanha;Ativo
+Kai Havertz;27;Atacante;7;Alemanha;Ativo
+Marc ter Stegen;34;Goleiro;1;Alemanha;Ativo
+Oliver Baumann;36;Goleiro;12;Alemanha;Ativo
+Antonio Ruediger;33;Defensor;2;Alemanha;Ativo
+Jonathan Tah;30;Defensor;4;Alemanha;Ativo
+Nico Schlotterbeck;26;Defensor;15;Alemanha;Ativo
+David Raum;28;Defensor;3;Alemanha;Ativo
+Joshua Kimmich;31;Defensor;6;Alemanha;Ativo
+Robert Andrich;31;Meio-campista;23;Alemanha;Ativo
+Pascal Gross;35;Meio-campista;5;Alemanha;Ativo
+Aleksandar Pavlovic;22;Meio-campista;16;Alemanha;Ativo
+Leroy Sane;30;Atacante;19;Alemanha;Ativo
+Niclas Fuellkrug;33;Atacante;9;Alemanha;Ativo
+Serge Gnabry;30;Atacante;11;Alemanha;Ativo
+Deniz Undav;29;Atacante;26;Alemanha;Ativo
+Maximilian Beier;23;Atacante;14;Alemanha;Ativo
+Lamine Yamal;18;Atacante;19;Espanha;Ativo
+Pedri;23;Meio-campista;20;Espanha;Ativo
+Rodri;30;Meio-campista;16;Espanha;Ativo
+Unai Simon;29;Goleiro;1;Espanha;Ativo
+David Raya;30;Goleiro;13;Espanha;Ativo
+Aymeric Laporte;32;Defensor;14;Espanha;Ativo
+Robin Le Normand;29;Defensor;3;Espanha;Ativo
+Dani Carvajal;34;Defensor;2;Espanha;Ativo
+Marc Cucurella;27;Defensor;24;Espanha;Ativo
+Alejandro Grimaldo;30;Defensor;12;Espanha;Ativo
+Fabian Ruiz;30;Meio-campista;8;Espanha;Ativo
+Dani Olmo;28;Meio-campista;10;Espanha;Ativo
+Martin Zubimendi;27;Meio-campista;18;Espanha;Ativo
+Mikel Merino;30;Meio-campista;6;Espanha;Ativo
+Nico Williams;23;Atacante;17;Espanha;Ativo
+Alvaro Morata;33;Atacante;7;Espanha;Ativo
+Ferran Torres;26;Atacante;11;Espanha;Ativo
+Ayoze Perez;32;Atacante;26;Espanha;Ativo
+Achraf Hakimi;27;Defensor;2;Marrocos;Ativo
+Hakim Ziyech;33;Meio-campista;7;Marrocos;Ativo
+Brahim Diaz;26;Atacante;10;Marrocos;Ativo
+Yassine Bounou;35;Goleiro;1;Marrocos;Ativo
+Munir Mohamedi;37;Goleiro;12;Marrocos;Ativo
+Nayef Aguerd;30;Defensor;5;Marrocos;Ativo
+Romain Saiss;36;Defensor;6;Marrocos;Ativo
+Noussair Mazraoui;28;Defensor;3;Marrocos;Ativo
+Yahia Attiyat Allah;31;Defensor;25;Marrocos;Ativo
+Sofyan Amrabat;29;Meio-campista;4;Marrocos;Ativo
+Azzedine Ounahi;26;Meio-campista;8;Marrocos;Ativo
+Bilal El Khannouss;22;Meio-campista;23;Marrocos;Ativo
+Amine Harit;29;Meio-campista;18;Marrocos;Ativo
+Youssef En-Nesyri;29;Atacante;19;Marrocos;Ativo
+Ayoub El Kaabi;33;Atacante;9;Marrocos;Ativo
+Soufiane Rahimi;30;Atacante;21;Marrocos;Ativo
+Amine Adli;26;Atacante;17;Marrocos;Ativo
+Ilias Akhomach;22;Atacante;24;Marrocos;Ativo
+Kaoru Mitoma;29;Atacante;7;Japao;Ativo
+Wataru Endo;33;Meio-campista;6;Japao;Ativo
+Takefusa Kubo;25;Atacante;20;Japao;Ativo
+Zion Suzuki;23;Goleiro;1;Japao;Ativo
+Keisuke Osako;26;Goleiro;12;Japao;Ativo
+Ko Itakura;29;Defensor;4;Japao;Ativo
+Shogo Taniguchi;34;Defensor;3;Japao;Ativo
+Koki Machida;28;Defensor;16;Japao;Ativo
+Yukinari Sugawara;26;Defensor;2;Japao;Ativo
+Hiroki Ito;27;Defensor;21;Japao;Ativo
+Hidemasa Morita;31;Meio-campista;5;Japao;Ativo
+Ao Tanaka;27;Meio-campista;17;Japao;Ativo
+Reo Hatate;28;Meio-campista;22;Japao;Ativo
+Daichi Kamada;29;Meio-campista;14;Japao;Ativo
+Takumi Minamino;31;Atacante;8;Japao;Ativo
+Ritsu Doan;28;Atacante;10;Japao;Ativo
+Ayase Ueda;27;Atacante;9;Japao;Ativo
+Koki Ogawa;28;Atacante;19;Japao;Ativo
+Keito Nakamura;25;Atacante;13;Japao;Ativo

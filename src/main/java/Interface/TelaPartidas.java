@@ -73,6 +73,7 @@ public class TelaPartidas implements Initializable {
         });
     }
 
+    // Config da tela
     private void configurarTabela() {
         colData.setCellValueFactory(new PropertyValueFactory<>("data"));
         colHorario.setCellValueFactory(new PropertyValueFactory<>("hora"));

@@ -20,8 +20,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+// "Inicializable" roda o método inicialize assim que a tela carregar
 public class TelaSelecoes implements Initializable {
 
+    // Componentes injetados pelo FXML
     @FXML private TableView<Selecao> tabelaSelecoes;
     @FXML private TableColumn<Selecao, String> colunaSelecao;
     @FXML private TableColumn<Selecao, String> colunaTecnico;
@@ -30,10 +32,16 @@ public class TelaSelecoes implements Initializable {
     @FXML private TextField txtBuscaRapida;
     @FXML private ComboBox<String> comboFiltroGrupo;
 
+    // Recupera a instância de OprSel
     private OprSel oprSel = OprSel.getInstancia();
+
+    // Guarda a lista de seleções em memória
     private ObservableList<Selecao> dadosMaster = FXCollections.observableArrayList();
+
+    // Filtragem dinâmica
     private FilteredList<Selecao> dadosFiltrados;
 
+    // Inicializa e mapeia os componentes do JavaFX
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         colunaSelecao.setCellValueFactory(new PropertyValueFactory<>("pais"));
@@ -49,6 +57,7 @@ public class TelaSelecoes implements Initializable {
         atualizarTabela();
     }
 
+    // Implementação da filtragem dinâmica: os listeners monitoram as mudanças de texto
     private void configurarFiltroDinamico() {
         dadosFiltrados = new FilteredList<>(dadosMaster, p -> true);
 
@@ -63,6 +72,7 @@ public class TelaSelecoes implements Initializable {
         tabelaSelecoes.setItems(dadosFiltrados);
     }
 
+    // Apicação da filtragem
     private void aplicarFiltrosCombinados() {
         dadosFiltrados.setPredicate(selecao -> {
             String termoTexto = txtBuscaRapida.getText() == null ? "" : txtBuscaRapida.getText().toLowerCase().trim();
@@ -78,12 +88,18 @@ public class TelaSelecoes implements Initializable {
         });
     }
 
+    // Sincroniza a tabela com a lista
     private void atualizarTabela() {
         dadosMaster.setAll(oprSel.getListaSelecoes());
-        aplicarFiltrosCombinados(); // Garante que mantém o filtro ativo se a lista recarregar
+        aplicarFiltrosCombinados();
         tabelaSelecoes.refresh();
     }
 
+    /* --------------------------------------------------- */
+    /* ---------------------- BOTÕES --------------------- */
+    /* --------------------------------------------------- */
+
+    // Do botão de resetar tabela
     @FXML
     public void handleResetarTabela(ActionEvent event) {
         txtBuscaRapida.clear();
@@ -91,11 +107,7 @@ public class TelaSelecoes implements Initializable {
         atualizarTabela();
     }
 
-    @FXML
-    public void handleBuscarSelecao(ActionEvent event) {
-        handleResetarTabela(event);
-    }
-
+    // Do botão voltar para a tela Launcher
     @FXML
     private void voltarParaLauncher(ActionEvent event) {
         try {
@@ -117,6 +129,7 @@ public class TelaSelecoes implements Initializable {
         }
     }
 
+    // Do botão nova Seleção
     @FXML
     public void handleBotaoNovaSelecao(ActionEvent event) {
         Dialog<ButtonType> dialog = new Dialog<>();
@@ -134,7 +147,7 @@ public class TelaSelecoes implements Initializable {
         grid.setVgap(10);
         grid.add(new Label("País / Seleção:"), 0, 0);
         grid.add(campoPais, 1, 0);
-        grid.add(new Label("Técnico:"), 0, 1);
+        grid.add(new Label("Té cnico:"), 0, 1);
         grid.add(campoTecnico, 1, 1);
         grid.add(new Label("Grupo:"), 0, 2);
         grid.add(comboGrupo, 1, 2);
@@ -163,6 +176,7 @@ public class TelaSelecoes implements Initializable {
         });
     }
 
+    // Do botão Editar Seleção
     @FXML
     public void handleEditarSelecao(ActionEvent event) {
         Selecao selecionada = tabelaSelecoes.getSelectionModel().getSelectedItem();
@@ -220,6 +234,7 @@ public class TelaSelecoes implements Initializable {
         });
     }
 
+    // DO botão Excluir Seleção
     @FXML
     public void handleExcluirSelecao(ActionEvent event) {
         Selecao selecionada = tabelaSelecoes.getSelectionModel().getSelectedItem();
@@ -245,6 +260,7 @@ public class TelaSelecoes implements Initializable {
         });
     }
 
+    // Do botão ir para a tela Jogadores
     @FXML
     public void irParaJogadores(ActionEvent event) {
         Selecao selecionada = tabelaSelecoes.getSelectionModel().getSelectedItem();
@@ -274,6 +290,7 @@ public class TelaSelecoes implements Initializable {
         }
     }
 
+    // Método de Alertas em caixas de diálogo
     private void alerta(Alert.AlertType tipo, String mensagem) {
         Alert alert = new Alert(tipo);
         alert.setHeaderText(null);

@@ -5,18 +5,25 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// Controla principalmente as régras de negócio
 public class OprSel {
 
+    // Apenas uma instância na memória (private, static)
     private static OprSel instancia;
 
+    // A lista de seleções em memória (uma única por instância de OprSel)
     private List<Selecao> listaSelecoes;
+
+    // O arquivo txt de armazenamento
     private final String CAMINHO_ARQUIVO = "selecoes.txt";
 
+    // Apenas Opr pode criar e carregar dados na memória
     private OprSel() {
         this.listaSelecoes = new ArrayList<>();
         carregarDadosDoArquivo();
     }
 
+    // OprSel cria a instância se já não estiver criada
     public static synchronized OprSel getInstancia() {
         if (instancia == null) {
             instancia = new OprSel();
@@ -24,6 +31,11 @@ public class OprSel {
         return instancia;
     }
 
+    /* ---------------------------------------------------- */
+    /* ---------------------- MÉTODOS --------------------- */
+    /* ---------------------------------------------------- */
+
+    // Buscar na lista de seleções
     public Selecao buscarSelecaoPorNome(String nomePais) {
         if (nomePais == null) return null;
         for (Selecao s : listaSelecoes) {
@@ -34,6 +46,7 @@ public class OprSel {
         return null;
     }
 
+    // Cadastrar uma seleção nova
     public boolean cadastrarSelecao(String pais, String grupo, String tecnico) {
         if (pais == null || pais.trim().isEmpty() || tecnico == null || tecnico.trim().isEmpty()) {
             return false;
@@ -49,13 +62,14 @@ public class OprSel {
             return false;
         }
 
-        Selecao novaSelecao = new Selecao(pais.trim(), group, tecnico.trim(), new ArrayList<>());
+        Selecao novaSelecao = new Selecao(pais.trim(), grupo, tecnico.trim(), new ArrayList<>());
         listaSelecoes.add(novaSelecao);
 
         salvarDadosNoArquivo();
         return true;
     }
 
+    // Editar um seleção
     public boolean editarSelecao(String paisParaEditar, String novoGrupo, String novoTecnico) {
         if (paisParaEditar == null || novoTecnico == null || novoTecnico.trim().isEmpty()) {
             return false;
@@ -74,6 +88,7 @@ public class OprSel {
         return false;
     }
 
+    // Excluir uma seleção
     public boolean excluirSelecao(String paisParaExcluir) {
         Selecao s = buscarSelecaoPorNome(paisParaExcluir);
         if (s != null) {
@@ -84,22 +99,12 @@ public class OprSel {
         return false;
     }
 
-    public List<Selecao> consultarSelecoesPorGrupo(String grupo) {
-        List<Selecao> filtradas = new ArrayList<>();
-        if (grupo == null) return filtradas;
-
-        for (Selecao s : listaSelecoes) {
-            if (s.getGrupo().equalsIgnoreCase(grupo.trim())) {
-                filtradas.add(s);
-            }
-        }
-        return filtradas;
-    }
-
+    // Getter da lista de Seleções
     public List<Selecao> getListaSelecoes() {
         return this.listaSelecoes;
     }
 
+    // Mecanismo de persistência que salva dados no .txt
     public void salvarDadosNoArquivo() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(CAMINHO_ARQUIVO))) {
             for (Selecao s : listaSelecoes) {
@@ -112,6 +117,7 @@ public class OprSel {
         }
     }
 
+    // Mecanismo de persistência que carrega dados no .txt
     private void carregarDadosDoArquivo() {
         File arquivo = new File(CAMINHO_ARQUIVO);
         if (!arquivo.exists()) {
@@ -120,6 +126,7 @@ public class OprSel {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(CAMINHO_ARQUIVO))) {
             String linha;
+            // Varre o arquivo linha por linha
             while ((linha = reader.readLine()) != null) {
                 String[] dados = linha.split(";");
 

@@ -2,3 +2,4 @@ Administrador;Elyel;11828761109;elyeladohoueto@gmail.com;Asdf123$
 Arbitro;Renato Gabriel Lima da SIlva;71154576116;renatogabriellima123@gmail.com;Renato123*;Brasil;2;Bandeirinha
 Administrador;ashdaskl;44444444444;lu@gmail.com;Sans0m410r
 Organizador;a;a;a;a
+Operador;b;b;b;b

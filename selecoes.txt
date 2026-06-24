@@ -1,1 +1,32 @@
-Brasil;Grupo A;Carlos
+Brasil;Grupo A;Carlos Ancelotti
+Alemanha;Grupo A;Julian Nagelsmann
+Marrocos;Grupo A;Walid Regragui
+Australia;Grupo A;Tony Popovic
+Argentina;Grupo B;Lionel Scaloni
+Espanha;Grupo B;Luis de la Fuente
+Japao;Grupo B;Hajime Moriyasu
+Egito;Grupo B;Hossam Hassan
+Franca;Grupo C;Didier Deschamps
+Estados Unidos;Grupo C;Mauricio Pochettino
+Coreia do Sul;Grupo C;Hong Myung-bo
+Gana;Grupo C;Otto Addo
+Inglaterra;Grupo D;Thomas Tuchel
+Uruguai;Grupo D;Marcelo Bielsa
+Ira;Grupo D;Amir Ghalenoei
+Nigeria;Grupo D;Augustine Eguavoen
+Portugal;Grupo E;Roberto Martinez
+Colombia;Grupo E;Nestor Lorenzo
+Arabia Saudita;Grupo E;Roberto Mancini
+Marrocos;Grupo E;Walid Regragui
+Italia;Grupo F;Luciano Spalletti
+Equador;Grupo F;Sebastian Beccacece
+Canada;Grupo F;Jesse Marsch
+Senegal;Grupo F;Aliou Cisse
+Holanda;Grupo G;Ronald Koeman
+Mexico;Grupo G;Javier Aguirre
+Gales;Grupo G;Craig Bellamy
+Camaroes;Grupo G;Marc Brys
+Belgica;Grupo H;Domenico Tedesco
+Croacia;Grupo H;Zlatko Dalic
+Costa Rica;Grupo H;Claudio Vivas
+Argelia;Grupo H;Vladimir Petkovic
