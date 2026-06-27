@@ -1,6 +1,8 @@
 package Interface;
 
 import Aplicacoes.OprEst;
+import Aplicacoes.OprArbitro; // Import do gerenciador de árbitros
+import Objetos.Arbitro;       // Import do modelo Arbitro
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -26,7 +28,6 @@ import Objetos.Selecao;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Optional;
-import javafx.collections.ObservableList;
 import Aplicacoes.OprJog;
 
 public class TelaPartidas implements Initializable {
@@ -40,6 +41,10 @@ public class TelaPartidas implements Initializable {
     @FXML private TableColumn<Partida, String> colCasa;
     @FXML private TableColumn<Partida, String> colVisitante;
     @FXML private TableColumn<Partida, String> colEstadio;
+
+    // ADICIONADO: Mapeamento da nova coluna correspondente ao FXML
+    @FXML private TableColumn<Partida, String> colArbitro;
+
     @FXML private TableColumn<Partida, String> colData;
     @FXML private TableColumn<Partida, String> colHorario;
     @FXML private TableColumn<Partida, String> colFase;
@@ -73,7 +78,6 @@ public class TelaPartidas implements Initializable {
         });
     }
 
-    // Config da tela
     private void configurarTabela() {
         colData.setCellValueFactory(new PropertyValueFactory<>("data"));
         colHorario.setCellValueFactory(new PropertyValueFactory<>("hora"));
@@ -84,6 +88,14 @@ public class TelaPartidas implements Initializable {
         colCasa.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getTimeCasa().getPais()));
         colVisitante.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getTimeVisita().getPais()));
         colPlacar.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getGolCasa() + " x " + p.getValue().getGolVisita()));
+
+        // ADICIONADO: Extração segura do nome do árbitro associado à partida para exibição direta na tabela
+        colArbitro.setCellValueFactory(p -> {
+            if (p.getValue().getArbitro() instanceof Arbitro) {
+                return new SimpleStringProperty(((Arbitro) p.getValue().getArbitro()).getNome());
+            }
+            return new SimpleStringProperty("Sem Árbitro");
+        });
     }
 
     private void atualizarTabela(String termoBusca) {
@@ -98,7 +110,6 @@ public class TelaPartidas implements Initializable {
         alert.setHeaderText(null);
         alert.showAndWait();
     }
-
 
     @FXML
     public void handleBotaoCadastrar(ActionEvent event) {
@@ -166,16 +177,39 @@ public class TelaPartidas implements Initializable {
         TextField txtData    = new TextField("16/06/2026");
         TextField txtHora    = new TextField("20:00");
 
+        // CONFIGURADO: Dropdown interativo para a listagem polimórfica de árbitros
+        ComboBox<String> cmbArbitro = new ComboBox<>();
+        cmbArbitro.setEditable(true);
+        cmbArbitro.setPromptText("Selecione o Árbitro");
+
+        ObservableList<String> todosArbitros = FXCollections.observableArrayList(
+                OprArbitro.getInstancia().getListaArbitros().stream()
+                        .map(a -> a.getNome())
+                        .collect(java.util.stream.Collectors.toList())
+        );
+        cmbArbitro.setItems(todosArbitros);
+        cmbArbitro.getEditor().textProperty().addListener((obs, oldVal, newVal) -> {
+            String filtro = newVal == null ? "" : newVal.toLowerCase();
+            ObservableList<String> filtradas = FXCollections.observableArrayList(
+                    todosArbitros.stream()
+                            .filter(nome -> nome.toLowerCase().contains(filtro))
+                            .collect(java.util.stream.Collectors.toList())
+            );
+            cmbArbitro.setItems(filtradas);
+            if (!filtradas.isEmpty()) cmbArbitro.show();
+        });
+
         ComboBox<String> cmbFase = new ComboBox<>();
         cmbFase.getItems().addAll(fasesCampeonato);
         cmbFase.setValue(fasesCampeonato[0]);
 
-        grid.add(new Label("Seleção Casa:"),0, 0); grid.add(cmbCasa,1,0);
-        grid.add(new Label("Seleção Visitante:"), 0, 1); grid.add(cmbVisitante,1,1);
-        grid.add(new Label("Estádio:"),0, 2); grid.add(cmbEstadio,1,2);
-        grid.add(new Label("Data:"),0, 3); grid.add(txtData,1,3);
-        grid.add(new Label("Horário:"),0, 4); grid.add(txtHora,1,4);
-        grid.add(new Label("Fase:"),0, 5); grid.add(cmbFase,1,5);
+        grid.add(new Label("Seleção Casa:"), 0, 0); grid.add(cmbCasa, 1, 0);
+        grid.add(new Label("Seleção Visitante:"), 0, 1); grid.add(cmbVisitante, 1, 1);
+        grid.add(new Label("Estádio:"), 0, 2); grid.add(cmbEstadio, 1, 2);
+        grid.add(new Label("Data:"), 0, 3); grid.add(txtData, 1, 3);
+        grid.add(new Label("Horário:"), 0, 4); grid.add(txtHora, 1, 4);
+        grid.add(new Label("Fase:"), 0, 5); grid.add(cmbFase, 1, 5);
+        grid.add(new Label("Árbitro Principal:"), 0, 6); grid.add(cmbArbitro, 1, 6);
 
         dialog.getDialogPane().setContent(grid);
 
@@ -183,8 +217,10 @@ public class TelaPartidas implements Initializable {
         if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
             String nomeCasa     = cmbCasa.getEditor().getText().trim();
             String nomeVisita   = cmbVisitante.getEditor().getText().trim();
+            String nomeArbitro  = cmbArbitro.getEditor().getText().trim();
 
-            if (nomeCasa.isBlank() || nomeVisita.isBlank() || cmbEstadio.getEditor().getText().trim().isBlank() || txtData.getText().isBlank() || txtHora.getText().isBlank()) {
+            if (nomeCasa.isBlank() || nomeVisita.isBlank() || cmbEstadio.getEditor().getText().trim().isBlank() ||
+                    txtData.getText().isBlank() || txtHora.getText().isBlank() || nomeArbitro.isBlank()) {
                 exibirAlerta(Alert.AlertType.WARNING, "Todos os campos devem ser preenchidos!");
                 return;
             }
@@ -202,16 +238,17 @@ public class TelaPartidas implements Initializable {
                 return;
             }
 
-            boolean sucesso = oprPartida.cadastrarPartida(casaObj, visitaObj,cmbEstadio.getEditor().getText().trim(), txtData.getText(), txtHora.getText(), cmbFase.getValue());
+            boolean sucesso = oprPartida.cadastrarPartida(casaObj, visitaObj, cmbEstadio.getEditor().getText().trim(),
+                    txtData.getText(), txtHora.getText(), cmbFase.getValue(), nomeArbitro);
+
             if (sucesso) {
                 exibirAlerta(Alert.AlertType.INFORMATION, "Partida cadastrada com sucesso!");
                 atualizarTabela("");
             } else {
-                exibirAlerta(Alert.AlertType.ERROR, "Erro ao cadastrar! Verifique choques de estádio/horário ou se os times são iguais.");
+                exibirAlerta(Alert.AlertType.ERROR, "Erro ao cadastrar! Verifique choques de estádio, se os times são iguais ou se o árbitro informado existe.");
             }
         }
     }
-
 
     @FXML
     public void handleBotaoEditar(ActionEvent event) {
@@ -232,29 +269,63 @@ public class TelaPartidas implements Initializable {
 
         TextField txtData = new TextField(partidaSelecionada.getData());
         TextField txtHora = new TextField(partidaSelecionada.getHora());
+
         ComboBox<String> cmbFase = new ComboBox<>();
         cmbFase.getItems().addAll(fasesCampeonato);
         cmbFase.setValue(partidaSelecionada.getFase());
 
+        // ADICIONADO: Dropdown de Árbitro na edição, já pré-selecionando o árbitro atual da partida
+        ComboBox<String> cmbArbitro = new ComboBox<>();
+        cmbArbitro.setEditable(true);
+
+        ObservableList<String> todosArbitros = FXCollections.observableArrayList(
+                OprArbitro.getInstancia().getListaArbitros().stream()
+                        .map(a -> a.getNome())
+                        .collect(java.util.stream.Collectors.toList())
+        );
+        cmbArbitro.setItems(todosArbitros);
+
+        // Define o valor inicial com o nome do árbitro atual
+        if (partidaSelecionada.getArbitro() instanceof Arbitro) {
+            cmbArbitro.setValue(((Arbitro) partidaSelecionada.getArbitro()).getNome());
+        }
+
+        cmbArbitro.getEditor().textProperty().addListener((obs, oldVal, newVal) -> {
+            String filtro = newVal == null ? "" : newVal.toLowerCase();
+            ObservableList<String> filtradas = FXCollections.observableArrayList(
+                    todosArbitros.stream()
+                            .filter(nome -> nome.toLowerCase().contains(filtro))
+                            .collect(java.util.stream.Collectors.toList())
+            );
+            cmbArbitro.setItems(filtradas);
+            if (!filtradas.isEmpty()) cmbArbitro.show();
+        });
+
+        // Montagem do Grid com o novo campo
         grid.add(new Label("Nova Data:"), 0, 0);
         grid.add(txtData, 1, 0);
         grid.add(new Label("Novo Horário:"), 0, 1);
         grid.add(txtHora, 1, 1);
         grid.add(new Label("Nova Fase:"), 0, 2);
         grid.add(cmbFase, 1, 2);
+        grid.add(new Label("Alterar Árbitro:"), 0, 3);
+        grid.add(cmbArbitro, 1, 3);
 
         dialog.getDialogPane().setContent(grid);
 
         Optional<ButtonType> resultado = dialog.showAndWait();
         if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
-            if (txtData.getText().isBlank() || txtHora.getText().isBlank()) {
+            String nomeArbitro = cmbArbitro.getEditor().getText().trim();
+
+            if (txtData.getText().isBlank() || txtHora.getText().isBlank() || nomeArbitro.isBlank()) {
                 exibirAlerta(Alert.AlertType.WARNING, "Os campos não podem ficar vazios!");
                 return;
             }
 
+            // MODIFICADO: Agora enviamos também o 'nomeArbitro' para o método editarPartida
             boolean sucesso = oprPartida.editarPartida(
                     partidaSelecionada.getData(), partidaSelecionada.getHora(),
-                    txtData.getText(), txtHora.getText(), cmbFase.getValue()
+                    txtData.getText(), txtHora.getText(), cmbFase.getValue(), nomeArbitro
             );
 
             if (sucesso) {
@@ -263,11 +334,10 @@ public class TelaPartidas implements Initializable {
                 tabelaPartidas.getSelectionModel().clearSelection();
                 partidaSelecionada = null;
             } else {
-                exibirAlerta(Alert.AlertType.ERROR, "Erro ao salvar as edições.");
+                exibirAlerta(Alert.AlertType.ERROR, "Erro ao salvar as edições. Verifique choques de horário ou se o árbitro existe.");
             }
         }
     }
-
 
     @FXML
     public void handleBotaoRegistrarResultado(ActionEvent event) {
@@ -345,7 +415,6 @@ public class TelaPartidas implements Initializable {
             e.printStackTrace();
         }
     }
-
 
     @FXML
     public void handleBotaoExcluir(ActionEvent event) {

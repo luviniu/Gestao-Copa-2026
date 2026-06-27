@@ -40,9 +40,9 @@ public class Arbitro extends Usuario implements java.io.Serializable {
         return categoria;
     }
 
-    public void setCategoria(String categoria){
+    /*public void setCategoria(String categoria){
         this.categoria = categoria;
-    }
+    }*/
 
 
 

@@ -45,14 +45,17 @@
 
                   <TableView fx:id="tabelaPartidas" prefHeight="510.0" prefWidth="1170.0" style="-fx-background-radius: 8px;">
                      <columns>
-                        <TableColumn fx:id="colCasa" prefWidth="180.0" text="Equipe Mandante (Casa)" />
-                        <TableColumn fx:id="colVisitante" prefWidth="180.0" text="Equipe Visitante" />
-                        <TableColumn fx:id="colPlacar" prefWidth="100.0" style="-fx-alignment: CENTER; -fx-font-weight: bold;" text="Placar" />
-                        <TableColumn fx:id="colEstadio" prefWidth="250.0" text="Estádio / Arena" />
-                        <TableColumn fx:id="colData" prefWidth="120.0" style="-fx-alignment: CENTER;" text="Data" />
-                        <TableColumn fx:id="colHorario" prefWidth="100.0" style="-fx-alignment: CENTER;" text="Horário" />
-                        <TableColumn fx:id="colFase" prefWidth="120.0" style="-fx-alignment: CENTER;" text="Fase" />
-                        <TableColumn fx:id="colStatus" prefWidth="118.0" style="-fx-alignment: CENTER;" text="Status" />
+                        <TableColumn fx:id="colCasa" prefWidth="150.0" text="Equipe Mandante (Casa)" />
+                        <TableColumn fx:id="colVisitante" prefWidth="150.0" text="Equipe Visitante" />
+                        <TableColumn fx:id="colPlacar" prefWidth="90.0" style="-fx-alignment: CENTER; -fx-font-weight: bold;" text="Placar" />
+                        <TableColumn fx:id="colEstadio" prefWidth="200.0" text="Estádio / Arena" />
+
+                        <TableColumn fx:id="colArbitro" prefWidth="180.0" text="Árbitro Principal" />
+
+                        <TableColumn fx:id="colData" prefWidth="110.0" style="-fx-alignment: CENTER;" text="Data" />
+                        <TableColumn fx:id="colHorario" prefWidth="90.0" style="-fx-alignment: CENTER;" text="Horário" />
+                        <TableColumn fx:id="colFase" prefWidth="100.0" style="-fx-alignment: CENTER;" text="Fase" />
+                        <TableColumn fx:id="colStatus" prefWidth="98.0" style="-fx-alignment: CENTER;" text="Status" />
                      </columns>
                   </TableView>
 
@@ -61,9 +64,10 @@
                         <Button mnemonicParsing="false" onAction="#listarPartidas" prefHeight="45.0" prefWidth="180.0" styleClass="btn-secondary-custom" text="🔄 Atualizar Lista">
                            <cursor><Cursor fx:constant="HAND" /></cursor>
                         </Button>
-                        <HBox HBox.hgrow="ALWAYS" /> <Button mnemonicParsing="false" onAction="#voltarParaLauncher" prefHeight="45.0" prefWidth="160.0" styleClass="btn-secondary-dark" text="Voltar ao Início">
-                        <cursor><Cursor fx:constant="HAND" /></cursor>
-                     </Button>
+                        <HBox HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" onAction="#voltarParaLauncher" prefHeight="45.0" prefWidth="160.0" styleClass="btn-secondary-dark" text="Voltar ao Início">
+                           <cursor><Cursor fx:constant="HAND" /></cursor>
+                        </Button>
                      </children>
                   </HBox>
 

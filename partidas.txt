@@ -1,15 +1,10 @@
-PARTIDA;Brasil;Alemanha;BC Place;16/06/2026;20:00;Fase de Grupos;7;1;Finalizada
-PARTIDA;Argentina;Espanha;MetLife Stadium;17/06/2026;21:00;Fase de Grupos;0;0;Agendada
-PARTIDA;Japao;Egito;Azteca;17/06/2026;18:00;Fase de Grupos;0;0;Agendada
-PARTIDA;Franca;Estados Unidos;AT and T Stadium;18/06/2026;19:30;Fase de Grupos;0;0;Agendada
-PARTIDA;Alemanha;Marrocos;Arrowhead Stadium;20/06/2026;15:00;Fase de Grupos;0;0;Agendada
-PARTIDA;Brasil;Australia;SoFi Stadium;21/06/2026;22:00;Fase de Grupos;0;0;Agendada
-PARTIDA;Espanha;Japao;Mercedes Benz Stadium;22/06/2026;17:00;Fase de Grupos;0;0;Agendada
-PARTIDA;Argentina;Egito;Hard Rock Stadium;22/06/2026;20:00;Fase de Grupos;0;0;Agendada
-PARTIDA;Brasil;Marrocos;Levi s Stadium;25/06/2026;16:00;Fase de Grupos;0;0;Agendada
-PARTIDA;Alemanha;Australia;Lumen Field;25/06/2026;16:00;Fase de Grupos;0;0;Agendada
-PARTIDA;Argentina;Japao;Gillette Stadium;26/06/2026;21:00;Fase de Grupos;0;0;Agendada
-PARTIDA;Brasil;Argentina;Azteca;30/06/2026;21:00;Dezesseis-avos;0;0;Agendada
-PARTIDA;Alemanha;Espanha;MetLife Stadium;01/07/2026;18:00;Dezesseis-avos;0;0;Agendada
-PARTIDA;Franca;Japao;AT and T Stadium;02/07/2026;19:30;Dezesseis-avos;0;0;Agendada
-PARTIDA;Marrocos;Estados Unidos;SoFi Stadium;05/07/2026;20:00;Oitavas de Final;5;0;Finalizada
+PARTIDA;Brasil;Alemanha;SoFi Stadium;20/06/2026;20:00;Grupo - Jogo 1;0;0;Agendada;Renato Gabriel Lima da SIlva
+PARTIDA;Argentina;França;MetLife Stadium;21/06/2026;16:00;Grupo - Jogo 1;2;1;Finalizada;Sem Arbitro
+PARTIDA;Espanha;Japão;Hard Rock Stadium;21/06/2026;21:00;Grupo - Jogo 1;0;0;Agendada;Sem Arbitro
+PARTIDA;Uruguai;Portugal;Arrowhead Stadium;22/06/2026;18:30;Grupo - Jogo 2;1;1;Finalizada;Renato Gabriel Lima da SIlva
+PARTIDA;Inglaterra;Senegal;Mercedes-Benz Stadium;23/06/2026;15:00;Grupo - Jogo 2;3;0;Finalizada;Sem Arbitro
+PARTIDA;Bélgica;Marrocos;NRG Stadium;24/06/2026;17:00;Grupo - Jogo 3;0;2;Finalizada;Sem Arbitro
+PARTIDA;México;Holanda;Estadio Azteca;25/06/2026;22:00;Grupo - Jogo 3;0;0;Agendada;Sem Arbitro
+PARTIDA;Brasil;Itália;SoFi Stadium;28/06/2026;16:00;Oitavas;0;0;Agendada;Sem Arbitro
+PARTIDA;França;Espanha;MetLife Stadium;29/06/2026;20:00;Quartas;0;0;Agendada;Sem Arbitro
+PARTIDA;Argentina;Inglaterra;Hard Rock Stadium;02/07/2026;21:00;Semifinal;0;0;Agendada;Sem Arbitro
