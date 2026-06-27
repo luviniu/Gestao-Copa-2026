@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -229,16 +230,18 @@ public class TelaIngressos implements Initializable {
 
     @FXML
     private void abrirRelatorio(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Interface/TelaRelatorio.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return;
+        int vendidos = oprIngresso.contarIngressosVendidos();
+        double arrecadacao = oprIngresso.calcularArrecadacaoTotal();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Relatório Financeiro");
+        alert.setHeaderText("Resumo financeiro");
+        alert.setContentText(
+                "Ingressos vendidos: " + vendidos +
+                        "\nArrecadação total: R$ " + String.format("%.2f", arrecadacao)
+        );
+
+        alert.showAndWait();
     }
 
     private void mostrarErro(String titulo, String cabecalho, String conteudo) {
