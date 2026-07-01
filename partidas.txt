@@ -5,6 +5,6 @@ PARTIDA;Uruguai;Portugal;Arrowhead Stadium;22/06/2026;18:30;Grupo - Jogo 2;1;1;F
 PARTIDA;Inglaterra;Senegal;Mercedes-Benz Stadium;23/06/2026;15:00;Grupo - Jogo 2;3;0;Finalizada;Sem Arbitro
 PARTIDA;Bélgica;Marrocos;NRG Stadium;24/06/2026;17:00;Grupo - Jogo 3;0;2;Finalizada;Sem Arbitro
 PARTIDA;México;Holanda;Estadio Azteca;25/06/2026;22:00;Grupo - Jogo 3;0;0;Agendada;Sem Arbitro
-PARTIDA;Brasil;Itália;SoFi Stadium;28/06/2026;16:00;Oitavas;0;0;Agendada;Sem Arbitro
+PARTIDA;Brasil;Itália;SoFi Stadium;28/06/2026;16:00;Oitavas;0;0;Agendada;Renato Gabriel Lima da SIlva
 PARTIDA;França;Espanha;MetLife Stadium;29/06/2026;20:00;Quartas;0;0;Agendada;Sem Arbitro
 PARTIDA;Argentina;Inglaterra;Hard Rock Stadium;02/07/2026;21:00;Semifinal;0;0;Agendada;Sem Arbitro

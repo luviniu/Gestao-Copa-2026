@@ -17,7 +17,6 @@ public class OprJog {
 
     }
 
-
     public void salvarJogadoresNoArquivo() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(CAMINHO_ARQUIVO))) {
             for (Selecao s : oprSel.getListaSelecoes()) {

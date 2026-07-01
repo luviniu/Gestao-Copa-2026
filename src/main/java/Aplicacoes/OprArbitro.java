@@ -59,6 +59,8 @@ public class OprArbitro {
             return false;
         }
     }
+
+    /*
     public boolean excluirArbitro(String cpf, Usuario usuarioLogado) {
         if (cpf == null || cpf.trim().isEmpty()) return false;
         boolean existe = getListaArbitros().stream().anyMatch(a -> a.getCpf().equals(cpf.trim()));
@@ -72,6 +74,8 @@ public class OprArbitro {
         return true;
 
     }
+     */
+
     public List<Arbitro> getListaArbitros() {
         List<Arbitro> arbitros = new ArrayList<>();
         for (Usuario u : OprUser.getInstancia().getUsuarios()) {

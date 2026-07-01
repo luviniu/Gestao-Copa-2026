@@ -42,7 +42,7 @@ public class TelaPartidas implements Initializable {
     @FXML private TableColumn<Partida, String> colVisitante;
     @FXML private TableColumn<Partida, String> colEstadio;
 
-    // ADICIONADO: Mapeamento da nova coluna correspondente ao FXML
+    // Mapeamento da coluna correspondente ao FXML
     @FXML private TableColumn<Partida, String> colArbitro;
 
     @FXML private TableColumn<Partida, String> colData;
@@ -89,7 +89,7 @@ public class TelaPartidas implements Initializable {
         colVisitante.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getTimeVisita().getPais()));
         colPlacar.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getGolCasa() + " x " + p.getValue().getGolVisita()));
 
-        // ADICIONADO: Extração segura do nome do árbitro associado à partida para exibição direta na tabela
+        // Extração segura do nome do árbitro associado à partida para exibição na tabela
         colArbitro.setCellValueFactory(p -> {
             if (p.getValue().getArbitro() instanceof Arbitro) {
                 return new SimpleStringProperty(((Arbitro) p.getValue().getArbitro()).getNome());
@@ -177,7 +177,6 @@ public class TelaPartidas implements Initializable {
         TextField txtData    = new TextField("16/06/2026");
         TextField txtHora    = new TextField("20:00");
 
-        // CONFIGURADO: Dropdown interativo para a listagem polimórfica de árbitros
         ComboBox<String> cmbArbitro = new ComboBox<>();
         cmbArbitro.setEditable(true);
         cmbArbitro.setPromptText("Selecione o Árbitro");
@@ -196,7 +195,7 @@ public class TelaPartidas implements Initializable {
                             .collect(java.util.stream.Collectors.toList())
             );
             cmbArbitro.setItems(filtradas);
-            if (!filtradas.isEmpty()) cmbArbitro.show();
+            if (!filtradas.isEmpty() && cmbArbitro.getEditor().isFocused()) cmbArbitro.show();
         });
 
         ComboBox<String> cmbFase = new ComboBox<>();
@@ -234,7 +233,7 @@ public class TelaPartidas implements Initializable {
             }
 
             if (!casaObj.isElegivel() || !visitaObj.isElegivel()) {
-                exibirAlerta(Alert.AlertType.ERROR, "Não foi possível agendar! Uma das seleções possui elenco irregular (Menos de 18 ativos).");
+                exibirAlerta(Alert.AlertType.ERROR, "Não foi possível agendar! Uma das seleções possui elenco irregular (Menos de 18 activos).");
                 return;
             }
 
@@ -274,7 +273,6 @@ public class TelaPartidas implements Initializable {
         cmbFase.getItems().addAll(fasesCampeonato);
         cmbFase.setValue(partidaSelecionada.getFase());
 
-        // ADICIONADO: Dropdown de Árbitro na edição, já pré-selecionando o árbitro atual da partida
         ComboBox<String> cmbArbitro = new ComboBox<>();
         cmbArbitro.setEditable(true);
 
@@ -285,11 +283,7 @@ public class TelaPartidas implements Initializable {
         );
         cmbArbitro.setItems(todosArbitros);
 
-        // Define o valor inicial com o nome do árbitro atual
-        if (partidaSelecionada.getArbitro() instanceof Arbitro) {
-            cmbArbitro.setValue(((Arbitro) partidaSelecionada.getArbitro()).getNome());
-        }
-
+        // CORRIGIDO: Configura o listener primeiro impedindo o disparo prematuro do popup
         cmbArbitro.getEditor().textProperty().addListener((obs, oldVal, newVal) -> {
             String filtro = newVal == null ? "" : newVal.toLowerCase();
             ObservableList<String> filtradas = FXCollections.observableArrayList(
@@ -298,10 +292,18 @@ public class TelaPartidas implements Initializable {
                             .collect(java.util.stream.Collectors.toList())
             );
             cmbArbitro.setItems(filtradas);
-            if (!filtradas.isEmpty()) cmbArbitro.show();
+
+            // Só exibe se o editor de fato estiver sob foco do usuário
+            if (!filtradas.isEmpty() && cmbArbitro.getEditor().isFocused()) {
+                cmbArbitro.show();
+            }
         });
 
-        // Montagem do Grid com o novo campo
+        // CORRIGIDO: Injeta o texto inicial diretamente no Editor para evitar bugs de layout
+        if (partidaSelecionada.getArbitro() instanceof Arbitro) {
+            cmbArbitro.getEditor().setText(((Arbitro) partidaSelecionada.getArbitro()).getNome());
+        }
+
         grid.add(new Label("Nova Data:"), 0, 0);
         grid.add(txtData, 1, 0);
         grid.add(new Label("Novo Horário:"), 0, 1);
@@ -322,7 +324,6 @@ public class TelaPartidas implements Initializable {
                 return;
             }
 
-            // MODIFICADO: Agora enviamos também o 'nomeArbitro' para o método editarPartida
             boolean sucesso = oprPartida.editarPartida(
                     partidaSelecionada.getData(), partidaSelecionada.getHora(),
                     txtData.getText(), txtHora.getText(), cmbFase.getValue(), nomeArbitro

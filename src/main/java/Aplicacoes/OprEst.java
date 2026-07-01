@@ -7,16 +7,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-
-Estádios e Arbitragem
- Cadastrar, editar, excluir e listar estádios (nome, localização, capacidade).
- Associar partidas a estádios.
- Cadastrar árbitros (nome, nacionalidade, experiência).
- Designar árbitros para partidas.
- Consultar estádios e árbitros por critérios
-
-* */
 public class OprEst {
     private List<Estadio> listaEstadio;
     private final String CAMINHO_ARQUIVO = "estadio.txt";
@@ -102,23 +92,10 @@ public class OprEst {
         return null;
     }
 
-    // REGRA DE NEGÓCIO: Um estádio não pode sediar duas partidas no mesmo horário
-    /*public boolean verificarDisponibilidadeEstadio(String nomeEstadio, String data, String horario, List<Partida> listaPartidasGlobais) {
-        
-        for (Partida p : listaPartidasGlobais) {
-            // Se o estádio for o mesmo, no mesmo dia e no mesmo horário
-            if (p.getEstadio().getNome().equalsIgnoreCase(nomeEstadio.trim()) && p.getData().equalsIgnoreCase(data.trim()) && p.getHora().equalsIgnoreCase(horario.trim())) {
-                System.out.println("Erro de Negócio: O estádio " + nomeEstadio + " já possui uma partida agendada para " + data + " às " + horario + ".");
-                return false; // Falhou na regra de negócio (estádio ocupado)
-            }
-        }
-        
-        return true; // Passou na regra, o estádio está livre!
-    }*/
-
     public List<Estadio> getListaEstadio() {
         return this.listaEstadio;
     }
+
     public void salvarDadosNoArquivo() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(CAMINHO_ARQUIVO))) {
 
@@ -133,7 +110,6 @@ public class OprEst {
             e.printStackTrace();
         }
     }
-
 
     private void carregarDadosDoArquivo() {
         File arquivo = new File(CAMINHO_ARQUIVO);

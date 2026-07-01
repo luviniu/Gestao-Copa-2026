@@ -47,6 +47,7 @@ public class TelaArbitros implements Initializable {
         });
     }
 
+
     private void atualizarTabela(String termoBusca) {
         ObservableList<Arbitro> dadosCompletos = FXCollections.observableArrayList(OprArbitro.getInstancia().getListaArbitros());
 

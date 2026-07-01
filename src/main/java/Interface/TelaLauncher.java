@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.*;
 
-public class TelaLauncher {
+public class  TelaLauncher {
 
     @FXML private Label labelNomeCentro;
     @FXML private Label labelCargoCentro;
