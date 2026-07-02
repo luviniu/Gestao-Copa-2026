@@ -7,4 +7,3 @@ PARTIDA;Bélgica;Marrocos;NRG Stadium;24/06/2026;17:00;Grupo - Jogo 3;0;2;Finali
 PARTIDA;México;Holanda;Estadio Azteca;25/06/2026;22:00;Grupo - Jogo 3;0;0;Agendada;Sem Arbitro
 PARTIDA;Brasil;Itália;SoFi Stadium;28/06/2026;16:00;Oitavas;0;0;Agendada;Renato Gabriel Lima da SIlva
 PARTIDA;França;Espanha;MetLife Stadium;29/06/2026;20:00;Quartas;0;0;Agendada;Sem Arbitro
-PARTIDA;Argentina;Inglaterra;Hard Rock Stadium;02/07/2026;21:00;Semifinal;0;0;Agendada;Sem Arbitro

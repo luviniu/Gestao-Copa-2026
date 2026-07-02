@@ -283,7 +283,6 @@ public class TelaPartidas implements Initializable {
         );
         cmbArbitro.setItems(todosArbitros);
 
-        // CORRIGIDO: Configura o listener primeiro impedindo o disparo prematuro do popup
         cmbArbitro.getEditor().textProperty().addListener((obs, oldVal, newVal) -> {
             String filtro = newVal == null ? "" : newVal.toLowerCase();
             ObservableList<String> filtradas = FXCollections.observableArrayList(
@@ -293,13 +292,11 @@ public class TelaPartidas implements Initializable {
             );
             cmbArbitro.setItems(filtradas);
 
-            // Só exibe se o editor de fato estiver sob foco do usuário
             if (!filtradas.isEmpty() && cmbArbitro.getEditor().isFocused()) {
                 cmbArbitro.show();
             }
         });
 
-        // CORRIGIDO: Injeta o texto inicial diretamente no Editor para evitar bugs de layout
         if (partidaSelecionada.getArbitro() instanceof Arbitro) {
             cmbArbitro.getEditor().setText(((Arbitro) partidaSelecionada.getArbitro()).getNome());
         }

@@ -16,42 +16,6 @@ Raphinha;29;Atacante;11;Brasil;Ativo
 Endrick;19;Atacante;9;Brasil;Ativo
 Gabriel Martinelli;25;Atacante;22;Brasil;Ativo
 Savinho;22;Atacante;20;Brasil;Ativo
-Lionel Messi;39;Atacante;10;Argentina;Ativo
-Julian Alvarez;26;Atacante;9;Argentina;Ativo
-Rodrigo de Paul;32;Meio-campista;7;Argentina;Ativo
-Emi Martinez;33;Goleiro;23;Argentina;Ativo
-Geronimo Rulli;34;Goleiro;1;Argentina;Ativo
-Cristian Romero;28;Defensor;13;Argentina;Ativo
-Nicolas Otamendi;38;Defensor;19;Argentina;Ativo
-Lisandro Martinez;28;Defensor;25;Argentina;Ativo
-Nahuel Molina;28;Defensor;26;Argentina;Ativo
-Nicolas Tagliafico;33;Defensor;3;Argentina;Ativo
-Enzo Fernandez;25;Meio-campista;24;Argentina;Ativo
-Alexis Mac Allister;27;Meio-campista;20;Argentina;Ativo
-Leandro Paredes;32;Meio-campista;5;Argentina;Ativo
-Giovani Lo Celso;30;Meio-campista;16;Argentina;Ativo
-Lautaro Martinez;28;Atacante;22;Argentina;Ativo
-Angel Di Maria;38;Atacante;11;Argentina;Ativo
-Alejandro Garnacho;21;Atacante;17;Argentina;Ativo
-Nicolas Gonzalez;28;Atacante;15;Argentina;Ativo
-Kylian Mbappe;27;Atacante;10;Franca;Ativo
-Antoine Griezmann;35;Meio-campista;7;Franca;Ativo
-Aurelien Tchouameni;26;Meio-campista;8;Franca;Ativo
-Mike Maignan;30;Goleiro;1;Franca;Ativo
-Brice Samba;32;Goleiro;16;Franca;Ativo
-William Saliba;25;Defensor;4;Franca;Ativo
-Dayot Upamecano;27;Defensor;15;Franca;Ativo
-Ibrahima Konate;27;Defensor;24;Franca;Ativo
-Theo Hernandez;28;Defensor;22;Franca;Ativo
-Jules Kounde;27;Defensor;5;Franca;Ativo
-N Golo Kante;35;Meio-campista;13;Franca;Ativo
-Eduardo Camavinga;23;Meio-campista;6;Franca;Ativo
-Adrien Rabiot;31;Meio-campista;14;Franca;Ativo
-Warren Zaire-Emery;20;Meio-campista;18;Franca;Ativo
-Ousmane Dembele;29;Atacante;11;Franca;Ativo
-Marcus Thuram;28;Atacante;15;Franca;Ativo
-Randal Kolo Muani;27;Atacante;12;Franca;Ativo
-Bradley Barcola;23;Atacante;20;Franca;Ativo
 Jamal Musiala;23;Meio-campista;10;Alemanha;Ativo
 Florian Wirtz;23;Meio-campista;17;Alemanha;Ativo
 Kai Havertz;27;Atacante;7;Alemanha;Ativo
@@ -70,24 +34,6 @@ Niclas Fuellkrug;33;Atacante;9;Alemanha;Ativo
 Serge Gnabry;30;Atacante;11;Alemanha;Ativo
 Deniz Undav;29;Atacante;26;Alemanha;Ativo
 Maximilian Beier;23;Atacante;14;Alemanha;Ativo
-Lamine Yamal;18;Atacante;19;Espanha;Ativo
-Pedri;23;Meio-campista;20;Espanha;Ativo
-Rodri;30;Meio-campista;16;Espanha;Ativo
-Unai Simon;29;Goleiro;1;Espanha;Ativo
-David Raya;30;Goleiro;13;Espanha;Ativo
-Aymeric Laporte;32;Defensor;14;Espanha;Ativo
-Robin Le Normand;29;Defensor;3;Espanha;Ativo
-Dani Carvajal;34;Defensor;2;Espanha;Ativo
-Marc Cucurella;27;Defensor;24;Espanha;Ativo
-Alejandro Grimaldo;30;Defensor;12;Espanha;Ativo
-Fabian Ruiz;30;Meio-campista;8;Espanha;Ativo
-Dani Olmo;28;Meio-campista;10;Espanha;Ativo
-Martin Zubimendi;27;Meio-campista;18;Espanha;Ativo
-Mikel Merino;30;Meio-campista;6;Espanha;Ativo
-Nico Williams;23;Atacante;17;Espanha;Ativo
-Alvaro Morata;33;Atacante;7;Espanha;Ativo
-Ferran Torres;26;Atacante;11;Espanha;Ativo
-Ayoze Perez;32;Atacante;26;Espanha;Ativo
 Achraf Hakimi;27;Defensor;2;Marrocos;Ativo
 Hakim Ziyech;33;Meio-campista;7;Marrocos;Ativo
 Brahim Diaz;26;Atacante;10;Marrocos;Ativo
@@ -106,6 +52,42 @@ Ayoub El Kaabi;33;Atacante;9;Marrocos;Ativo
 Soufiane Rahimi;30;Atacante;21;Marrocos;Ativo
 Amine Adli;26;Atacante;17;Marrocos;Ativo
 Ilias Akhomach;22;Atacante;24;Marrocos;Ativo
+Lionel Messi;39;Atacante;10;Argentina;Ativo
+Julian Alvarez;26;Atacante;9;Argentina;Ativo
+Rodrigo de Paul;32;Meio-campista;7;Argentina;Ativo
+Emi Martinez;33;Goleiro;23;Argentina;Ativo
+Geronimo Rulli;34;Goleiro;1;Argentina;Ativo
+Cristian Romero;28;Defensor;13;Argentina;Ativo
+Nicolas Otamendi;38;Defensor;19;Argentina;Ativo
+Lisandro Martinez;28;Defensor;25;Argentina;Ativo
+Nahuel Molina;28;Defensor;26;Argentina;Ativo
+Nicolas Tagliafico;33;Defensor;3;Argentina;Ativo
+Enzo Fernandez;25;Meio-campista;24;Argentina;Ativo
+Alexis Mac Allister;27;Meio-campista;20;Argentina;Ativo
+Leandro Paredes;32;Meio-campista;5;Argentina;Ativo
+Giovani Lo Celso;30;Meio-campista;16;Argentina;Ativo
+Lautaro Martinez;28;Atacante;22;Argentina;Ativo
+Angel Di Maria;38;Atacante;11;Argentina;Ativo
+Alejandro Garnacho;21;Atacante;17;Argentina;Ativo
+Nicolas Gonzalez;28;Atacante;15;Argentina;Ativo
+Lamine Yamal;18;Atacante;19;Espanha;Ativo
+Pedri;23;Meio-campista;20;Espanha;Ativo
+Rodri;30;Meio-campista;16;Espanha;Ativo
+Unai Simon;29;Goleiro;1;Espanha;Ativo
+David Raya;30;Goleiro;13;Espanha;Ativo
+Aymeric Laporte;32;Defensor;14;Espanha;Ativo
+Robin Le Normand;29;Defensor;3;Espanha;Ativo
+Dani Carvajal;34;Defensor;2;Espanha;Ativo
+Marc Cucurella;27;Defensor;24;Espanha;Ativo
+Alejandro Grimaldo;30;Defensor;12;Espanha;Ativo
+Fabian Ruiz;30;Meio-campista;8;Espanha;Ativo
+Dani Olmo;28;Meio-campista;10;Espanha;Ativo
+Martin Zubimendi;27;Meio-campista;18;Espanha;Ativo
+Mikel Merino;30;Meio-campista;6;Espanha;Ativo
+Nico Williams;23;Atacante;17;Espanha;Ativo
+Alvaro Morata;33;Atacante;7;Espanha;Ativo
+Ferran Torres;26;Atacante;11;Espanha;Ativo
+Ayoze Perez;32;Atacante;26;Espanha;Ativo
 Kaoru Mitoma;29;Atacante;7;Japao;Ativo
 Wataru Endo;33;Meio-campista;6;Japao;Ativo
 Takefusa Kubo;25;Atacante;20;Japao;Ativo
@@ -125,3 +107,21 @@ Ritsu Doan;28;Atacante;10;Japao;Ativo
 Ayase Ueda;27;Atacante;9;Japao;Ativo
 Koki Ogawa;28;Atacante;19;Japao;Ativo
 Keito Nakamura;25;Atacante;13;Japao;Ativo
+Kylian Mbappe;27;Atacante;10;Franca;Ativo
+Antoine Griezmann;35;Meio-campista;7;Franca;Ativo
+Aurelien Tchouameni;26;Meio-campista;8;Franca;Ativo
+Mike Maignan;30;Goleiro;1;Franca;Ativo
+Brice Samba;32;Goleiro;16;Franca;Ativo
+William Saliba;25;Defensor;4;Franca;Ativo
+Dayot Upamecano;27;Defensor;15;Franca;Ativo
+Ibrahima Konate;27;Defensor;24;Franca;Ativo
+Theo Hernandez;28;Defensor;22;Franca;Ativo
+Jules Kounde;27;Defensor;5;Franca;Ativo
+N Golo Kante;35;Meio-campista;13;Franca;Ativo
+Eduardo Camavinga;23;Meio-campista;6;Franca;Ativo
+Adrien Rabiot;31;Meio-campista;14;Franca;Ativo
+Warren Zaire-Emery;20;Meio-campista;18;Franca;Ativo
+Ousmane Dembele;29;Atacante;11;Franca;Ativo
+Marcus Thuram;28;Atacante;15;Franca;Ativo
+Randal Kolo Muani;27;Atacante;12;Franca;Ativo
+Bradley Barcola;23;Atacante;20;Franca;Ativo
