@@ -9,8 +9,10 @@ Projeto desenvolvido em equipe para a disciplina de Técnicas de Programação 1
 
 | Integrante | GitHub | Principais Responsabilidades no Projeto |
 | :--- | :--- | :--- |
-| **Luan Vinícius** | [luviniu(https://github.com/luviniu) | *[Ex: Arquitetura das entidades, lógica da fase de grupos e persistência de dados]* |
-| **Renato Gabriel** | Renato-Gab(https://github.com/Renato-Gab) | *[Ex: Camada de interface no terminal, validação de entradas e testes]* |
-| **Elyel** | [@elyeladht](https://github.com/elyeladht) | *[Ex: Módulo de estatísticas, artilharia e fase eliminatória]* |
-| **Ahmed Faisal** | [@Ahmed1878](https://github.com/Ahmed1878) | *[Ex: Módulo de estatísticas, artilharia e fase eliminatória]* |
-| **Saeed Issa** | [@saeedissaUNB](https://github.com/saeedissaUNB) | *[Ex: Módulo de estatísticas, artilharia e fase eliminatória]* |
+| **Luan Vinícius** | [luviniu](https://github.com/luviniu) | *[Administração e Gestão: gestão de usuários, autenticação, controle de acesso
+e relatórios gerais.]* |
+| **Renato Gabriel** | [Renato-Gab](https://github.com/Renato-Gab) | *[Estádios e Arbitragem: gestão de estádios e árbitros]* |
+| **Elyel** | [@elyeladht](https://github.com/elyeladht) | *[Seleções e Jogadores: gestão de seleções e elenco de jogadores]* |
+| **Ahmed Faisal** | [@Ahmed1878](https://github.com/Ahmed1878) | *[Partidas: controle das partidas e resultados]* |
+| **Saeed Issa** | [@saeedissaUNB](https://github.com/saeedissaUNB) | *[Ingressos e Público: controle de ingressos e
+arrecadação]* |
