@@ -13,5 +13,4 @@ Projeto desenvolvido em equipe para a disciplina de Técnicas de Programação 1
 | **Renato Gabriel** | [Renato-Gab](https://github.com/Renato-Gab) | *[Estádios e Arbitragem: gestão de estádios e árbitros]* |
 | **Elyel** | [@elyeladht](https://github.com/elyeladht) | *[Seleções e Jogadores: gestão de seleções e elenco de jogadores]* |
 | **Ahmed Faisal** | [@Ahmed1878](https://github.com/Ahmed1878) | *[Partidas: controle das partidas e resultados]* |
-| **Saeed Issa** | [@saeedissaUNB](https://github.com/saeedissaUNB) | *[Ingressos e Público: controle de ingressos e
-arrecadação]* |
+| **Saeed Issa** | [@saeedissaUNB](https://github.com/saeedissaUNB) | *[Ingressos e Público: controle de ingressos e arrecadação]* |
